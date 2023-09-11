@@ -302,7 +302,11 @@ dist
 # Serverless Webpack directories
 .webpack/
 
-# Optional stylelint cache
+# Tailwindcss output.css
+static/css/output.css
+
+# HTMX javascript
+static/js/htmx.min.js
 
 # SvelteKit build / generate output
 .svelte-kit
