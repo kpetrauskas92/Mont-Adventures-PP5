@@ -17,6 +17,3 @@ assignees: kpetrauskas92
 
 **Acceptance Criteria:**
 
-
-
-Epic #
