@@ -1,0 +1,55 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap">
+
+    {% block meta %}
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% endblock %}
+
+    {% block extra_meta %}
+    {% endblock %}
+
+    {% block corecss %}
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    {% endblock %}
+
+    {% block extra_css %}
+    {% endblock %}
+
+    {% block corejs %}
+    <script src="{% static 'js/main.js' %}"></script>
+    {% endblock %}
+
+    {% block extra_js %}
+    <script src="{% static 'js/htmx.min.js' %}"></script>
+    {% endblock %}
+
+    <title>Mont Adventures{% block extra_title %}{% endblock %}</title>
+  </head>
+
+  <body flex flex-col min-h-screen>
+    <header class="container-fluid fixed-top">
+      
+    </header>
+
+    {% if messages %}
+        <div class="message-container"></div>
+    {% endif %}
+
+    {% block page_header %}
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
+    {% block postloadjs %}
+    {% endblock %}
+  </body>
+</html>
