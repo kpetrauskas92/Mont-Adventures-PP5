@@ -26,6 +26,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'home',
 
     # Other
@@ -41,7 +44,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "django_htmx.middleware.HtmxMiddleware",
+    'allauth.account.middleware.AccountMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
 ]
 
 ROOT_URLCONF = 'mont_adventures.urls'
@@ -81,6 +85,15 @@ else:
         }
     }
 
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
 
 # Password validation
 
