@@ -1,2 +1,34 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block content %}
+
+<div class="hero min-h-screen-hero relative" style="background-image: url(media/web_elements/index-hero-1.webp);">
+  <div class="hero-overlay bg-transparent">
+    </div>
+  </div>
+  <div class="hero-content text-left text-neutral-content absolute top-24 left-3">
+    <div class="bg-transparent">
+      <h1 class="mb-3 text-white text-5xl font-bold uppercase font-shadow-lg">Are you ready</h1>
+      <h2 class="mb-8 text-white text-3xl font-bold">For an adventure?</h2>
+      <p class="mb-5"></p>
+      <a href="#">
+        <button class="btn btn-primary">See Adventures</button>
+      </a>
+    
+    </div>
+</div>
+
+
+  <div class="divider"></div>
+
+  Carousel
+
+  <div class="divider"></div>
+
+  Top Trips
+
+  <div class="divider"></div>
+
+
+{% endblock %}

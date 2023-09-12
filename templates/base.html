@@ -36,7 +36,7 @@
 
   <body flex flex-col min-h-screen>
     <header class="container-fluid fixed-top">
-      
+      {% include 'includes/nav-bar.html' %}
     </header>
 
     {% if messages %}
@@ -51,5 +51,6 @@
 
     {% block postloadjs %}
     {% endblock %}
+    {% include 'includes/footer.html' %}
   </body>
 </html>
