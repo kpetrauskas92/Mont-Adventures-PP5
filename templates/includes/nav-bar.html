@@ -56,10 +56,10 @@
                 {% if user.is_authenticated %}
                     <button class="btn btn-ghost">Profile</button>
                     <button class="btn btn-ghost">Settings</button>
-                    <button class="btn btn-ghost">Logout</button>
+                    <button class="btn btn-sm" hx-get="{% url 'account_logout' %}" hx-target="#my_modal_3 .modal-box" onclick="my_modal_3.showModal()">Logout</button>
                 {% else %}
-                    <button class="btn btn-ghost">Login</button>
-                    <button class="btn btn-ghost">Sign Up</button>
+                    <button class="btn btn-ghost" hx-get="{% url 'account_login' %}" hx-target="#my_modal_3 .modal-box" onclick="my_modal_3.showModal()">Login</button>
+                    <button class="btn btn-ghost" hx-get="{% url 'account_signup' %}" hx-target="#my_modal_3 .modal-box" onclick="my_modal_3.showModal()">Sign Up</button>
                 {% endif %}
             </ul> 
         </div>
