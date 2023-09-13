@@ -1,46 +1,26 @@
-{% extends "account/base.html" %}
-
 {% load i18n %}
-{% load account socialaccount %}
-
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
-
-{% block content %}
-
-<h1>{% trans "Sign In" %}</h1>
-
-{% get_providers as socialaccount_providers %}
-
-{% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
-
-<div class="socialaccount_ballot">
-
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
-
-  <div class="login-or">{% trans 'or' %}</div>
-
-</div>
-
-{% include "socialaccount/snippets/login_extra.html" %}
-
-{% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-{% endif %}
-
-<form class="login" method="POST" action="{% url 'account_login' %}">
+{% load crispy_forms_tags %}
+   
+<button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick="document.getElementById('my_modal_3').close();">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+  </svg>
+</button>
+  <h1 class="text-2xl font-bold mt-2 text-center">{% trans "Login" %}</h1>
+<form class="relative" method="POST" action="{% url 'account_login' %}" hx-post="{% url 'account_login' %}" hx-target="#my_modal_3 .modal-box">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ form|crispy }}
   {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+    <a href="{% url 'account_reset_password' %}" class="text-blue-500 text-sm" hx-get="{% url 'account_reset_password' %}" hx-target="#my_modal_3 .modal-box">Forgot Password?</a>
+  <div class="flex flex-col w-full border-opacity-50 mt-3">
+    <div>
+      <button class="btn w-full" type="submit">{% trans "Login" %}</button>
+    </div>
+    <div class="divider">Don't have an account ?</div>
+    <div>
+      <button class="btn w-full" {% url 'account_signup' %} hx-get="{% url 'account_signup' %}" hx-target="#my_modal_3 .modal-box">Sign Up</a>
+    </div>
+  </div>
 </form>
-
-{% endblock %}
