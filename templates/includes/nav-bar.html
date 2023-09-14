@@ -2,8 +2,10 @@
 
 <div class="navbar bg-base-100">
     <div class="flex-1 flex items-center">
-        <img src="{% static 'web_elements/logo-dark.webp' %}" alt="Logo" class="h-10 w-auto">
-    </div> 
+        <a href="{% url 'home' %}" class="btn btn-ghost">
+            <img src="{% static 'web_elements/logo-dark.webp' %}" alt="Logo" class="h-10 w-auto">
+        </a>
+    </div>
 
     <!-- Search Input -->
     <div class="flex-none gap-2 flex items-center">
@@ -20,9 +22,6 @@
             </div>
         </label>
     </div>
-      
-      
-      
 
         <!-- Cart Dropdown -->
         <div class="dropdown dropdown-end">
@@ -70,7 +69,7 @@
                 {% if user.is_authenticated %}
                     <button class="btn btn-ghost">Profile</button>
                     <button class="btn btn-ghost">Settings</button>
-                    <button class="btn btn-sm" hx-get="{% url 'account_logout' %}" hx-target="#my_modal_3 .modal-box" onclick="my_modal_3.showModal()">Logout</button>
+                    <button class="btn btn-ghost" hx-get="{% url 'account_logout' %}" hx-target="#my_modal_3 .modal-box" onclick="my_modal_3.showModal()">Logout</button>
                 {% else %}
                     <button class="btn btn-ghost" hx-get="{% url 'account_login' %}" hx-target="#my_modal_3 .modal-box" onclick="my_modal_3.showModal()">Login</button>
                     <button class="btn btn-ghost" hx-get="{% url 'account_signup' %}" hx-target="#my_modal_3 .modal-box" onclick="my_modal_3.showModal()">Sign Up</button>

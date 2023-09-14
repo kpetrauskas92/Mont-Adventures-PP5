@@ -17,13 +17,47 @@ module.exports = {
   plugins: [require("daisyui")],
 
   daisyui: {
-    themes: ["light", "dark", "cupcake"],
-    darkTheme: "dark",
-    base: true,
-    styled: true,
-    utils: true,
-    rtl: false,
-    prefix: "",
-    logs: true,
+    themes: [
+      {
+        mytheme: {
+        
+
+
+"primary": "#242424",
+        
+
+
+"secondary": "#d9864b",
+        
+
+
+"accent": "#379673",
+        
+
+
+"neutral": "#e6e8ea",
+        
+
+
+"base-100": "#ffffff",
+        
+
+
+"info": "#65c6e7",
+        
+
+
+"success": "#33cc7d",
+        
+
+
+"warning": "#e5b90b",
+        
+
+
+"error": "#e4321b",
+        },
+      },
+    ],
   },
 }

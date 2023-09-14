@@ -3,5 +3,15 @@
 @tailwind utilities;
 
 .min-h-screen-hero {
-    min-height: 80vh;
+    min-height: 50vh;
+}
+
+.navbar {
+    min-height: 4.5rem;
+}
+
+.top-footer-bg {
+    background-image: url('/static/web_elements/top-footer-bg.png');
+    background-size: cover;
+    height: 50vh;
 }

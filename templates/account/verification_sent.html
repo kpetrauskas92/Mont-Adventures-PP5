@@ -1,12 +1,14 @@
-{% extends "account/base.html" %}
-
 {% load i18n %}
 
-{% block head_title %}{% trans "Verify Your Email Address" %}{% endblock %}
-
 {% block content %}
-    <h1>{% trans "Verify Your Email Address" %}</h1>
+<button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick="document.getElementById('my_modal_3').close();">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+</button>
 
-    <p>{% blocktrans %}We have sent an email to you for verification. Follow the link provided to finalize the signup process. If you do not see the verification email in your main inbox, check your spam folder. Please contact us if you do not receive the verification email within a few minutes.{% endblocktrans %}</p>
+<h1 class="text-2xl font-bold mt-2 text-center">{% trans "Verify Your Email Address" %}</h1>
+
+<p class="text-center">{% blocktrans %}We have sent an email to you for verification. Follow the link provided to finalize the signup process. If you do not see the verification email in your main inbox, check your spam folder. Please contact us if you do not receive the verification email within a few minutes.{% endblocktrans %}</p>
 
 {% endblock %}
