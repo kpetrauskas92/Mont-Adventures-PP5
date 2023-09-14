@@ -25,7 +25,7 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
                 counter_obj.counter += 1
                 counter_obj.save()
 
-            customer_id = f"CUST{counter_obj.counter:05}"
+            customer_id = f"{counter_obj.counter:05}"
             UserProfile.objects.create(user=instance, customer_id=customer_id)
     else:
         instance.userprofile.save()
