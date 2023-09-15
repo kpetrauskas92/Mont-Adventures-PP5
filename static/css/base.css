@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .min-h-screen-hero {
-    min-height: 50vh;
+    min-height: 100vh;
 }
 
 .navbar {

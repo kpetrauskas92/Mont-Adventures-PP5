@@ -15,7 +15,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['127.0.0.1',
-                 'mont-adventures-pp5-23ff8a97d0dd.herokuapp.com']
+                 'mont-adventures-pp5-23ff8a97d0dd.herokuapp.com',
+                 'montadventures.com']
 
 
 # Application definition
