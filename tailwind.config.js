@@ -27,7 +27,7 @@ module.exports = {
         
 
 
-"secondary": "#d9864b",
+"secondary": "#f0b760",
         
 
 

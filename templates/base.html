@@ -12,6 +12,17 @@
     {% endblock %}
 
     {% block extra_meta %}
+        <meta name="description" content="Mountain climbing and expierences">
+    {% endblock %}
+
+    {% block favicon %}
+        <link rel="apple-touch-icon" sizes="180x180"
+        href="{% static 'web_elements/favicon/apple-touch-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32"
+        href="{% static 'web_elements/favicon/favicon-32x32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16"
+        href="{% static 'web_elements/favicon/favicon-16x16.png' %}">
+        <link rel="manifest" href="/site.webmanifest">
     {% endblock %}
 
     {% block corecss %}
@@ -30,7 +41,7 @@
     <script src="{% static 'js/htmx.min.js' %}"></script>
     {% endblock %}
 
-    <title>Mont Adventures{% block extra_title %}{% endblock %}</title>
+    <title>Mont Adventures | Summit Your Dreams{% block extra_title %}{% endblock %}</title>
   </head>
 
   <body flex flex-col min-h-screen>
