@@ -13,7 +13,7 @@
 }
 
 .top-footer-bg {
-    background-image: url('/static/web_elements/top-footer-bg.png');
+    background-image: url('/static/web_elements/top-footer-bg.webp');
     background-size: cover;
     height: 50vh;
 }

@@ -82,7 +82,6 @@ SITE_ID = 1
 WSGI_APPLICATION = 'mont_adventures.wsgi.application'
 
 if 'DEVELOPMENT' in os.environ:
-
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'support@montadventures.com'
 else:
