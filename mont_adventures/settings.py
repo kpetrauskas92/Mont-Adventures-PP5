@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'home',
     'profiles.apps.ProfilesConfig',
+    'trip_packages',
 
     # Other
     'django_htmx',
@@ -81,6 +82,8 @@ SITE_ID = 1
 
 WSGI_APPLICATION = 'mont_adventures.wsgi.application'
 
+# Email server configuration
+
 if 'DEVELOPMENT' in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'support@montadventures.com'
@@ -94,6 +97,7 @@ else:
     DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL',
                                         'support@montadventures.com')
 
+# Allauth settings
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
