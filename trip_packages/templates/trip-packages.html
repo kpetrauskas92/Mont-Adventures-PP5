@@ -12,16 +12,7 @@
         </div>
     </div>
 </div>
-{% for trip in trips %}
-    <div class="w-full sm:w-1/2 md:w-1/2 px-4 pb-4">
-        <div class="border rounded-lg p-4">
-            <a href="#">
-                <img class="w-full h-48 object-cover mb-4" src="{{ trip.main_image.url }}" alt="{{ trip.name }}">
-                <h2 class="text-lg font-semibold">{{ trip.name }}</h2>
-            </a>
-            <p>Price: €{{ trip.price }}</p>
-            <p>Difficulty: {{ trip.difficulty }}</p>
-        </div>
-    </div>
-{% endfor %}
+<div id="trip-package-list" class="w-full lg:w-3/4 flex flex-wrap relative mb-20">
+    {% include 'includes/filter/filtered-trips.html' %}
+</div>
 {% endblock %}
