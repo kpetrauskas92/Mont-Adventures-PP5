@@ -1,0 +1,44 @@
+[
+    {
+        "model": "products.product",
+        "pk": 1,
+        "fields": {
+            "main_image": "trip_packages/main_images/mont-blanc-main.jpg",
+            "name": "Climb Mont Blanc (4810m)",
+            "price": "3000",
+            "duration": 7,
+            "location": "France",
+            "season": [6, 7, 9],
+            "max_group_size": 4,
+            "difficulty": 4
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 2,
+        "fields": {
+            "main_image": "trip_packages/main_images/mount-etna-main.jpg",
+            "name": "Hike Mount Etna in Winter",
+            "price": "760",
+            "duration": 3,
+            "location": "Italy",
+            "season": [1, 2, 3],
+            "max_group_size": 10,
+            "difficulty": 2
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 3,
+        "fields": {
+            "main_image": "trip_packages/main_images/gran-paradiso-main.jpg",
+            "name": "Trekking in the Gran Paradiso",
+            "price": "779",
+            "duration": 3,
+            "location": "Italy",
+            "season": [6, 7, 8, 9],
+            "max_group_size": 10,
+            "difficulty": 3
+        }
+    }
+]
