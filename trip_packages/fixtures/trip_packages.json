@@ -1,6 +1,6 @@
 [
     {
-        "model": "products.product",
+        "model": "trip_packages.Trips",
         "pk": 1,
         "fields": {
             "main_image": "trip_packages/main_images/mont-blanc-main.jpg",
@@ -14,7 +14,7 @@
         }
     },
     {
-        "model": "products.product",
+        "model": "trip_packages.Trips",
         "pk": 2,
         "fields": {
             "main_image": "trip_packages/main_images/mount-etna-main.jpg",
@@ -28,7 +28,7 @@
         }
     },
     {
-        "model": "products.product",
+        "model": "trip_packages.Trips",
         "pk": 3,
         "fields": {
             "main_image": "trip_packages/main_images/gran-paradiso-main.jpg",
