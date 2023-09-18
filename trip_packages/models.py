@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.db.models import JSONField
 
 
@@ -12,10 +13,14 @@ class Trips(models.Model):
     - Keeps track of the maximum group size and overall rating.
     - Holds an integer value for the trip's difficulty level.
     """
-    main_image = models.ImageField(upload_to='trip_packages/main_images/',
-                                   null=True, blank=True)
+    main_image = models.ImageField(
+        upload_to='trip_packages/main_images/',
+        default='trip_packages/main_images/default-trip-img.jpg',
+        null=True,
+        blank=True
+    )
     name = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2, db_index=True)
+    price = models.IntegerField(db_index=True)
     duration = models.IntegerField(db_index=True)
     location = models.CharField(max_length=100, db_index=True)
     season = JSONField(db_index=True)
@@ -27,6 +32,12 @@ class Trips(models.Model):
     @property
     def difficulty_value(self):
         return self.difficulty
+
+    @property
+    def default_image_url(self):
+        return (settings.MEDIA_URL +
+                'trip_packages/main_images/' +
+                'default-trip-img.jpg')
 
 
 class TripImage(models.Model):
