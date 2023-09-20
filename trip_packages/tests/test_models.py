@@ -1,5 +1,6 @@
 from django.test import TestCase
 from trip_packages.models import Trips, AvailableDate
+from datetime import date
 
 
 class TripsModelTest(TestCase):
@@ -16,13 +17,13 @@ class TripsModelTest(TestCase):
         """
         self.trip = Trips.objects.create(
             name="Sample Trip",
-            price="100.00",
+            price=100,
             duration=3,
             location="Sample Location",
             season=[1, 2, 12],  # January, February, December
             max_group_size=5,
             difficulty=2,
-            overall_rating="4.5"
+            overall_rating=4.5
         )
 
     def test_trip_creation(self):
@@ -31,13 +32,13 @@ class TripsModelTest(TestCase):
         and attributes are assigned correctly.
         """
         self.assertEqual(self.trip.name, "Sample Trip")
-        self.assertEqual(self.trip.price, "100.00")
+        self.assertEqual(self.trip.price, 100)
         self.assertEqual(self.trip.duration, 3)
         self.assertEqual(self.trip.location, "Sample Location")
         self.assertEqual(self.trip.season, [1, 2, 12])
         self.assertEqual(self.trip.max_group_size, 5)
         self.assertEqual(self.trip.difficulty, 2)
-        self.assertEqual(self.trip.overall_rating, "4.5")
+        self.assertEqual(self.trip.overall_rating, 4.5)
 
     def test_difficulty_value_property(self):
         """
@@ -61,18 +62,18 @@ class AvailableDateModelTest(TestCase):
         """
         self.trip = Trips.objects.create(
             name="Sample Trip",
-            price="100.00",
+            price=100,
             duration=3,
             location="Sample Location",
             season=[1, 2, 12],
             max_group_size=5,
             difficulty=2,
-            overall_rating="4.5"
+            overall_rating=4.5
         )
         self.available_date = AvailableDate.objects.create(
             trips=self.trip,
-            start_date="2023-01-01",
-            end_date="2023-01-03",
+            start_date=date(2023, 1, 1),
+            end_date=date(2023, 1, 3),
             max_group_size=10,
             booked_slots=3,
             is_available=True

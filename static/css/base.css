@@ -21,3 +21,7 @@
 .font-custom {
     font-family: 'Niconne', cursive;
   }
+
+.filter-icon {
+    filter: invert(100%);
+}

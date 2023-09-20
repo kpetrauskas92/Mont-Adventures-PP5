@@ -3,6 +3,12 @@ from django.conf import settings
 from django.db.models import JSONField
 
 
+MONTHS = [
+    '', 'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+]
+
+
 class Trips(models.Model):
     """
     Trips model for storing information about different travel packages.
@@ -28,6 +34,25 @@ class Trips(models.Model):
     overall_rating = models.DecimalField(max_digits=3, decimal_places=1,
                                          null=True, blank=True, db_index=True)
     difficulty = models.IntegerField(db_index=True)
+
+    def duration_str(self):
+        return f"{self.duration} day{'s' if self.duration > 1 else ''}"
+
+    def season_str(self):
+        return ', '.join([MONTHS[month] for month in self.season])
+
+    def max_group_size_str(self):
+        return f"Up to {self.max_group_size}"
+
+    def difficulty_str(self):
+        if self.difficulty == 1:
+            return "Easy"
+        elif self.difficulty == 2:
+            return "Moderate"
+        elif self.difficulty == 3:
+            return "Challenging"
+        elif self.difficulty == 4:
+            return "Hard"
 
     @property
     def difficulty_value(self):
