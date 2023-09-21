@@ -1,9 +1,9 @@
 from django.views import View
 from django.views.generic.detail import DetailView
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from ast import literal_eval
-from .models import Trips
+from .models import Trips, AvailableDate
 from .trip_utils import display_funcs
 
 
@@ -134,3 +134,36 @@ class TripDetails(DetailView):
 
         context['trip_details'] = trip_details
         return context
+
+
+class BookingDrawer(View):
+    """
+    BookingDrawer view for displaying available dates for a specific trip.
+
+    - Fetches the relevant trip record based on the trip_id parameter.
+    - Retrieves available dates for the trip.
+    - Renders different templates based on whether
+    the request is an HTMX request or not.
+    """
+    template_name = 'includes/booking/booking-drawer.html'
+
+    def get(self, request, trip_id):
+        """
+        Handles GET requests for the BookingDrawer view.
+
+        - Fetches the Trip object and available dates for that trip.
+        - Checks if the request is an HTMX request.
+        - Renders the appropriate template with context.
+        """
+        trip = get_object_or_404(Trips, id=trip_id)
+        available_dates = AvailableDate.objects.filter(trips=trip,
+                                                       is_available=True)
+
+        if 'HX-Request' in request.headers:
+            return render(request,
+                          'includes/booking/available-dates.html',
+                          {'trip': trip, 'available_dates': available_dates})
+        else:
+            return render(request, self.template_name,
+                          {'trip': trip,
+                           'available_dates': available_dates})
