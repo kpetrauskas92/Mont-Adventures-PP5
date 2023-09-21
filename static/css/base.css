@@ -25,3 +25,35 @@
 .filter-icon {
     filter: invert(100%);
 }
+
+.fixed-button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    transition: bottom 0.9s ease;
+  }
+  
+  /* .footer-nearby {
+    bottom: -100px;
+  } */
+
+.gradient-container .gradient-bg {
+    content: "";
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to bottom, transparent, #242424);
+    z-index: 1;
+}
+
+.gradient-container .text-container {
+    z-index: 2;
+}
+  
+  footer {
+    z-index: 2;
+    position: relative;
+  }

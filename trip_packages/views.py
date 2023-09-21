@@ -1,13 +1,10 @@
 from django.views import View
+from django.views.generic.detail import DetailView
 from django.shortcuts import render
 from django.db.models import Q
 from ast import literal_eval
 from .models import Trips
-
-MONTHS = [
-    '', 'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-]
+from .trip_utils import display_funcs
 
 
 def generate_filter_options(model, field_name, display_func=None):
@@ -65,16 +62,6 @@ class TripPackages(View):
         display_filters = {}
         query = Q()
 
-        display_funcs = {
-            'price': lambda x: x,
-            'difficulty': lambda x: Trips(difficulty=x).difficulty_str(),
-            'duration': lambda x: f"{x} day{'s' if x > 1 else ''}",
-            'season': lambda x: ', '.join([MONTHS[month] for month in x]),
-            'max_group_size': lambda x: f"Up to {x}",
-            'overall_rating': lambda x: f"{x} Stars",
-            'location': lambda x: x
-        }
-
         for name in filter_names:
             display_func = display_funcs.get(name, None)
             filters[name] = generate_filter_options(Trips, name, display_func)
@@ -97,3 +84,35 @@ class TripPackages(View):
         else:
             return render(request, 'trip-packages.html',
                           {'filters': display_filters, 'trips': trips})
+
+
+class TripDetails(DetailView):
+    model = Trips
+    template_name = 'trip-detail.html'
+    context_object_name = 'trip'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        trip = context['trip']
+
+        # Populate the trip_details list dynamically based on the trip
+        trip_details = [
+            {'icon': 'web_elements/svg_icons/trip_icons/duration_icon.svg',
+             'alt': 'Duration Icon', 'label': 'Duration',
+             'value': display_funcs['duration'](trip.duration)},
+            {'icon': 'web_elements/svg_icons/trip_icons/location_icon.svg',
+             'alt': 'Location Icon', 'label': 'Location',
+             'value': display_funcs['location'](trip.location)},
+            {'icon': 'web_elements/svg_icons/trip_icons/season_icon.svg',
+             'alt': 'Season Icon', 'label': 'Season',
+             'value': display_funcs['season'](trip.season)},
+            {'icon': 'web_elements/svg_icons/trip_icons/group size_icon.svg',
+             'alt': 'Group Size Icon', 'label': 'Group Size',
+             'value': display_funcs['max_group_size'](trip.max_group_size)},
+            {'icon': 'web_elements/svg_icons/trip_icons/difficulty_icon.svg',
+             'alt': 'Difficulty Icon', 'label': 'Difficulty',
+             'value': display_funcs['difficulty'](trip.difficulty)}
+        ]
+
+        context['trip_details'] = trip_details
+        return context

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="w-full relative" style="height: 65vh;">
+
+    <!-- Title for Desktop View -->
+    <div class="w-full relative gradient-container" style="height: 65vh;">
+        <img class="absolute w-full h-full object-cover" src="{{ trip.main_image.url }}" alt="{{ trip.name }}">
+        <div class=" md:w-[70%] absolute bottom-0 left-0 right-0 hidden sm:block text-container">
+            <h1 class="text-white uppercase text-6xl font-bold p-4">{{ trip.name }}</h1>
+            
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 hidden sm:block gradient-bg"></div> <!-- Gradient div -->
+    </div>
+</div>
+
+<div style="background-color: #242424;">
+    <div class="md:grid md:grid-cols-[2fr,1fr]">
+        <!-- Horizontal Line -->
+        <hr class="h-px mb-0 bg-gray-200 border-0 dark:bg-gray-700 col-span-3">
+
+        <div class="w-full p-4 md:col-span-1">
+            <!-- Breadcrumbs WIP -->
+            <div class="text-sm text-white breadcrumbs sm:hidden">
+                <ul>
+                  <li><a>Home</a></li> 
+                  <li><a>Explore</a></li>
+                  <li>France</li>
+                </ul>
+            </div>
+
+            <!-- Trip Name -->
+            <h1 class="text-white uppercase text-4xl font-bold mb-5 sm:hidden">{{ trip.name }}</h1>
+
+            <!-- Trip Details Grid -->
+            <div class="flex gap-6 md:gap-10 lg:gap-14 justify-center mt-4">
+                {% for item in trip_details %}
+                <div class="flex flex-col items-center">
+                    <img src="{% static item.icon %}" alt="{{ item.alt }}" class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20">
+                    <div class="mt-2 text-center">
+                        <p class="text-white font-light">{{ item.label }}</p>
+                        <p class="text-white font-bold">{{ item.value }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Trip Price -->
+        <div class="hidden md:grid lg:block bg-white p-4 md:col-span-1">
+            <p class="text-xl text-center text-black">Book this trip today</p>
+            <p class="text-4xl font-bold text-center text-black my-4">€{{ trip.price }}</p>
+            <div class="rating flex justify-center w-full">
+                <!-- Reviews WIP -->
+                <p class="text-xl text-black mr-4">Reviews</p>
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked />
+              </div>
+            <label for="my-drawer-4" class="btn btn-secondary w-full mt-2" hx-get="trip_packages/templates/includes/booking/booking-drawer/{{ trip.id }}/" hx-trigger="click" hx-target="#booking-drawer-content">Book Now</label>
+        </div>
+
+        <!-- Sticky Bottom Button for medium and lower screen sizes -->
+        <div class="md:hidden fixed inset-x-0 bottom-0 z-50 bg-white p-4">
+            <p class="text-xl text-center text-black">€{{ trip.price }}</p>
+            <label for="my-drawer-4" class="btn btn-secondary w-full" hx-get="trip_packages/templates/includes/booking/booking-drawer/{{ trip.id }}/" hx-trigger="click" hx-target="#booking-drawer-content">Book Now</label>
+        </div>
+    </div>
+    <!-- Trip Sub Details WIP -->
+    <div class="bg-white md:grid md:grid-cols-[2fr,1fr]">
+        <div class="tabs pt-4 flex justify-center">
+            <a class="tab tab-bordered tab-active">Info</a> 
+            <a class="tab tab-bordered">Trip Details</a> 
+            <a class="tab tab-bordered">What's Included</a>
+            <a class="tab tab-bordered">Reviews</a>
+            <a class="tab tab-bordered">FAQ's</a>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
