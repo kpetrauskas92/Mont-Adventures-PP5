@@ -1,0 +1,39 @@
+<div class="join join-vertical w-full">
+    {% if available_dates %}
+    {% regroup available_dates by start_date|date:"F Y" as dates_grouped %}
+    {% for date_group in dates_grouped %}
+      <div class="collapse collapse-arrow join-item border border-base-300">
+        <input type="radio" name="my-accordion-4" /> 
+        <div class="collapse-title text-xl font-medium">
+          {{ date_group.grouper }}
+        </div>
+        <div class="collapse-content">
+          <div class="flex flex-col w-full">
+            {% for date in date_group.list %}
+              <div class="grid h-30 card bg-base-300 rounded-box place-items-left p-3">
+                <p class="text-lg font-medium">
+                  {{ date.start_date|date:"l" }} {{ date.start_date|date:"jS" }} of {{ date.start_date|date:"F" }}<br>
+                </p>
+                <p>  
+                to
+                  {{ date.end_date|date:"l" }} {{ date.end_date|date:"jS" }} of {{ date.end_date|date:"F" }}
+                </p>
+                <p class="text-sm pt-2">
+                  {{ date.booked_slots }} booked · {{ date.remaining_slots }} spots left
+                </p>
+                
+              </div>
+              <div class="flex justify-between">
+                <a href="#" class="btn btn-secondary mt-2 mr-1 flex-auto">Add to Cart</a>
+                <a href="#" class="btn btn-primary mt-2 flex-auto">Book Now</a>
+              </div>
+              <div class="divider"></div> 
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% else %}
+        <p>There are currently no available dates.</p>
+    {% endif %}
+</div>
