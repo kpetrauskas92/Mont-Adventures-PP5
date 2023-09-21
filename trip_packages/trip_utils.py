@@ -1,4 +1,5 @@
 from .models import Trips
+from datetime import datetime, timedelta
 
 MONTHS = [
     '', 'January', 'February', 'March', 'April', 'May', 'June',
@@ -14,3 +15,35 @@ display_funcs = {
     'overall_rating': lambda x: f"{x} Stars",
     'location': lambda x: x
 }
+
+
+def generate_available_dates(season, duration):
+    """
+    Generates a list of available dates based on the
+    provided season and duration.
+    """
+    available_dates = []
+    today = datetime.now().date()
+    tomorrow = today + timedelta(days=1)
+    one_year_later = today + timedelta(days=365)
+
+    for year in [today.year, today.year + 1]:
+        for month in season:
+            first_day = datetime(year, month, 1).date()
+            last_day = (
+                datetime(year, month + 1, 1).date() - timedelta(days=1)
+                if month < 12
+                else datetime(year + 1, 1, 1).date() - timedelta(days=1)
+            )
+
+            start_date = first_day
+            while start_date <= last_day - timedelta(days=duration):
+                if (
+                    start_date > tomorrow and
+                    start_date.weekday() == 4 and
+                    start_date <= one_year_later
+                ):
+                    available_dates.append(start_date)
+                start_date += timedelta(days=1)
+
+    return available_dates

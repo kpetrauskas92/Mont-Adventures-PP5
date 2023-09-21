@@ -1,6 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-from trip_packages.models import Trips
+from trip_packages.models import Trips, AvailableDate
+from datetime import date
 
 
 class TripPackagesViewTest(TestCase):
@@ -196,3 +197,69 @@ class TripDetailsViewTest(TestCase):
             response,
             '<div class="tabs pt-4 flex justify-center">'
         )
+
+
+class BookingDrawerViewTest(TestCase):
+    """
+    Tests for the BookingDrawer view.
+    """
+
+    def setUp(self):
+        """
+        Sets up the test environment.
+
+        - Creates a trip object with dummy data.
+        - Creates available date objects for the trip.
+        """
+        self.trip = Trips.objects.create(
+            name='Test Trip',
+            season=[1, 2, 3],
+            duration=5,
+            max_group_size=20,
+            price=100,
+            difficulty=1  # Add other required fields as necessary
+        )
+        AvailableDate.objects.create(
+            trips=self.trip,
+            start_date=date.today(),
+            end_date=date.today(),
+            max_group_size=20,
+            is_available=True
+        )
+
+    def test_view_exists_at_desired_location(self):
+        """
+        Tests that the BookingDrawer view is accessible
+        and returns a 200 status.
+        """
+        response = self.client.get(
+            reverse('booking_drawer', args=[self.trip.id]))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_with_invalid_trip(self):
+        """
+        Tests that the BookingDrawer view returns a 404
+        status when accessed with an invalid trip_id.
+        """
+        response = self.client.get(reverse('booking_drawer', args=[999]))
+        self.assertEqual(response.status_code, 404)
+
+    def test_view_uses_correct_template(self):
+        """
+        Tests that the BookingDrawer view renders the correct template.
+        """
+        response = self.client.get(
+            reverse('booking_drawer', args=[self.trip.id]))
+        self.assertTemplateUsed(
+            response, 'includes/booking/booking-drawer.html')
+
+    def test_view_with_htmx_request(self):
+        """
+        Tests that the BookingDrawer view returns the
+        'available-dates.html' template when accessed via an HTMX request.
+        """
+        response = self.client.get(
+            reverse('booking_drawer',
+                    args=[self.trip.id]), HTTP_HX_REQUEST='true')
+        self.assertTemplateUsed(
+            response, 'includes/booking/available-dates.html')
