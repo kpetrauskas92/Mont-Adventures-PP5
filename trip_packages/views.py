@@ -87,11 +87,29 @@ class TripPackages(View):
 
 
 class TripDetails(DetailView):
+    """
+    TripDetails view for displaying detailed information
+    about a single trip package.
+
+    - Inherits from Django's built-in DetailView.
+    - Utilizes the Trips model to fetch the trip details.
+    - Adds extra context to the template to display
+    icons and labels for trip details.
+    """
     model = Trips
     template_name = 'trip-detail.html'
     context_object_name = 'trip'
 
     def get_context_data(self, **kwargs):
+        """
+        Gets the context data for rendering the template.
+
+        - Overrides the parent method to add extra context.
+        - Specifically adds the trip_details list containing icons,
+        labels, and values for trip details.
+        - The trip_details list is used for dynamically populating
+        the trip's detailed information on the template.
+        """
         context = super().get_context_data(**kwargs)
         trip = context['trip']
 

@@ -106,3 +106,93 @@ class TripPackagesViewTest(TestCase):
         self.assertTrue(all
                         (trip.price == 1000 for trip in response.context
                          ['trips']))
+
+
+class TripDetailsViewTest(TestCase):
+    """
+    Test cases for the TripDetails view.
+
+    - Validates status code for GET requests.
+    - Checks the context data for trip and trip details.
+    - Verifies the format of trip details.
+    - Tests the presence of HTML elements in the rendered template.
+    """
+
+    def setUp(self):
+        """
+        Setup test environment.
+        """
+        self.client = Client()
+        self.trip = Trips.objects.create(
+            name="Test Trip",
+            price=1000,
+            duration=5,
+            location="Test Location",
+            season=[1, 2],
+            max_group_size=5,
+            difficulty=2
+        )
+        self.url = reverse('trip_details', args=[self.trip.id])
+
+    def test_get_request(self):
+        """
+        Test GET request and status code.
+        """
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_context_data(self):
+        """
+        Test context data for trip and trip details.
+        """
+        response = self.client.get(self.url)
+        self.assertTrue('trip' in response.context)
+        self.assertTrue('trip_details' in response.context)
+
+    def test_trip_details_format(self):
+        """
+        Test if the trip details are formatted as expected.
+        """
+        response = self.client.get(self.url)
+        trip_details = response.context['trip_details']
+        for detail in trip_details:
+            self.assertTrue('icon' in detail)
+            self.assertTrue('alt' in detail)
+            self.assertTrue('label' in detail)
+            self.assertTrue('value' in detail)
+
+    def test_html_elements(self):
+        """
+        Test the presence of key HTML elements in the rendered template.
+        """
+        response = self.client.get(self.url)
+
+        # Test for Trip Name
+        self.assertContains(
+            response,
+            '<h1 class="text-white uppercase text-6xl font-bold p-4">'
+        )
+
+        # Test for Trip Details Grid
+        self.assertContains(
+            response,
+            '<div class="flex gap-6 md:gap-10 lg:gap-14 justify-center mt-4">'
+        )
+
+        # Test for Trip Price
+        self.assertContains(
+            response,
+            '<p class="text-4xl font-bold text-center text-black my-4">'
+        )
+
+        # Test for Book Now Button
+        self.assertContains(
+            response,
+            '<label for="my-drawer-4"'
+        )
+
+        # Test for Tabs
+        self.assertContains(
+            response,
+            '<div class="tabs pt-4 flex justify-center">'
+        )
