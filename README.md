@@ -12,3 +12,6 @@
 
 *Trip Details*
 ![Trip-details Wireframe](github_assets/readme_images/wireframes/Trip-details.png)
+
+*Cart View*
+![Cart Wireframe](github_assets/readme_images/wireframes/Cart.png)
