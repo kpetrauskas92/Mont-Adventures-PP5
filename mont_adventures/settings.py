@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'home',
     'profiles.apps.ProfilesConfig',
     'trip_packages',
+    'cart',
 
     # Other
     'django_htmx',
@@ -74,6 +75,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart_processor',
             ],
         },
     },
