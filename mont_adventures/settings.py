@@ -1,5 +1,6 @@
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
+import stripe
 import dj_database_url
 
 load_dotenv()
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     'profiles.apps.ProfilesConfig',
     'trip_packages',
     'cart',
+    'checkout',
 
     # Other
     'django_htmx',
@@ -117,6 +119,13 @@ ACCOUNT_FORMS = {
     'signup': 'profiles.forms.CustomSignupForm',
 }
 
+# Stripe settings
+STRIPE_CURRENCY = 'eur'
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+
+# Initialize Stripe
+stripe.api_key = STRIPE_SECRET_KEY
 
 # Database
 
