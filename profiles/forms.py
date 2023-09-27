@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from .models import UserProfile
 from allauth.account.forms import SignupForm
 from django import forms
 
@@ -55,3 +56,26 @@ class CustomSignupForm(SignupForm):
             user.last_name = self.cleaned_data['last_name']
             user.save()
         return user
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('default_country',)
+
+    def __init__(self, *args, **kwargs):
+        """
+        Add placeholders and classes, remove auto-generated
+        labels and set autofocus on first field
+        """
+        super().__init__(*args, **kwargs)
+
+        # Add custom classes
+        self.fields[
+            'default_country'].widget.attrs[
+                'class'] = ('border-black '
+                            'rounded-0 '
+                            'profile-form-input')
+
+        # Remove labels
+        self.fields['default_country'].label = False

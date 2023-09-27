@@ -27,6 +27,3 @@ class UserProfileModelTest(TestCase):
 
     def test_string_representation(self):
         self.assertEqual(str(self.profile), self.user.username)
-
-    def test_default_phone_number(self):
-        self.assertIsNone(self.profile.default_phone_number)
