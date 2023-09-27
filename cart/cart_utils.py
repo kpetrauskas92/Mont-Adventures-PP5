@@ -45,7 +45,7 @@ def add_to_cart(request, trip, available_date, guests=0):
         'end_date': available_date.end_date.strftime('%Y-%m-%d'),
         'base_price': trip.price,
         'guests': guests,
-        'total_price': trip.price * guests
+        'total_price': trip.price * (guests + 1)
     }
     cart.append(cart_item)
     request.session['cart'] = cart

@@ -35,10 +35,16 @@
 
     {% block corejs %}
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/htmx.min.js' %}"></script>
+    <script
+			  src="https://code.jquery.com/jquery-3.7.1.min.js"
+			  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+			  crossorigin="anonymous"></script>
+    <!-- Stripe -->
+    <script src="https://js.stripe.com/v3/"></script>
     {% endblock %}
 
     {% block extra_js %}
-    <script src="{% static 'js/htmx.min.js' %}"></script>
     {% endblock %}
 
     <title>Mont Adventures | Summit Your Dreams{% block extra_title %}{% endblock %}</title>
