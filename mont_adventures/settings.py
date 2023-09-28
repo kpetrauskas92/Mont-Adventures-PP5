@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'profiles.apps.ProfilesConfig',
     'trip_packages',
     'cart',
-    'checkout',
+    'checkout.apps.CheckoutConfig',
 
     # Other
     'django_htmx',
