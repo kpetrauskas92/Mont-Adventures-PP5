@@ -11,18 +11,22 @@ from django.core.exceptions import ValidationError
 import json
 
 
-def create_stripe_payment_intent(amount, currency):
+def create_stripe_payment_intent(amount, currency, metadata=None):
+    print("create_stripe_payment_intent is being called")
     """
-    Create a Stripe Payment Intent with a specified amount and currency.
+    Create a Stripe Payment Intent with a specified amount,
+    currency, and metadata.
 
     Parameters:
         amount (int): The amount to be charged.
         currency (str): The currency type for the transaction.
+        metadata (dict,): Additional metadata to attach to the PaymentIntent.
     """
     stripe.api_key = settings.STRIPE_SECRET_KEY
     intent = stripe.PaymentIntent.create(
         amount=amount,
         currency=currency,
+        metadata=metadata
     )
     return intent
 

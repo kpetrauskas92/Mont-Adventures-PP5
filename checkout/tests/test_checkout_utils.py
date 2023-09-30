@@ -110,7 +110,6 @@ class CheckoutUtilsTestCase(TestCase):
             'first_name': 'John',
             'last_name': 'Doe',
             'email': 'john.doe@example.com',
-            'country': 'US',
         }
 
         self.request = self.factory.post('/checkout/', post_data)
@@ -120,7 +119,6 @@ class CheckoutUtilsTestCase(TestCase):
         self.assertEqual(data.get('first_name'), 'John')
         self.assertEqual(data.get('last_name'), 'Doe')
         self.assertEqual(data.get('email'), 'john.doe@example.com')
-        self.assertEqual(data.get('country'), 'US')
 
     def test_validate_order_form(self):
         """
@@ -133,7 +131,6 @@ class CheckoutUtilsTestCase(TestCase):
             'first_name': 'John',
             'last_name': 'Doe',
             'email': 'john.doe@example.com',
-            'country': 'US',
         }
         self.request = self.factory.post('/checkout/', post_data)
         self.request.user = self.user
@@ -151,7 +148,7 @@ class CheckoutUtilsTestCase(TestCase):
         when attempting to create an order with an invalid form.
         """
         invalid_data = {'first_name': '', 'last_name': '',
-                        'email': '', 'country': ''}
+                        'email': ''}
         is_valid, form = validate_order_form(invalid_data)
         self.assertFalse(is_valid)
         with self.assertRaises(ValidationError):
@@ -195,7 +192,6 @@ class CheckoutUtilsTestCase(TestCase):
             'first_name': 'John',
             'last_name': 'Doe',
             'email': 'john.doe@example.com',
-            'country': 'US',
             'client_secret': 'test_secret'
         }
         self.request = self.factory.post('/checkout/', post_data)
@@ -216,7 +212,6 @@ class CheckoutUtilsTestCase(TestCase):
             'first_name': 'John',
             'last_name': 'Doe',
             'email': 'john.doe@example.com',
-            'country': 'US',
         }
         self.request = self.factory.post('/checkout/', post_data)
         self.request.user = self.user
@@ -226,7 +221,6 @@ class CheckoutUtilsTestCase(TestCase):
         self.assertEqual(order.first_name, 'John')
         self.assertEqual(order.last_name, 'Doe')
         self.assertEqual(order.email, 'john.doe@example.com')
-        self.assertEqual(order.country, 'US')
 
     @patch('profiles.forms.UserProfileForm.is_valid')
     def test_handle_successful_checkout(self, mock_is_valid):
