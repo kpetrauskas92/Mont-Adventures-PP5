@@ -105,7 +105,6 @@ def validate_form(request):
         'first_name': request.POST.get('first_name'),
         'last_name': request.POST.get('last_name'),
         'email': request.POST.get('email'),
-        'country': request.POST.get('country'),
     }
 
     is_valid, form = validate_order_form(form_data)
