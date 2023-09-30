@@ -56,7 +56,6 @@ class CheckoutViewsTestCase(TestCase):
                 'first_name': 'John',
                 'last_name': 'Doe',
                 'email': 'john.doe@example.com',
-                'country': 'US',
                 'client_secret': 'test_secret_secret123',
             }
         )
@@ -79,12 +78,24 @@ class CheckoutViewsTestCase(TestCase):
         mock_intent = Mock()
         mock_modify.return_value = mock_intent
 
+        # Populate the session with cart data
+        self.client.session['cart'] = [{'trip': 'test', 'quantity': 1}]
+        self.client.session.save()
+
         response = self.client.post(
             reverse('cache_checkout_data'),
             {'client_secret': 'test_secret_secret123'}
         )
 
         self.assertEqual(response.status_code, 200)
+        mock_modify.assert_called()
+
+        # Check if it was called with the metadata argument
+        call_args = mock_modify.call_args[1]
+        self.assertIn('metadata', call_args)
+
+        # Further check the content of the metadata
+        self.assertIn('cart', call_args['metadata'])
 
     def test_checkout_success(self):
         """
@@ -133,7 +144,7 @@ class CheckoutViewsTestCase(TestCase):
         """
         response = self.client.post(
             reverse('checkout'),
-            {'first_name': '', 'last_name': '', 'email': '', 'country': ''}
+            {'first_name': '', 'last_name': '', 'email': ''}
         )
         self.assertEqual(response.status_code, 200)
 
@@ -161,7 +172,6 @@ class CheckoutViewsTestCase(TestCase):
                 'first_name': 'John',
                 'last_name': 'Doe',
                 'email': 'john.doe@example.com',
-                'country': 'US',
                 'client_secret': 'test_secret_secret123',
             }
         )

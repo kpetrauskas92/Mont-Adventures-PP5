@@ -15,7 +15,6 @@ from .checkout_utils import (
 )
 from .models import Order
 from cart.cart_utils import get_cart
-
 import stripe
 import json
 
@@ -33,7 +32,6 @@ def cache_checkout_data(request):
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
             'cart': json.dumps(request.session.get('cart', {})),
-            'save_info': request.POST.get('save_info'),
             'username': request.user,
         })
         return HttpResponse(status=200)
@@ -130,8 +128,12 @@ def create_payment_intent(request):
 
         if total_price > 0:
             stripe_total = round(total_price * 100)
+            metadata = {
+                'cart': json.dumps(cart),
+                'username': str(request.user),
+            }
             intent = create_stripe_payment_intent(
-                stripe_total, settings.STRIPE_CURRENCY)
+                stripe_total, settings.STRIPE_CURRENCY, metadata)
             client_secret = intent.client_secret
             return JsonResponse({'client_secret': client_secret})
         else:
