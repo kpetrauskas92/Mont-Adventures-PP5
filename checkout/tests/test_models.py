@@ -72,6 +72,30 @@ class CheckoutModelTests(TestCase):
         self.assertEqual(self.order.country, Country('US'))
         self.assertEqual(self.order.stripe_pid, 'test_stripe_pid')
 
+    def test_unique_order_number(self):
+        """
+        Test that each Order instance has a unique order number.
+        """
+        another_order = Order.objects.create(
+            user_profile=self.user_profile,
+            first_name='Jane',
+            last_name='Doe',
+            email='jane@example.com',
+            country='US',
+            stripe_pid='another_test_stripe_pid'
+        )
+        self.assertNotEqual(
+            self.order.order_number, another_order.order_number)
+
+    def test_update_total(self):
+        """
+        Test the update_total method to ensure it correctly updates
+        order_total and grand_total.
+        """
+        self.order.update_total()
+        self.assertEqual(self.order.order_total, 200)
+        self.assertEqual(self.order.grand_total, 200)
+
     def test_order_line_item_model(self):
         """
         Test the OrderLineItem model for correct data types and field values.
@@ -86,3 +110,18 @@ class CheckoutModelTests(TestCase):
             self.order_line_item.available_date, self.available_date)
         self.assertEqual(self.order_line_item.guests, 2)
         self.assertEqual(self.order_line_item.lineitem_total, 200)
+
+    def test_automatic_lineitem_total_calculation(self):
+        """
+        Test that lineitem_total is automatically calculated upon saving.
+        """
+        self.assertEqual(self.order_line_item.lineitem_total, 200)
+
+    def test_order_total_after_deleting_lineitem(self):
+        """
+        Test if the order totals get updated when an OrderLineItem is deleted.
+        """
+        self.order_line_item.delete()
+        self.order.update_total()
+        self.assertEqual(self.order.order_total, 0)
+        self.assertEqual(self.order.grand_total, 0)

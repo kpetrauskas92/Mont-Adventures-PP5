@@ -23,17 +23,17 @@ class Order(models.Model):
                                       null=False, default=0)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2,
                                       null=False, default=0)
-    stripe_pid = models.CharField(max_length=254, null=False,
+    stripe_pid = models.CharField(max_length=254, null=True,
                                   blank=False, default='')
 
     def _generate_order_number(self):
         """
-        Generate a random, unique order number using UUID.
+        Generate a random, truncated, unique order number using UUID.
 
         Returns:
-            str: A unique order number.
+            str: A unique, truncated order number.
         """
-        return uuid.uuid4().hex.upper()
+        return uuid.uuid4().hex[:12].upper()
 
     def update_total(self):
         """
