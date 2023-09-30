@@ -1,3 +1,4 @@
+import stripe
 from django.test import TestCase, RequestFactory
 from unittest.mock import patch, Mock
 from checkout.checkout_utils import (
@@ -15,6 +16,7 @@ from trip_packages.models import Trips, AvailableDate
 from profiles.models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.messages.storage.fallback import FallbackStorage
+from django.core.exceptions import ValidationError
 
 
 class CheckoutUtilsTestCase(TestCase):
@@ -64,6 +66,18 @@ class CheckoutUtilsTestCase(TestCase):
         intent = create_stripe_payment_intent(1000, 'usd')
         self.assertEqual(intent, mock_intent)
 
+    @patch('stripe.PaymentIntent.create')
+    def test_create_stripe_payment_intent_failure(self, mock_create):
+        """
+        Test Stripe Payment Intent creation failure handling.
+
+        This test checks if a Stripe error is raised when the Payment Intent
+        creation fails.
+        """
+        mock_create.side_effect = stripe.error.StripeError("An error occurred")
+        with self.assertRaises(stripe.error.StripeError):
+            create_stripe_payment_intent(1000, 'usd')
+
     def test_initialize_order_form(self):
         """
         Test initializing the OrderForm with default user information.
@@ -71,6 +85,17 @@ class CheckoutUtilsTestCase(TestCase):
         This test verifies that the OrderForm is initialized with
         the correct default values based on the authenticated user's profile.
         """
+        form = initialize_order_form(self.user)
+        self.assertIsNotNone(form)
+
+    def test_initialize_order_form_no_user_profile(self):
+        """
+        Test initializing the order form when no UserProfile exists.
+
+        This test checks if the form is initialized correctly
+        when the UserProfile associated with the User does not exist.
+        """
+        self.profile.delete()
         form = initialize_order_form(self.user)
         self.assertIsNotNone(form)
 
@@ -117,6 +142,20 @@ class CheckoutUtilsTestCase(TestCase):
         if not is_valid:
             self.fail(f"Form should be valid but had errors: {form.errors}")
         self.assertTrue(is_valid)
+
+    def test_create_order_invalid_form(self):
+        """
+        Test order creation with an invalid form.
+
+        This test checks if a ValidationError is raised
+        when attempting to create an order with an invalid form.
+        """
+        invalid_data = {'first_name': '', 'last_name': '',
+                        'email': '', 'country': ''}
+        is_valid, form = validate_order_form(invalid_data)
+        self.assertFalse(is_valid)
+        with self.assertRaises(ValidationError):
+            create_order(is_valid, form, self.request, self.cart)
 
     def test_create_order(self):
         """
@@ -165,6 +204,29 @@ class CheckoutUtilsTestCase(TestCase):
         self.request._messages = FallbackStorage(self.request)
         order, _ = create_and_validate_order(self.request, self.cart)
         self.assertIsNotNone(order)
+
+    def test_create_order_check_return_values(self):
+        """
+        Test created order attributes.
+
+        This test checks if the created order has
+        the correct attributes based on the form data submitted.
+        """
+        post_data = {
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'email': 'john.doe@example.com',
+            'country': 'US',
+        }
+        self.request = self.factory.post('/checkout/', post_data)
+        self.request.user = self.user
+        form_data = self.request.POST.dict()
+        is_valid, form = validate_order_form(form_data)
+        order, _ = create_order(is_valid, form, self.request, self.cart)
+        self.assertEqual(order.first_name, 'John')
+        self.assertEqual(order.last_name, 'Doe')
+        self.assertEqual(order.email, 'john.doe@example.com')
+        self.assertEqual(order.country, 'US')
 
     @patch('profiles.forms.UserProfileForm.is_valid')
     def test_handle_successful_checkout(self, mock_is_valid):

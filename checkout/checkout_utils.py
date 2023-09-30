@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
+from django.core.exceptions import ValidationError
 import json
 
 
@@ -40,7 +41,6 @@ def initialize_order_form(user):
                 'first_name': profile.user.first_name,
                 'last_name': profile.user.last_name,
                 'email': profile.user.email,
-                'country': profile.default_country,
             })
         except UserProfile.DoesNotExist:
             return OrderForm()
@@ -59,7 +59,6 @@ def extract_form_data(request):
         'first_name': request.POST.get('first_name', None),
         'last_name': request.POST.get('last_name', None),
         'email': request.POST.get('email', ''),
-        'country': request.POST.get('country', None),
     }
 
     return data
@@ -87,10 +86,16 @@ def create_order(valid, order_form, request, cart):
         cart (dict): The cart information.
     """
     if not valid:
-        return None, order_form
+        raise ValidationError("Invalid form data")
 
     order = order_form.save(commit=False)
-    pid = request.POST.get('client_secret').split('_secret')[0]
+    pid = request.POST.get('client_secret')
+
+    if pid:
+        pid = pid.split('_secret')[0]
+    else:
+        pid = None
+
     order.stripe_pid = pid
     order.original_cart = json.dumps(cart)
     order.save()
@@ -175,15 +180,6 @@ def handle_successful_checkout(request, order_number):
         order.save()
 
         if save_info:
-            profile_data = {
-                'default_country': order.country,
-            }
-            user_profile_form = UserProfileForm(profile_data, instance=profile)
+            user_profile_form = UserProfileForm(instance=profile)
             if user_profile_form.is_valid():
                 user_profile_form.save()
-
-    messages.success(
-        request,
-        f'Order successfully processed! Your order number is {order_number}. '
-        f'A confirmation email will be sent to {order.email}.'
-    )
