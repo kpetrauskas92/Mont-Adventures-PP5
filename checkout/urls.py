@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .webhooks import webhook
 
 urlpatterns = [
     path('', views.checkout, name='checkout'),
@@ -15,4 +16,5 @@ urlpatterns = [
     path('checkout/validate_form/',
          views.validate_form,
          name='validate_form'),
+    path('wh/', webhook, name='webhook'),
 ]
