@@ -19,7 +19,8 @@ DEBUG = 'DEVELOPMENT' in os.environ
 ALLOWED_HOSTS = ['127.0.0.1',
                  'mont-adventures-pp5-23ff8a97d0dd.herokuapp.com',
                  'montadventures.com',
-                 'www.montadventures.com']
+                 'www.montadventures.com',
+                 '192.168.0.102']
 
 
 # Application definition

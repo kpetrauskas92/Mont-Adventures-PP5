@@ -60,7 +60,7 @@
                         {% for item in cart %}
                         <li class="flex justify-between items-center mb-2">
                             <span>
-                                {{ forloop.counter }}. {{ item.trip_name }} ({{ item.start_date }} to {{ item.end_date }})
+                                <strong>{{ forloop.counter }}.{{ item.trip_name }}</strong> ({{ item.start_date }} to {{ item.end_date }})
                             </span>
                             <a href="{% url 'remove_from_cart_view' item.trip_id item.available_date_id %}">
                                 <button type="button" class="btn btn-sm btn-circle">
