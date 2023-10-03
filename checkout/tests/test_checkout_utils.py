@@ -151,8 +151,12 @@ class CheckoutUtilsTestCase(TestCase):
                         'email': ''}
         is_valid, form = validate_order_form(invalid_data)
         self.assertFalse(is_valid)
+        total_price = 800
         with self.assertRaises(ValidationError):
-            create_order(is_valid, form, self.request, self.cart)
+            create_order(is_valid, form, self.request, self.cart, total_price)
+
+        all_orders = Order.objects.all()
+        print("All Orders:", all_orders)
 
     def test_create_order(self):
         """
@@ -217,7 +221,10 @@ class CheckoutUtilsTestCase(TestCase):
         self.request.user = self.user
         form_data = self.request.POST.dict()
         is_valid, form = validate_order_form(form_data)
-        order, _ = create_order(is_valid, form, self.request, self.cart)
+        total_price = 300
+        order, _ = create_order(is_valid, form, self.request,
+                                self.cart, total_price)
+        print("Order Attributes:", vars(order))
         self.assertEqual(order.first_name, 'John')
         self.assertEqual(order.last_name, 'Doe')
         self.assertEqual(order.email, 'john.doe@example.com')
@@ -235,3 +242,25 @@ class CheckoutUtilsTestCase(TestCase):
         order = Order.objects.create(
             first_name='John', last_name='Doe', stripe_pid='test_pid')
         handle_successful_checkout(self.request, order.order_number)
+
+    def test_order_total_and_grand_total(self):
+        """
+        Test if the order_total and grand_total are correctly updated.
+
+        This test checks if the order_total and grand_total are set
+        correctly based on the cart information and total price.
+        """
+        post_data = {
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'email': 'john.doe@example.com',
+        }
+        self.request = self.factory.post('/checkout/', post_data)
+        self.request.user = self.user
+        form_data = self.request.POST.dict()
+        is_valid, form = validate_order_form(form_data)
+        total_price = 300
+        order, _ = create_order(is_valid, form, self.request,
+                                self.cart, total_price)
+        self.assertEqual(order.order_total, total_price)
+        self.assertEqual(order.grand_total, total_price)
