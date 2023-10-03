@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 import stripe
 import dj_database_url
+from .unfold_settings import UNFOLD # noqa
 
 load_dotenv()
 
@@ -26,6 +27,9 @@ ALLOWED_HOSTS = ['127.0.0.1',
 # Application definition
 
 INSTALLED_APPS = [
+    "unfold",
+    "unfold.contrib.filters",
+    "unfold.contrib.forms",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -66,6 +70,7 @@ ROOT_URLCONF = 'mont_adventures.urls'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 
 CRISPY_TEMPLATE_PACK = "tailwind"
+
 
 TEMPLATES = [
     {
