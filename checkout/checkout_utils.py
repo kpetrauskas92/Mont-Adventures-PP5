@@ -79,7 +79,7 @@ def validate_order_form(form_data):
     return order_form.is_valid(), order_form
 
 
-def create_order(valid, order_form, request, cart):
+def create_order(valid, order_form, request, cart, total_price):
     """
     Create an order based on form validity and incoming request data.
 
@@ -102,6 +102,8 @@ def create_order(valid, order_form, request, cart):
 
     order.stripe_pid = pid
     order.original_cart = json.dumps(cart)
+    order.order_total = total_price
+    order.grand_total = total_price
     order.save()
     return order, None
 
@@ -153,7 +155,15 @@ def create_and_validate_order(request, cart):
             'Please double check your information.')
         return None, order_form
 
-    order, error = create_order(is_valid, order_form, request, cart)
+    # Calculate total price here
+    total_price = 0
+    for item in cart:
+        if 'base_price' in item:
+            total_price += item['base_price'] * (item['guests'] + 1)
+
+    # Pass the total_price to create_order function
+    order, error = create_order(is_valid, order_form,
+                                request, cart, total_price)
 
     if error:
         messages.error(

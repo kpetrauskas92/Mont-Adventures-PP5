@@ -131,6 +131,7 @@ form.addEventListener('submit', function(ev) {
         success: function(data) {
             // Use the new client secret
             var newClientSecret = data.client_secret;
+            document.getElementsByName('client_secret')[0].value = newClientSecret;
 
             stripe.confirmCardPayment(newClientSecret, {
                 payment_method: {
