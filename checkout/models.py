@@ -1,6 +1,5 @@
 from django.db import models
 from django.db.models import Sum
-from django_countries.fields import CountryField
 from trip_packages.models import Trips, AvailableDate
 from profiles.models import UserProfile
 import uuid
@@ -18,7 +17,6 @@ class Order(models.Model):
     first_name = models.CharField(max_length=30, null=False, blank=False)
     last_name = models.CharField(max_length=30, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
-    country = CountryField(blank_label='Country *', null=False, blank=False)
     order_total = models.DecimalField(max_digits=10, decimal_places=2,
                                       null=False, default=0)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2,

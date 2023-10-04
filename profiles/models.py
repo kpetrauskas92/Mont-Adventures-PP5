@@ -15,6 +15,10 @@ class UserProfile(models.Model):
     - Stores order history.
     - Generates a unique customer_id upon creation.
     """
+    class Meta:
+        verbose_name = 'Profile'
+        verbose_name_plural = 'Profiles'
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     customer_id = models.CharField(max_length=5, unique=True)
     default_country = CountryField(blank_label='Country',
