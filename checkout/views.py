@@ -14,7 +14,7 @@ from .checkout_utils import (
     handle_successful_checkout
 )
 from .models import Order
-from cart.cart_utils import get_cart
+from cart.cart_utils import get_cart, stripe_metadata
 import stripe
 import json
 
@@ -30,8 +30,15 @@ def cache_checkout_data(request):
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
+
+        # Get the full cart
+        full_cart = request.session.get('cart', {})
+
+        # Prepare the cart for Stripe metadata
+        metadata_cart = stripe_metadata(full_cart)
+
         stripe.PaymentIntent.modify(pid, metadata={
-            'cart': json.dumps(request.session.get('cart', {})),
+            'cart': json.dumps(metadata_cart),  # Use the trimmed cart
             'username': request.user,
         })
         return HttpResponse(status=200)
@@ -121,6 +128,10 @@ def create_payment_intent(request):
     """
     try:
         cart = get_cart(request)
+
+        # Prepare the cart for Stripe metadata
+        metadata_cart = stripe_metadata(cart)
+
         total_price = 0
         for item in cart:
             if 'base_price' in item:
@@ -129,7 +140,7 @@ def create_payment_intent(request):
         if total_price > 0:
             stripe_total = round(total_price * 100)
             metadata = {
-                'cart': json.dumps(cart),
+                'cart': json.dumps(metadata_cart),  # Use the trimmed cart
                 'username': str(request.user),
             }
             intent = create_stripe_payment_intent(

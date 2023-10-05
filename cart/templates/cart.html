@@ -27,7 +27,7 @@
                     </button>
                 </a>
                 <div class="flex flex-col sm:flex-row">
-                    <img src="{{ item.trip_image }}" alt="trip-image" class="w-full rounded-lg sm:w-[14rem] mb-4 sm:mb-0" />
+                    <img src="{{ item.trip_image|default:'/media/trip_packages/main_images/default-trip-img.jpg' }}" alt="trip-image" class="w-full rounded-lg sm:w-[14rem] mb-4 sm:mb-0" />
                     <div class="ml-0 sm:ml-4 mt-2">
                         <h2 class="text-2xl font-bold">{{ item.trip_name }}</h2>
                         <p class="mt-1">Date: {{ item.start_date }} to {{ item.end_date }}</p>
