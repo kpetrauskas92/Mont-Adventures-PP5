@@ -36,10 +36,16 @@ def add_to_cart(request, trip, available_date, guests=0):
         if item['available_date_id'] == available_date.id:
             return False
 
+    try:
+        trip_image_url = request.build_absolute_uri(trip.main_image.url)
+    except ValueError:
+        trip_image_url = request.build_absolute_uri(
+            '/media/trip_packages/main_images/default-trip-img.jpg')
+
     cart_item = {
         'trip_id': trip.id,
         'trip_name': trip.name,
-        'trip_image': request.build_absolute_uri(trip.main_image.url),
+        'trip_image': trip_image_url,
         'available_date_id': available_date.id,
         'start_date': available_date.start_date.strftime('%Y-%m-%d'),
         'end_date': available_date.end_date.strftime('%Y-%m-%d'),
@@ -95,3 +101,23 @@ def clear_cart(request):
     Clear all items from the cart.
     """
     request.session['cart'] = []
+
+
+def stripe_metadata(cart):
+    """
+    Prepare cart data for Stripe metadata by including only necessary fields.
+
+    Parameters:
+        cart (list): The cart as a list of dictionaries.
+    """
+    metadata_cart = []
+    for item in cart:
+        metadata_item = {
+            'trip_id': item['trip_id'],
+            'available_date_id': item['available_date_id'],
+            'base_price': item['base_price'],
+            'guests': item['guests'],
+            'total_price': item['total_price']
+        }
+        metadata_cart.append(metadata_item)
+    return metadata_cart
