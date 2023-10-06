@@ -27,6 +27,13 @@ class OrderAdmin(ModelAdmin):
               'order_total', 'grand_total', 'stripe_pid')
 
     list_display = ('order_number', 'first_name',
-                    'last_name', 'order_total', 'grand_total',)
+                    'last_name', 'order_total', 'grand_total', 'is_canceled')
 
     ordering = ('-order_number',)
+
+    def is_canceled(self, obj):
+        return all(
+            lineitem.status == 'canceled' for lineitem in obj.lineitems.all())
+    is_canceled.boolean = True
+    is_canceled.admin_order_field = 'lineitems__status'
+    is_canceled.short_description = 'Is Canceled ?'
