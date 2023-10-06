@@ -74,6 +74,16 @@ class OrderLineItem(models.Model):
                                          null=False, blank=False,
                                          editable=False)
 
+    STATUS_CHOICES = [
+        ('active', 'Active'),
+        ('canceled', 'Canceled'),
+    ]
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default='active',
+    )
+
     def save(self, *args, **kwargs):
         """
         Override the original save method to set the line item total
