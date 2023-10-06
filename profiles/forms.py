@@ -61,7 +61,10 @@ class CustomSignupForm(SignupForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('default_country',)
+        fields = [
+            'profile_image', 'country', 'city', 'phone_number',
+            'emergency_contact_name', 'emergency_contact_phone'
+        ]
 
     def __init__(self, *args, **kwargs):
         """
@@ -70,12 +73,7 @@ class UserProfileForm(forms.ModelForm):
         """
         super().__init__(*args, **kwargs)
 
-        # Add custom classes
-        self.fields[
-            'default_country'].widget.attrs[
-                'class'] = ('border-black '
-                            'rounded-0 '
-                            'profile-form-input')
+        custom_classes = 'border-black rounded-0 profile-form-input'
 
-        # Remove labels
-        self.fields['default_country'].label = False
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = custom_classes
