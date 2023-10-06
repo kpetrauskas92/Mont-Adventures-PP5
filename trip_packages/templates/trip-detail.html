@@ -7,10 +7,17 @@
 
     <!-- Title for Desktop View -->
     <div class="w-full relative gradient-container" style="height: 65vh;">
-        <img class="absolute w-full h-full object-cover" src="{{ trip.main_image.url }}" alt="{{ trip.name }}">
+        {% if trip.main_image %}
+            <img class="absolute w-full h-full object-cover"
+                 src="{{ trip.main_image.url }}"
+                 alt="{{ trip.name }}">
+        {% else %}
+            <img class="absolute w-full h-full object-cover"
+                 src="{{ trip.default_image_url }}"
+                 alt="{{ trip.name }}">
+        {% endif %}
         <div class=" md:w-[70%] absolute bottom-0 left-0 right-0 hidden sm:block text-container">
             <h1 class="text-white uppercase text-6xl font-bold p-4">{{ trip.name }}</h1>
-            
         </div>
         <div class="absolute bottom-0 left-0 right-0 hidden sm:block gradient-bg"></div> <!-- Gradient div -->
     </div>
@@ -38,7 +45,8 @@
             <div class="flex gap-4 md:gap-10 lg:gap-14 justify-center mt-4">
                 {% for item in trip_details %}
                 <div class="flex flex-col items-center">
-                    <img src="{% static item.icon %}" alt="{{ item.alt }}" class="w-8 h-8 sm:w-14 sm:h-14 md:w-18 md:h-18">
+                    <img src="{% static item.icon %}" alt="{{ item.alt }}"
+                         class="w-8 h-8 sm:w-14 sm:h-14 md:w-18 md:h-18">
                     <div class="mt-2 text-xs md:text-sm text-center">
                         <p class="text-white font-light">{{ item.label }}</p>
                         <p class="text-white font-bold">{{ item.value }}</p>
