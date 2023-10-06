@@ -1,0 +1,50 @@
+{% load booking_filters %}
+
+{% if orders %}
+    <div class="orders-container">
+        {% for order in orders %}
+            <div class="order-item">
+                {% if order.lineitems.all|filter_not_canceled %}
+                    <div class="mb-6 rounded-lg text-white bg-gray-900 p-2 shadow-md flex flex-col sm:flex-row justify-between relative">
+                        <p><strong>Order Number:</strong> {{ order.order_number }}</p>
+                        <p><strong>Total:</strong> €{{ order.grand_total }}</p>
+                    </div>
+                {% endif %}
+                {% for lineitem in order.lineitems.all %}
+                    {% if lineitem.status != 'canceled' %}
+                        <div class="mb-2 rounded-lg bg-white p-6 shadow-md flex flex-col sm:flex-row justify-between relative">
+                            <div class="flex-none w-full sm:w-[14rem] mb-4 sm:mb-0">
+                                <img src="{{ lineitem.trip.main_image.url }}" alt="{{ lineitem.trip.name }}" class="w-full rounded-lg">
+                            </div>
+                            <div class="flex-grow ml-2">
+                                <p><strong>Trip:</strong> {{ lineitem.trip.name }}</p>
+                                <p><strong>Start Date:</strong> {{ lineitem.available_date.start_date }}</p>
+                                <p><strong>End Date:</strong> {{ lineitem.available_date.end_date }}</p>
+                                <p><strong>Location:</strong> {{ lineitem.trip.location }}</p>
+                                <p><strong>Difficulty:</strong> {{ lineitem.trip.get_difficulty_display }}</p>
+                                <p><strong>Additional Guests:</strong> {{ lineitem.guests }}</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between">
+                            <button class="btn btn-sm btn-ghost mb-2 w-full py-1.5"
+                                    hx-get="{% url 'cancel-trip' lineitem.id %}"
+                                    hx-target="#my_modal_3 .modal-box"
+                                    onclick="my_modal_3.showModal()">Cancel Trip
+                            </button>
+                        </div>
+                        <hr class="py-4">
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="mb-6 rounded-lg bg-white p-6 shadow-md ">
+        <div class="">
+            <p>Oh no, you haven't booked a trip yet...</p>
+            <a class="btn btn-secondary mt-5"
+               href="{% url 'trip_packages' %}">Book a trip now!
+            </a>
+        </div>
+    </div>
+{% endif %}
