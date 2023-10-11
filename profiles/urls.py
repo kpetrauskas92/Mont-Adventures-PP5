@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import (user_profile,
+from .views import (login_success_view,
+                    user_profile,
                     user_bookings,
                     cancel_trip,
                     user_favorites,
@@ -7,6 +8,7 @@ from .views import (user_profile,
                     UserProfileUpdateView)
 
 urlpatterns = [
+    path('login_success/', login_success_view, name='login_success'),
     path('profile/', user_profile, name='profile'),
     path('profile/bookings/', user_bookings, name='user_bookings'),
     path('cancel-trip/<int:lineitem_id>/', cancel_trip, name='cancel-trip'),

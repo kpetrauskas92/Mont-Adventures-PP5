@@ -7,7 +7,10 @@
   </svg>  
 </button>
   <h1 class="text-2xl font-bold mt-2 text-center">{% trans "Sign Up" %}</h1>
-
+  <div class="flex justify-center my-2 text-sm">
+    <p>Have an account?</p>
+    <a href="{% url 'account_login' %}" class="text-blue-500 ml-1" hx-get="{% url 'account_login' %}" hx-target="#my_modal_3 .modal-box">Login</a>
+  </div>
 <form class="relative" method="POST" action="{% url 'account_signup' %}" hx-post="{% url 'account_signup' %}" hx-target="#my_modal_3 .modal-box">
   {% csrf_token %}
   {{ form|crispy }}
@@ -16,11 +19,7 @@
   {% endif %}
     <div class="flex flex-col w-full border-opacity-50 mt-3">
       <div>
-        <button class="btn w-full" type="submit">{% trans "Sign Up" %}</button>
-      </div>
-        <div class="divider">Have an account ?</div>
-      <div>
-        <button class="btn w-full" {% url 'account_login' %} hx-get="{% url 'account_login' %}" hx-target="#my_modal_3 .modal-box">Login</a>
+        <button class="btn btn-accent w-full text-white" type="submit">{% trans "Sign Up" %}</button>
       </div>
     </div>
 </form>

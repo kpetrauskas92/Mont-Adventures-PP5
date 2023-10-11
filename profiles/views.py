@@ -11,6 +11,11 @@ from django.utils import timezone
 from datetime import timedelta, datetime
 
 
+def login_success_view(request):
+    response = render(request, 'account/login_success.html')
+    return response
+
+
 @login_required
 def user_profile(request):
     """Display the user's profile.
