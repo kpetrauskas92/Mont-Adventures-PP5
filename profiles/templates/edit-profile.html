@@ -1,16 +1,40 @@
 {% load tailwind_filters %}
 {% block content %}
-    <div class="container">
-        <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick="document.getElementById('my_modal_3').close();">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
+<div id="editProfileForm">
+    <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick="document.getElementById('my_modal_3').close();">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </button>
         <h1 class="text-2xl font-bold mt-2 text-center">Edit Profile</h1>
-        <form method="POST" enctype="multipart/form-data" action="{% url 'edit-profile' %}">
+    <div id="formContainer">
+        <form method="POST"
+              enctype="multipart/form-data"
+              hx-post="{% url 'edit-profile' %}"
+              hx-trigger="submit"
+              hx-target="#my_modal_3 .modal-box"
+              >
             {% csrf_token %}
             {{ form|crispy }}
-            <button class="btn btn-secondary w-full" type="submit">Save changes</button>
+            <button class="btn btn-secondary w-full"
+                    type="submit">Save changes
+            </button>
         </form>
     </div>
+    <script>
+        document.body.addEventListener('htmx:configRequest', function(event) {
+            event.detail.headers['HX-Request'] = 'true';
+        });
+    
+        document.body.addEventListener('htmx:afterOnLoad', function(event) {
+            const responseData = JSON.parse(event.detail.xhr.responseText);
+            if (responseData && responseData.form_valid) {
+                // Close the modal
+                document.getElementById('my_modal_3').close();
+                // Reload the page
+                window.location.reload();
+            }
+        });
+    </script>
+</div>
 {% endblock %}

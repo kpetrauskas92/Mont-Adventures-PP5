@@ -9,6 +9,7 @@ from .models import UserProfile, FavoriteTrip, Reviews
 from checkout.models import Order, OrderLineItem
 from django.utils import timezone
 from datetime import timedelta, datetime
+from django.http import JsonResponse
 
 
 def login_success_view(request):
@@ -151,6 +152,8 @@ class UserProfileUpdateView(UpdateView):
         """
         form.instance.user = self.request.user
         form.save()
+        if self.request.headers.get('HX-Request') == 'true':
+            return JsonResponse({'form_valid': True}, status=200)
         return super().form_valid(form)
 
     def form_invalid(self, form):

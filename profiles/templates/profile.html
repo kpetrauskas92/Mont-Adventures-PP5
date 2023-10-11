@@ -80,8 +80,17 @@
                             <span class="text-sm">Please update your profile!</span>
                         </div>
                     {% endif %}
-                <button class="btn btn-secondary mt-2 w-full py-1.5" hx-get="{% url 'edit-profile' %}" hx-target="#my_modal_3 .modal-box" onclick="my_modal_3.showModal()">Edit Profile</button>
-                <button class="btn btn-error mt-2 w-full py-1.5" hx-get="{% url 'account_logout' %}" hx-target="#my_modal_3 .modal-box" onclick="my_modal_3.showModal()">Sign Out</button>
+                <button class="btn btn-secondary mt-2 w-full py-1.5"
+                        hx-get="{% url 'edit-profile' %}"
+                        hx-target="#my_modal_3 .modal-box"
+                        hx-select="#editProfileForm"
+                        onclick="my_modal_3.showModal()">Edit Profile
+                </button>
+                <button class="btn btn-error mt-2 w-full py-1.5"
+                        hx-get="{% url 'account_logout' %}"
+                        hx-target="#my_modal_3 .modal-box"
+                        onclick="my_modal_3.showModal()">Sign Out
+                </button>
             </div>
     </div>
 </div>
