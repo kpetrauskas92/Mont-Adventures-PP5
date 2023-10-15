@@ -1,16 +1,31 @@
 from django.views import View
 from django.views.generic.detail import DetailView
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Q
+from django.db.models import Q, Min, Max
 from ast import literal_eval
 from .models import Trips, AvailableDate
-from .trip_utils import display_funcs
+from .trip_utils import display_funcs, MONTHS
 
 
 def generate_filter_options(model, field_name, display_func=None):
     """
     Generate a list of unique filter options for a given field in a model.
     """
+    if field_name == 'season':
+        seasons = {
+            'Winter': [12, 1, 2],
+            'Spring': [3, 4, 5],
+            'Summer': [6, 7, 8],
+            'Autumn': [9, 10, 11]
+        }
+
+        season_filters = {}
+        for season, months in seasons.items():
+            season_filters[season] = [{'value': m,
+                                       'display': MONTHS[m]} for m in months]
+
+        return season_filters
+
     values = list(model.objects.values_list(field_name, flat=True).distinct())
     if display_func:
         return [{'value': v, 'display': display_func(v)} for v in values]
@@ -51,6 +66,10 @@ class TripPackages(View):
         - Checks for HTMX requests to return only the filtered trips.
         - Renders the appropriate template with context.
         """
+        min_price = Trips.objects.aggregate(Min('price'))['price__min']
+        max_price = Trips.objects.aggregate(Max('price'))['price__max']
+        price_range = {'min_price': min_price, 'max_price': max_price}
+
         filter_names = ['price', 'duration', 'location', 'season',
                         'max_group_size', 'overall_rating', 'difficulty']
         custom_display_names = {'overall_rating': 'Rating',
@@ -62,28 +81,69 @@ class TripPackages(View):
         display_filters = {}
         query = Q()
 
+        all_trips = Trips.objects.all()
+        filtered_trips = []
+
         for name in filter_names:
             display_func = display_funcs.get(name, None)
             filters[name] = generate_filter_options(Trips, name, display_func)
-            display_name = custom_display_names.get(
-                name, name.replace('_', ' '))
+            display_name = custom_display_names.get(name,
+                                                    name.replace('_', ' '))
             display_filters[display_name] = filters[name]
 
             model_name = reverse_custom_display_names.get(display_name, name)
             filter_values = self.get_filter_values(request,
-                                                   display_name, model_name)
+                                                   display_name,
+                                                   model_name)
 
             if filter_values:
-                query &= Q(**{f"{model_name}__in": filter_values})
+                if model_name == "price":
+                    max_price = int(filter_values[0])
+                    if max_price != 0:
+                        query &= Q(price__lte=max_price)
+                elif model_name == "season":
+                    filtered_trips = [
+                        trip for trip in all_trips
+                        if any(month in trip.season for month in filter_values)
+                    ]
+                    all_trips = filtered_trips
+                else:
+                    query &= Q(**{f"{model_name}__in": filter_values})
+                    filtered_trips = all_trips.filter(query)
+                    all_trips = filtered_trips
 
-        trips = Trips.objects.filter(query)
+            if 'price' in request.GET:
+                max_price = int(request.GET['price'])
+                if max_price != 0:
+                    query &= Q(price__lte=max_price)
+
+            filtered_trips = Trips.objects.filter(query)
+
+        if not filtered_trips:
+            filtered_trips = all_trips
 
         if request.headers.get('HX-Request'):
             return render(request, 'includes/filter/filtered-trips.html',
-                          {'trips': trips})
+                          {'trips': filtered_trips})
         else:
             return render(request, 'trip-packages.html',
-                          {'filters': display_filters, 'trips': trips})
+                          {'filters': display_filters,
+                           'trips': filtered_trips,
+                           'price_range': price_range})
+
+
+# Utility function to convert month list to season list
+def months_to_seasons(months):
+    seasons = []
+    if any(month in months for month in [12, 1, 2]):
+        seasons.append('Winter')
+    if any(month in months for month in [3, 4, 5]):
+        seasons.append('Spring')
+    if any(month in months for month in [6, 7, 8]):
+        seasons.append('Summer')
+    if any(month in months for month in [9, 10, 11]):
+        seasons.append('Autumn')
+    return ', '.join(seasons)
 
 
 class TripDetails(DetailView):
@@ -113,6 +173,8 @@ class TripDetails(DetailView):
         context = super().get_context_data(**kwargs)
         trip = context['trip']
 
+        seasons = months_to_seasons(trip.season)
+
         # Populate the trip_details list dynamically based on the trip
         trip_details = [
             {'icon': 'web_elements/svg_icons/trip_icons/duration_icon.svg',
@@ -123,7 +185,7 @@ class TripDetails(DetailView):
              'value': display_funcs['location'](trip.location)},
             {'icon': 'web_elements/svg_icons/trip_icons/season_icon.svg',
              'alt': 'Season Icon', 'label': 'Season',
-             'value': display_funcs['season'](trip.season)},
+             'value': seasons},
             {'icon': 'web_elements/svg_icons/trip_icons/group size_icon.svg',
              'alt': 'Group Size Icon', 'label': 'Group Size',
              'value': display_funcs['max_group_size'](trip.max_group_size)},

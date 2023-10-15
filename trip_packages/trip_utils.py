@@ -1,5 +1,6 @@
 from .models import Trips
 from datetime import datetime, timedelta
+from django_countries import countries
 
 MONTHS = [
     '', 'January', 'February', 'March', 'April', 'May', 'June',
@@ -13,11 +14,11 @@ display_funcs = {
     'season': lambda x: ', '.join([MONTHS[month] for month in x]),
     'max_group_size': lambda x: f"Up to {x}",
     'overall_rating': lambda x: f"{x} Stars",
-    'location': lambda x: x
+    'location': lambda x: dict(countries).get(x, x),
 }
 
 
-def generate_available_dates(season, duration):
+def generate_available_dates(season, duration, include_departure_day=True):
     """
     Generates a list of available dates based on the
     provided season and duration.
@@ -26,6 +27,8 @@ def generate_available_dates(season, duration):
     today = datetime.now().date()
     tomorrow = today + timedelta(days=1)
     one_year_later = today + timedelta(days=365)
+
+    active_duration = duration - 1 if not include_departure_day else duration
 
     for year in [today.year, today.year + 1]:
         for month in season:
@@ -37,7 +40,7 @@ def generate_available_dates(season, duration):
             )
 
             start_date = first_day
-            while start_date <= last_day - timedelta(days=duration):
+            while start_date <= last_day - timedelta(days=active_duration):
                 if (
                     start_date > tomorrow and
                     start_date.weekday() == 4 and
