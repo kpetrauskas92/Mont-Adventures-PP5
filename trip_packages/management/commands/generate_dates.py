@@ -14,9 +14,9 @@ class Command(BaseCommand):
                 AvailableDate.objects.filter(trips=trip).delete()
 
                 available_dates = generate_available_dates(
-                    trip.season, trip.duration)
+                    trip.season, trip.duration, include_departure_day=False)
                 for date in available_dates:
-                    end_date = date + timedelta(days=trip.duration - 1)
+                    end_date = date + timedelta(days=trip.duration)
                     AvailableDate.objects.create(
                         trips=trip,
                         start_date=date,
