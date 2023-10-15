@@ -12,30 +12,6 @@
         </div>
     </div>
 </div>
-
-<!-- Mobile Sidebar Drawer WIP -->
-<div class="drawer">
-    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content">
-            <div id="floating-button" class="fixed-button">
-                <label for="my-drawer" class="btn btn-primary drawer-button w-full lg:hidden">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
-                      </svg>                      
-                    filter
-                </label>
-            </div>            
-        </div> 
-    <div class="drawer-side z-10 mt">
-      <label for="my-drawer" class="drawer-overlay"></label>
-      <ul class=" pt-10 p-4 w-80 min-h-full bg-base-100 text-base-content">
-    
-        {% include 'includes/filter/filter-sidebar.html' %}
-        
-      </ul>
-    </div>
-</div>
-
 <div class="container mx-auto pt-20 px-2">
     <!-- Total Trip Packages -->
     <div id="trip-count" class="text-right mb-4 pr-4">
@@ -44,7 +20,7 @@
     
     <div class="flex flex-wrap">
         <!-- Sidebar -->
-        <div class="w-1/4 pr-4 hidden lg:block">
+        <div id="desktop-sidebar" class="w-1/4 pr-4 hidden lg:block">
             {% include 'includes/filter/filter-sidebar.html' %}
         </div>
         
@@ -52,8 +28,9 @@
         <div id="trip-package-list" class="w-full lg:w-3/4 flex flex-wrap relative mb-20">
             {% include 'includes/filter/filtered-trips.html' %}
         </div>
-        
     </div>
 </div>
+
+{% include 'includes/filter/mobile-sidebar.html' %}
 
 {% endblock %}
