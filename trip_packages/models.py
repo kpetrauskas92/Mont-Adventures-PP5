@@ -1,12 +1,19 @@
 from django.db import models
 from django.conf import settings
 from django.db.models import JSONField
-
+from django_countries.fields import CountryField
 
 MONTHS = [
     '', 'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
 ]
+
+
+class DifficultyLevel(models.IntegerChoices):
+    EASY = 1, 'Easy'
+    MODERATE = 2, 'Moderate'
+    CHALLENGING = 3, 'Challenging'
+    HARD = 4, 'Hard'
 
 
 class Trips(models.Model):
@@ -28,12 +35,13 @@ class Trips(models.Model):
     name = models.CharField(max_length=255)
     price = models.IntegerField(db_index=True)
     duration = models.IntegerField(db_index=True)
-    location = models.CharField(max_length=100, db_index=True)
+    location = CountryField()
     season = JSONField(db_index=True)
     max_group_size = models.IntegerField(db_index=True)
     overall_rating = models.DecimalField(max_digits=3, decimal_places=1,
                                          null=True, blank=True, db_index=True)
-    difficulty = models.IntegerField(db_index=True)
+    difficulty = models.IntegerField(db_index=True,
+                                     choices=DifficultyLevel.choices)
 
     def duration_str(self):
         return f"{self.duration} day{'s' if self.duration > 1 else ''}"
@@ -45,18 +53,10 @@ class Trips(models.Model):
         return f"Up to {self.max_group_size}"
 
     def difficulty_str(self):
-        if self.difficulty == 1:
-            return "Easy"
-        elif self.difficulty == 2:
-            return "Moderate"
-        elif self.difficulty == 3:
-            return "Challenging"
-        elif self.difficulty == 4:
-            return "Hard"
+        return DifficultyLevel(self.difficulty).label
 
-    @property
-    def difficulty_value(self):
-        return self.difficulty
+    def __str__(self):
+        return self.name
 
     @property
     def default_image_url(self):
