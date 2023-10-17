@@ -1,0 +1,19 @@
+{% block content %}
+<div class="favorite-trips-container">
+    {% for favorite in favorite_trips %}
+    <div class="mb-2 rounded-lg bg-white p-6 shadow-md flex flex-col sm:flex-row justify-between relative">
+        
+            <div class="flex-none w-full sm:w-[14rem] mb-4 sm:mb-0">
+                <img src="{{ favorite.trip.main_image.url }}" alt="{{ favorite.trip.name }}" class="w-full rounded-lg">
+            </div>
+            <div class="flex-grow ml-2">
+                <h2>{{ favorite.trip.name }}</h2>
+                <p>Price: €{{ favorite.trip.price }}</p>
+                <p>Duration: {{ favorite.trip.duration }} days</p>
+                <p>Location: {{ favorite.trip.location }}</p>
+                <a href="{% url 'trip_details' favorite.trip.id %}" class="btn btn-sm btn-ghost">View Details</a>
+            </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
