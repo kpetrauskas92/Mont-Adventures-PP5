@@ -5,7 +5,8 @@ from .views import (login_success_view,
                     cancel_trip,
                     user_favorites,
                     user_reviews,
-                    UserProfileUpdateView)
+                    UserProfileUpdateView
+                    )
 
 urlpatterns = [
     path('login_success/', login_success_view, name='login_success'),
