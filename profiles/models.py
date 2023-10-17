@@ -43,27 +43,6 @@ class UserProfile(models.Model):
         return self.user.username
 
 
-class FavoriteTrip(models.Model):
-    """
-    FavoriteTrip model for managing favorite trips of users.
-
-    - Associates a user with their favorite trips.
-    - Creates a relationship between User and Trip models.
-    """
-    user = models.ForeignKey(User,
-                             related_name='favorite_trips',
-                             on_delete=models.CASCADE)
-    trip = models.ForeignKey(Trips,
-                             related_name='favorited_by',
-                             on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ('user', 'trip')
-
-    def __str__(self):
-        return f"{self.user.username} - {self.trip.name}"
-
-
 def review_image_path(instance, filename):
     """
     Function to determine the upload path for review images.

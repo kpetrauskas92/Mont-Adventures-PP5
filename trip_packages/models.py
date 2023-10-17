@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.db.models import JSONField
 from django_countries.fields import CountryField
+from django.contrib.auth import get_user_model
 
 MONTHS = [
     '', 'January', 'February', 'March', 'April', 'May', 'June',
@@ -100,3 +101,32 @@ class AvailableDate(models.Model):
 
     def __str__(self):
         return f"{self.trips.name} - {self.start_date} to {self.end_date}"
+
+
+class FavoriteTrip(models.Model):
+    user = models.ForeignKey(get_user_model(),
+                             related_name='favorite_trips',
+                             on_delete=models.CASCADE)
+    trip = models.ForeignKey(Trips,
+                             related_name='favorited_by',
+                             on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('user', 'trip')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.trip.name}"
+
+    @classmethod
+    def add_favorite(cls, user, trip):
+        # get_or_create returns a tuple of (object, created)
+        # where object is the retrieved or created object
+        # and created is a boolean specifying whether a new object was created
+        obj, created = cls.objects.get_or_create(user=user, trip=trip)
+
+    @classmethod
+    def remove_favorite(cls, user, trip):
+        # Delete the favorite if it exists
+        cls.objects.filter(user=user, trip=trip).delete()
