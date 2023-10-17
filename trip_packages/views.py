@@ -3,8 +3,9 @@ from django.views.generic.detail import DetailView
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q, Min, Max
 from ast import literal_eval
-from .models import Trips, AvailableDate
+from .models import Trips, AvailableDate, FavoriteTrip
 from .trip_utils import display_funcs, MONTHS
+from django.http import HttpResponseBadRequest, HttpResponse, JsonResponse
 
 
 def generate_filter_options(model, field_name, display_func=None):
@@ -122,14 +123,49 @@ class TripPackages(View):
         if not filtered_trips:
             filtered_trips = all_trips
 
+        if request.user.is_authenticated:
+            user_favorites = FavoriteTrip.objects.filter(
+                user=request.user).values_list('trip', flat=True)
+        else:
+            user_favorites = []
+
         if request.headers.get('HX-Request'):
-            return render(request, 'includes/filter/filtered-trips.html',
-                          {'trips': filtered_trips})
+            return render(request,
+                          'includes/filter/filtered-trips.html',
+                          {'trips': filtered_trips,
+                           'user_favorites': user_favorites})
         else:
             return render(request, 'trip-packages.html',
                           {'filters': display_filters,
                            'trips': filtered_trips,
-                           'price_range': price_range})
+                           'price_range': price_range,
+                           'user_favorites': user_favorites})
+
+    def post(self, request, *args, **kwargs):
+        trip_id = self.kwargs.get('trip_id', None)
+        if trip_id is None:
+            return HttpResponseBadRequest("Missing trip_id")
+
+        if not request.user.is_authenticated:
+            return HttpResponse("User not authenticated", status=403)
+
+        try:
+            trip = Trips.objects.get(id=trip_id)
+        except Trips.DoesNotExist:
+            return HttpResponse("Trip does not exist", status=404)
+
+        is_favorited = FavoriteTrip.objects.filter(user=request.user,
+                                                   trip=trip).exists()
+
+        if is_favorited:
+            FavoriteTrip.remove_favorite(request.user, trip)
+        else:
+            FavoriteTrip.add_favorite(request.user, trip)
+
+        new_status = not is_favorited
+
+        return JsonResponse({'status': 'success',
+                             'is_favorited': new_status}, status=200)
 
 
 # Utility function to convert month list to season list
@@ -193,6 +229,14 @@ class TripDetails(DetailView):
              'alt': 'Difficulty Icon', 'label': 'Difficulty',
              'value': display_funcs['difficulty'](trip.difficulty)}
         ]
+
+        is_favorite = False
+        if self.request.user.is_authenticated:
+            is_favorite = FavoriteTrip.objects.filter(
+                user=self.request.user, trip=self.object
+            ).exists()
+
+        context['is_favorite'] = is_favorite
 
         context['trip_details'] = trip_details
         return context

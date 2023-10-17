@@ -5,7 +5,8 @@ from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView
 from .forms import UserProfileForm
-from .models import UserProfile, FavoriteTrip, Reviews
+from .models import UserProfile, Reviews
+from trip_packages.models import FavoriteTrip
 from checkout.models import Order, OrderLineItem
 from django.utils import timezone
 from datetime import timedelta, datetime
