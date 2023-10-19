@@ -3,7 +3,7 @@ from unfold.admin import ModelAdmin
 from unfold.decorators import display
 from unfold.contrib.filters.admin import (RangeNumericFilter,
                                           SingleNumericFilter)
-from .models import Trips, TripImage, AvailableDate
+from .models import Trips, TripImage, AvailableDate, Reviews
 from django import forms
 
 
@@ -81,3 +81,22 @@ class AvailableDateAdmin(ModelAdmin):
         Check if the trip associated with the available date is fully booked.
         """
         return obj.booked_slots >= obj.max_group_size
+
+
+@admin.register(Reviews)
+class ReviewsAdmin(ModelAdmin):
+    """
+    Admin class for the Reviews model. Defines how the Reviews model
+    should be displayed and managed in the Django admin interface.
+    """
+    list_display = ['user', 'trip', 'rating', 'is_approved', 'created_at']
+    list_filter = ['is_approved', 'rating', 'trip', 'user']
+    search_fields = ['user__username', 'trip__name', 'comment']
+    list_editable = ['is_approved']
+    ordering = ['-created_at']
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return ['user', 'trip', 'rating', 'comment', 'created_at']
+        else:
+            return []
