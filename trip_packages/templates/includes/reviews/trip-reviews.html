@@ -1,0 +1,65 @@
+{% load rating_filters %}
+
+{% if user.is_authenticated %}
+    <button hx-get="{% url 'trip_review_form' trip.id %}"
+            hx-target="#my_modal_3 .modal-box"
+            onclick="my_modal_3.showModal()"
+            class="btn btn-secondary">
+        Add A Review
+    </button>
+{% else %}
+    <button hx-get="{% url 'account_login' %}"
+            hx-swap="innerHTML"
+            hx-target="#my_modal_3 .modal-box"
+            onclick="my_modal_3.showModal()">
+        Log in to Add Review
+    </button>
+{% endif %}
+
+
+
+<!-- Display existing reviews WIP -->
+{% for review in reviews %}
+    <section class="review mt-6">
+        <header class="review-header">
+            <div class="w-8 rounded-full ring ring-warning ring-offset-base-100 ring-offset-2">
+                {% if review.user.userprofile.profile_image %}
+                    <img src="{{ review.user.userprofile.profile_image.url }}" alt="Profile Image of {{ review.user.first_name }} {{ review.user.last_name }}" class="w-8 h-8 rounded-full object-cover">
+                {% else %}
+                    <div class="avatar placeholder">
+                        <div class="bg-secondary-focus text-neutral-content rounded-full w-8 h-8 flex items-center justify-center">
+                            <span class="text-xl">
+                                {{ review.user.first_name|slice:":1" }}{{ review.user.last_name|slice:":1" }}
+                            </span>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <span>{{ review.created_at|date:"F d, Y" }}</span>
+        </header>
+
+        <div class="mb-2 rounded-lg bg-white p-6 shadow-md flex flex-col sm:flex-col justify-between relative">
+            <h2 class="font-bold">{{ review.title }}</h2>
+            <!-- Filled Stars -->
+            <div class="inline-flex" role="img" aria-label="Star Rating">
+                {% for i in review.rating|generate_range %}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="orange" viewBox="0 0 24 24" class="w-6 h-6">
+                    <path d="M12 2l3.09 9.26h9.82l-7.91 5.73 2.93 9.01L12 18.5 4.06 26l2.93-9.01L0 11.26h9.82z"></path>
+                </svg>
+                {% endfor %}
+                <!-- Empty Stars -->
+                {% for i in 5|subtract:review.rating|generate_range %}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="orange" class="w-6 h-6">
+                    <path d="M12 2l3.09 9.26h9.82l-7.91 5.73 2.93 9.01L12 18.5 4.06 26l2.93-9.01L0 11.26h9.82z"></path>
+                </svg>
+                {% endfor %}
+            </div>
+        </div>
+        <p>{{ review.comment }}</p>
+        {% if review.image %}
+            <img src="{{ review.image.url }}" alt="Review Image by {{ review.user.first_name }} {{ review.user.last_name }}" class="w-24 h-24 object-cover">
+        {% endif %}
+    </section>
+{% empty %}
+    <p>No reviews available for this trip.</p>
+{% endfor %}
