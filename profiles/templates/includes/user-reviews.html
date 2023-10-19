@@ -1,0 +1,36 @@
+{% block content %}
+    {% for review in reviews %}
+    <div class="mb-2 rounded-lg bg-white p-6 shadow-md flex flex-col sm:flex-row justify-between relative">
+        <div class="flex-none w-full sm:w-[14rem] mb-4 sm:mb-0">
+            <img src="{{ review.trip.main_image.url }}" alt="{{ review.trip.name }}" class="w-full rounded-lg">
+        </div>
+            <div class="review">
+                <h3>{{ review.trip.name }}</h3>
+                <h2 class="font-bold">{{ review.title }}</h2>
+                <p>Comment: {{ review.comment }}</p>
+                {% if not review.is_approved %}
+                    <p class="text-yellow-500">This review is pending approval.</p>
+                {% endif %}
+            </div>
+    </div>
+    <div class="flex justify-between">
+        <button hx-get="{% url 'edit_review' review.id %}"
+                
+                hx-target="#my_modal_3 .modal-box"
+                onclick="my_modal_3.showModal()"
+                hx-swap="innerHTML"
+                class="btn btn-sm btn-secondary">
+                Edit
+        </button>
+        <button hx-get="{% url 'delete_review' review.id %}"
+                hx-swap="innerHTML"
+                hx-target="#my_modal_3 .modal-box"
+                onclick="my_modal_3.showModal()"
+                class="btn btn-sm btn-error">
+                Delete
+        </button>
+    </div>
+    {% empty %}
+        <p>You have not written any reviews yet.</p>
+    {% endfor %}
+{% endblock %}
