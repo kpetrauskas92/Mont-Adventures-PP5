@@ -1,0 +1,28 @@
+<!-- Drawer -->
+<div class="drawer search-drawer z-20">
+    <input id="my-search-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content">
+
+    </div> 
+    <div class="drawer-side">
+      <label for="my-search-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+      <div class="menu p-4 h-full w-full bg-base-200 text-base-content">
+        <h1 class="font-bold text-center"> Search for your adventure! </h1>
+        <!-- Search form -->
+        <form method="GET"
+              action="{% url 'search_trips' %}"
+              hx-get="{% url 'search_trips' %}"
+              hx-trigger="keyup delay:100ms"
+              hx-target="#search-results">
+          <div class="form-control">
+            <input type="text" name="q" placeholder="Search" class="input input-bordered w-auto" />
+          </div>
+        </form>
+        
+        <div id="search-results">
+          {% include 'includes/search-results.html' %}
+        </div>
+        
+      </div>
+    </div>
+  </div>

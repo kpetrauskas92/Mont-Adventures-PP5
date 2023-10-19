@@ -1,0 +1,13 @@
+{% if query and query|length >= 3 %}
+    {% if results %}
+        <ul>
+        {% for trip in results %}
+            <li>{{ trip.name }} - {{ trip.location }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+{% elif query and query|length < 3 %}
+    <p>Please enter at least 3 characters to search.</p>
+{% endif %}
