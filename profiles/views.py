@@ -2,11 +2,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils.decorators import method_decorator
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import UpdateView
 from .forms import UserProfileForm
-from .models import UserProfile, Reviews
-from trip_packages.models import FavoriteTrip
+from .models import UserProfile
+from trip_packages.models import FavoriteTrip, Reviews
+from trip_packages.forms import ReviewForm
 from checkout.models import Order, OrderLineItem
 from django.utils import timezone
 from datetime import timedelta, datetime
@@ -58,7 +59,15 @@ def user_bookings(request):
 
 @login_required
 def cancel_trip(request, lineitem_id):
-    """Cancel a booked trip."""
+    """
+    Cancel a booked trip for the logged-in user.
+
+    This view allows the user to cancel a trip they have booked. It checks
+    the conditions under which a trip can be canceled (e.g., at least 14 days
+    before the start date), updates the status of the line item to 'canceled',
+    adjusts the total amount for the order, and updates the booked slots for
+    the trip.
+    """
     lineitem = get_object_or_404(OrderLineItem, id=lineitem_id)
 
     start_date = lineitem.available_date.start_date
@@ -121,6 +130,64 @@ def user_reviews(request):
         'reviews': reviews
     }
     return render(request, 'includes/user-reviews.html', context)
+
+
+@login_required
+def edit_review(request, review_id):
+    """
+    Edit a specific review made by the logged-in user.
+
+    This view allows the logged-in user to edit a review they have
+    previously submitted. It ensures that the user is authorized to edit
+    the review and updates it upon successful validation.
+
+    """
+    review = get_object_or_404(Reviews, id=review_id)
+
+    if request.user != review.user:
+        return JsonResponse({"error": "Not authorized"}, status=403)
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            updated_review = form.save(commit=False)
+            updated_review.is_approved = False
+            updated_review.save()
+            return render(request, 'includes/reviews/trip-review-success.html')
+    else:
+        form = ReviewForm(instance=review)
+
+    trip = review.trip
+
+    context = {
+        'review_form': form,
+        'trip': trip,
+        'form_title': 'Edit Review',
+        'form_action': reverse('edit_review', args=[review.id])
+    }
+
+    if request.headers.get("HX-Request"):
+        return render(request,
+                      'includes/reviews/trip-review-form.html', context)
+    else:
+        return render(request, 'includes/edit-review.html', context)
+
+
+@login_required
+def delete_review(request, review_id):
+    """
+    Delete a specific review made by the logged-in user.
+
+    This view allows the logged-in user to delete a review
+    they have previously submitted.
+    The review is deleted from the database upon confirmation.
+
+    """
+    review = get_object_or_404(Reviews, id=review_id)
+    if request.method == 'POST':
+        review.delete()
+        return redirect('profile')
+    return render(request, 'includes/delete-review.html', {'review': review})
 
 
 @method_decorator(login_required, name='dispatch')
