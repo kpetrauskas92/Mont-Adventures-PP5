@@ -1,0 +1,33 @@
+{% load tailwind_filters %}
+<div id="tripReviewForm">
+    
+    <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick="document.getElementById('my_modal_3').close();">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </button>
+    <h1 class="text-2xl font-bold mt-2 text-center">{{ form_title|default:"Add Review" }}</h1>
+    {% if user.is_authenticated %}
+    <form method="POST"
+          hx-post="{% if form_action %}{{ form_action }}{% else %}{% url 'trip_review_form' trip.id %}{% endif %}"
+          hx-trigger="submit"
+          hx-target="#my_modal_3 .modal-box"
+          enctype="multipart/form-data">
+    {% csrf_token %}
+        {{ review_form.title|as_crispy_field }}
+        <div class="inline-flex pt-2 pb-4">
+            <label class="text-gray-700 text-sm font-bold mr-2 mt-1" for="{{ review_form.rating.id_for_label }}">Rating:</label>
+            <div class="rating self-center">
+                {% for star_value in "12345" %}
+                <input type="radio" name="{{ review_form.rating.name }}" value="{{ star_value }}" 
+                    class="mask mask-star-2 bg-orange-400" 
+                    {% if review_form.rating.value == star_value %} checked {% endif %} required/>
+                {% endfor %}
+            </div>
+        </div>
+        {{ review_form.comment|as_crispy_field }}
+        {{ review_form.image|as_crispy_field }}
+        <button class="btn btn-secondary w-full" type="submit">Submit Review</button>
+    </form>
+<div>
+{% endif %}
