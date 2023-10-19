@@ -45,7 +45,7 @@
     left: 0;
     right: 0;
     height: 50%;
-    background: linear-gradient(to bottom, transparent, #242424);
+    background: linear-gradient(to bottom, transparent, #111827);
     z-index: 1;
 }
 
@@ -56,4 +56,29 @@
 footer {
   z-index: 2;
   position: relative;
+}
+
+.search-drawer .drawer-side {
+  top: 70px;
+  left: 0;
+}
+
+.search-drawer .drawer-toggle:checked ~ .drawer-side {
+  transform: translateY(0);
+}
+
+.search-drawer .drawer-side > *:not(.drawer-overlay) {
+  transform: translateY(-100%);
+}
+
+.search-drawer .drawer-toggle:checked ~ .drawer-side > *:not(.drawer-overlay) {
+  transform: translateY(0);
+}
+
+.search-drawer .drawer-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }

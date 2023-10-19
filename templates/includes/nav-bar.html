@@ -9,12 +9,8 @@
 
     <!-- Search Input -->
     <div class="flex-none gap-2 flex items-center">
-        <!-- Show this input only on medium screens and above -->
-        <div class="form-control hidden md:inline-block">
-          <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
-        </div>
-      
-        <label tabindex="0" class="btn btn-ghost btn-circle md:hidden">
+        <!-- Hide the input and only show the icon -->
+        <label for="my-search-drawer" tabindex="0" class="btn btn-ghost btn-circle search-drawer-btn">
             <div class="indicator">
                 <svg xmlns="http://www.w3.org/2000/svg"
                      fill="none" viewBox="0 0 24 24"
@@ -27,6 +23,7 @@
                 </svg>
             </div>
         </label>
+        {% include 'includes/search-form.html' %}
     </div>
 
         <!-- Cart Dropdown -->
