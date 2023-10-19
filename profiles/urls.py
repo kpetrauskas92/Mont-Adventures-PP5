@@ -5,6 +5,8 @@ from .views import (login_success_view,
                     cancel_trip,
                     user_favorites,
                     user_reviews,
+                    edit_review,
+                    delete_review,
                     UserProfileUpdateView
                     )
 
@@ -15,6 +17,9 @@ urlpatterns = [
     path('cancel-trip/<int:lineitem_id>/', cancel_trip, name='cancel-trip'),
     path('profile/favorites/', user_favorites, name='user_favorites'),
     path('profile/reviews/', user_reviews, name='user_reviews'),
+    path('edit_review/<int:review_id>/', edit_review, name='edit_review'),
+    path('delete_review/<int:review_id>/', delete_review,
+         name='delete_review'),
     path('profile/edit/', UserProfileUpdateView.as_view(),
          name='edit-profile'),
 ]
