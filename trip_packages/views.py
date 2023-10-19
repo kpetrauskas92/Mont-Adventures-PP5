@@ -1,11 +1,16 @@
 from django.views import View
 from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.db.models import Q, Min, Max
 from ast import literal_eval
-from .models import Trips, AvailableDate, FavoriteTrip
+from .models import Trips, AvailableDate, FavoriteTrip, Reviews
+from profiles.models import UserProfile
 from .trip_utils import display_funcs, MONTHS
 from django.http import HttpResponseBadRequest, HttpResponse, JsonResponse
+from .forms import ReviewForm
+from django.db.models import Prefetch
 
 
 def generate_filter_options(model, field_name, display_func=None):
@@ -209,6 +214,15 @@ class TripDetails(DetailView):
         context = super().get_context_data(**kwargs)
         trip = context['trip']
 
+        # Fetch reviews for this trip
+        reviews = Reviews.objects.filter(trip=trip, is_approved=True)
+
+        filled_stars = 0 if trip.overall_rating is None else round(
+            trip.overall_rating)
+
+        context['reviews'] = reviews
+        context['filled_stars'] = filled_stars
+
         seasons = months_to_seasons(trip.season)
 
         # Populate the trip_details list dynamically based on the trip
@@ -237,9 +251,102 @@ class TripDetails(DetailView):
             ).exists()
 
         context['is_favorite'] = is_favorite
-
         context['trip_details'] = trip_details
+
+        if self.request.user.is_authenticated:
+            context['review_form'] = ReviewForm()
+
         return context
+
+
+class TripReviews(ListView):
+    """
+    List and handle trip reviews.
+
+    This view class fetches and displays all approved reviews
+    related to a specific trip. It also handles the review form
+    for both adding new reviews and editing existing ones.
+    """
+    template_name = 'trip-reviews.html'
+
+    def get(self, request, trip_id, review_id=None, *args, **kwargs):
+        trip = Trips.objects.get(pk=trip_id)
+        print("Debug: trip object:", trip)
+        print("Debug: trip id:", trip.id)
+        reviews = Reviews.objects.select_related('user').prefetch_related(
+            Prefetch('user__userprofile', queryset=UserProfile.objects.all())
+        ).filter(trip=trip, is_approved=True)
+
+        if review_id:
+            existing_review = get_object_or_404(Reviews, id=review_id,
+                                                user=request.user)
+            review_form = ReviewForm(instance=existing_review)
+        else:
+            review_form = ReviewForm()
+
+        context = {
+            'reviews': reviews,
+            'review_form': review_form,
+            'trip': trip,
+        }
+
+        return render(request, 'includes/reviews/trip-reviews.html', context)
+
+
+def trip_review_form(request, trip_id, review_id=None):
+    """
+    Handle the trip review form for adding and editing reviews.
+
+    This function displays a form for adding a new review
+    or editing an existing one. It also handles the submission of this form,
+    validating the input and either saving a
+    new review or updating an existing one.
+    """
+    trip = get_object_or_404(Trips, id=trip_id)
+
+    existing_review = None
+    if review_id:
+        existing_review = get_object_or_404(Reviews,
+                                            id=review_id,
+                                            user=request.user)
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST,
+                          request.FILES,
+                          instance=existing_review)
+        if form.is_valid():
+            new_review = form.save(commit=False)
+            new_review.user = request.user
+            new_review.trip = trip
+            new_review.save()
+            return render(request, 'includes/reviews/trip-review-success.html')
+        else:
+            form_action = reverse(
+                'trip_review_form_with_id',
+                args=[trip.id, review_id]) if review_id else reverse(
+                    'trip_review_form',
+                    args=[trip.id])
+            return render(request, 'includes/reviews/trip-review-form.html',
+                          {'review_form': form,
+                           'trip': trip,
+                           'form_action': form_action})
+    else:
+        form = ReviewForm(instance=existing_review)
+
+    form_title = 'Edit Review' if existing_review else 'Add Review'
+    form_action = reverse(
+        'trip_review_form_with_id',
+        args=[trip.id, review_id]) if review_id else reverse(
+            'trip_review_form',
+            args=[trip.id])
+
+    context = {
+        'review_form': form,
+        'trip': trip,
+        'form_title': form_title,
+        'form_action': form_action
+    }
+    return render(request, 'includes/reviews/trip-review-form.html', context)
 
 
 class BookingDrawer(View):
