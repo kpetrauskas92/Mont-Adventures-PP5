@@ -1,8 +1,13 @@
+import uuid
 from django.db import models
 from django.conf import settings
-from django.db.models import JSONField
+from django.db.models import JSONField, Avg
 from django_countries.fields import CountryField
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
+
 
 MONTHS = [
     '', 'January', 'February', 'March', 'April', 'May', 'June',
@@ -121,12 +126,55 @@ class FavoriteTrip(models.Model):
 
     @classmethod
     def add_favorite(cls, user, trip):
-        # get_or_create returns a tuple of (object, created)
-        # where object is the retrieved or created object
-        # and created is a boolean specifying whether a new object was created
+        # REVIEW
         obj, created = cls.objects.get_or_create(user=user, trip=trip)
 
     @classmethod
     def remove_favorite(cls, user, trip):
         # Delete the favorite if it exists
         cls.objects.filter(user=user, trip=trip).delete()
+
+
+def review_image_path(instance, filename):
+    """
+    Function to determine the upload path for review images.
+
+    - Constructs the path where the review images will be stored.
+    """
+    ext = filename.split('.')[-1]
+    filename = f'{uuid.uuid4()}.{ext}'
+    return f'trip_packages/reviews/trip-{instance.trip.id}/{filename}'
+
+
+class Reviews(models.Model):
+    """
+    Reviews model for storing user reviews of trips.
+
+    - Stores the user who made the review.
+    - Associates the review with a trip.
+    - Holds the rating, comment, and approval status of the review.
+    """
+    user = models.ForeignKey(User, related_name='reviews',
+                             on_delete=models.CASCADE)
+    trip = models.ForeignKey(Trips, related_name='reviews',
+                             on_delete=models.CASCADE)
+    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
+    title = models.CharField(max_length=20, null=True, blank=True)
+    comment = models.TextField(max_length=500)
+    is_approved = models.BooleanField(default=False)
+    image = models.ImageField(upload_to=review_image_path,
+                              null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.first_name} - {self.trip.name} - {self.rating}"
+
+
+# Signal to update overall_rating when a review is saved or deleted
+@receiver([post_save, post_delete], sender=Reviews)
+def update_overall_rating(sender, instance, **kwargs):
+    trip = instance.trip
+    approved_reviews = Reviews.objects.filter(trip=trip, is_approved=True)
+    new_rating = approved_reviews.aggregate(Avg('rating'))['rating__avg']
+    trip.overall_rating = round(new_rating, 1) if new_rating else None
+    trip.save()
