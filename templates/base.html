@@ -31,6 +31,8 @@
     {% endblock %}
 
     {% block extra_css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@latest/dist/css/glide.core.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@latest/dist/css/glide.theme.min.css">
     {% endblock %}
 
     {% block corejs %}
@@ -50,7 +52,7 @@
     <title>Mont Adventures | Summit Your Dreams{% block extra_title %}{% endblock %}</title>
   </head>
 
-  <body flex flex-col min-h-screen>
+  <body flex flex-col min-h-screen hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     <header class="container-fluid fixed-top">
       {% include 'includes/accounts-modal.html' %}
       {% include 'includes/nav-bar.html' %}
@@ -67,6 +69,7 @@
     {% endblock %}
 
     {% block postloadjs %}
+      <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@latest/dist/glide.min.js"></script>
     {% endblock %}
     {% include 'includes/footer.html' %}
   </body>
