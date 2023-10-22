@@ -1,0 +1,42 @@
+{% load static %}
+{% block content %}
+
+<div class="trip-item">
+            <div class="border rounded-lg shadow-xl">
+                <a href="{% url 'trip_details' trip.id %}">
+                    <div class="">
+                        <!-- Image here -->
+                        {% if trip.main_image %}
+                            <img class="w-full  object-cover mb-4 border rounded-t-lg" src="{{ trip.main_image.url }}" alt="{{ trip.name }}">
+                        {% else %}
+                            <img class="w-full  object-cover mb-4" src="{{ trip.default_image_url }}" alt="Default image">
+                        {% endif %}
+                    </div>
+                </a>
+                <div class="mb-2">
+                    <h2 class="font-semibold text-gray-800 pl-5">{{ trip.name }}</h2>
+                    <hr class="mx-5">
+                    <div class="flex justify-evenly mt-3 opacity-70 py-4">
+                        <div class="text-center text-sm w-1/4">
+                            <img src="{% static trip.location_icon %}" alt="Location icon" class="w-6 h-6 mx-auto invert">
+                            <p>{{ trip.location_str }}</p>
+                        </div>
+                        <div class="text-center text-sm w-1/4">
+                            <img src="{% static trip.duration_icon %}" alt="Duration icon" class="w-6 h-6 mx-auto invert">
+                            <p>{{ trip.duration_str }}</p>
+                        </div>
+                        <div class="text-center text-sm  w-1/4">
+                            <img src="{% static trip.difficulty_icon %}" alt="Difficulty icon" class="w-6 h-6 mx-auto invert">
+                            <p>{{ trip.difficulty_str }}</p>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="py-2 px-4 flex justify-between bg-gray-100 border rounded-b-lg">
+                    <button class="btn btn-sm btn-ghost">Book Now</button>
+                    <span class="inline-flex items-center"><strong>€{{ trip.price }}</strong> /pp.</span>
+                </div>
+            </div>
+        </div>
+  
+{% endblock  %}

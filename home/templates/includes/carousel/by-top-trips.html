@@ -1,0 +1,19 @@
+{% load static %}
+<div id="top-trips-carousel" class=" pl-2 glide">
+    <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+            {% for trip in top_trips %}
+                <li class="glide__slide ">
+                    <div class="rounded-2xl z-10"></div>
+                    <div class=" pr-4">
+                        {% include 'includes/trips/trip-cards.html' with trip=trip is_carousel=True hide_favorite_btn=True %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="glide__arrows" data-glide-el="controls">
+        <button class="glide__arrow glide__arrow--left" data-glide-dir="<">&#10094;</button>
+        <button class="glide__arrow glide__arrow--right" data-glide-dir=">">&#10095;</button>
+    </div>
+</div>

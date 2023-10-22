@@ -1,0 +1,27 @@
+{% load static %}
+{% load location_count %}
+{% load countries %}
+
+<div id="country-carousel" class="glide overflow-x-hidden">
+    <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+            {% for country_code, image_url in country_image_map.items %}
+                <li class="glide__slide">
+                    <div class="relative">
+                      <a href="{% url 'trip_packages' %}?filter=on&location={{ country_code }}">
+                        <img src="{% static image_url %}" alt="{{ country_code }}" class="rounded-2xl shadow-lg z-0">
+                      </a>  
+                        <div class="absolute top-5 left-0 w-full text-center font-bold z-10">
+                          <p class="text-white uppercase text-5xl">{{ country_code|country_name }}</p>
+                            <p class="text-white text-xl">Trips: {{ location_count_dict|get_item:country_code|default:"0" }}</p>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="glide__arrows" data-glide-el="controls">
+        <button class="glide__arrow glide__arrow--left" data-glide-dir="<">&#10094;</button>
+        <button class="glide__arrow glide__arrow--right" data-glide-dir=">">&#10095;</button>
+    </div>
+</div>
