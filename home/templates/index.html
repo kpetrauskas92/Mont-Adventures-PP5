@@ -4,6 +4,7 @@
 {% block content %}
 
 {% load static %}
+<link rel="stylesheet" href="{% static 'carousel/css/carousel.css' %}">
 <div class="hero min-h-screen-hero relative"
      style="background-image: url({% static 'web_elements/hero/main-hero-bg.webp' %});">
   <div class="hero-content text-left text-neutral-content absolute top-2 left-0">
@@ -52,7 +53,7 @@
   <div class="divider px-2"> 
     <h2 class="font-bold text-2xl">Locations</h2>
   </div>
-
+{% include 'includes/carousel/by-country.html' %}
   <div class="flex justify-center">
     <svg xmlns="http://www.w3.org/2000/svg"
          fill="#F0B760"
@@ -67,6 +68,6 @@
   <div class="divider px-2">
     <h2 class="font-bold text-2xl">Top Climbs</h2>
   </div>
-
-
+  {% include 'includes/carousel/by-top-trips.html' %}
+  <script src="{% static 'carousel/js/carousel.js' %}"></script>
 {% endblock %}
