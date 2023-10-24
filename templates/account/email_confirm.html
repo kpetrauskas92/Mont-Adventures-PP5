@@ -1,41 +1,51 @@
 {% extends 'base.html' %}
-
-{% load i18n %}
 {% load static %}
 {% load account %}
 
-{% block head_title %}{% trans "Confirm Email Address" %}{% endblock %}
-
+{% block head_title %}Confirm Email Address{% endblock %}
 
 {% block content %}
-<div class="grid place-items-center min-h-screen"
-     style="background-image: url({% static 'web_elements/hero/main-hero-bg.webp' %}); background-attachment: fixed; background-size: cover;">
-    <div class="w-[91.666667%] max-w-[32rem] rounded-xl p-6 shadow-2xl bg-white">
+<!-- Main Content -->
+<section aria-labelledby="confirm-email-title">
 
-        <h1 class="text-2xl font-bold my-2 text-center">{% trans "Confirm Email Address" %}</h1>
+    <div class="grid place-items-center min-h-screen"
+            style="background-image: url({% static 'web_elements/hero/main-hero-bg.webp' %}); background-size: cover;">
+        
+        <div class="w-[91.666667%] max-w-[32rem] rounded-xl p-6 shadow-2xl bg-white">
 
-        {% if confirmation %}
+            <!-- SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="#F7AD3A" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-16 h-16 mx-auto" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+            </svg>
 
-        {% user_display confirmation.email_address.user as user_display %}
+            <!-- Title -->
+            <h1 id="confirm-email-title" class="text-2xl font-bold my-2 text-center" aria-label="Confirm Email Address Heading">Confirm Email Address</h1>
 
-        {% if can_confirm %}
-        <p>{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an email address for user {{ user_display }}.{% endblocktrans %}</p>
+            {% if confirmation %}
+            {% user_display confirmation.email_address.user as user_display %}
+            
+            {% if can_confirm %}
 
-        <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
-            {% csrf_token %}
-                <button class="btn w-full mt-4" type="submit">{% trans 'Confirm' %}</button>
-        </form>
-        {% else %}
-        <p>{% blocktrans %}Unable to confirm {{ email }} because it is already confirmed by a different account.{% endblocktrans %}</p>
-        {% endif %}
+            <!-- Confirmation message -->
+            <p class="my-3 text-center">Please confirm that <a href="mailto:{{ email }}" class="text-blue-500 font-bold text-center">{{ email }}</a> is an email address for user <strong>{{ user_display }}</strong>.</p>
 
-        {% else %}
-
-        {% url 'account_email' as email_url %}
-
-        <p>{% blocktrans %}This email confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new email confirmation request</a>.{% endblocktrans %}</p>
-
-        {% endif %}
+            <!-- Confirm button -->
+            <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+                {% csrf_token %}
+                <button class="btn btn-primary w-full mt-4 text-secondary" type="submit">Confirm</button>
+            </form>
+            {% else %}
+                <p>Unable to confirm {{ email }} because it is already confirmed by a different account.</p>
+            {% endif %}
+            {% else %}
+            {% url 'account_email' as email_url %}
+            <p class="text-center" >This email confirmation link expired or is invalid.</p>
+            <p class="text-blue-500 text-center">
+                <a href="{{ email_url }}">Issue a new email confirmation request</a>
+            </p>
+            {% endif %}
+        </div>
     </div>
-</div>
+
+</section>
 {% endblock %}

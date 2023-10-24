@@ -1,27 +1,44 @@
-{% load i18n %}
 {% load tailwind_filters %}
+
 {% block content %}
-  <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick="document.getElementById('my_modal_3').close();">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  </button>
-    <h1 class="text-2xl font-bold mt-2 text-center">{% trans "Login" %}</h1>
-    <div class="flex justify-center my-2 text-sm">
-      <p>Don't have an account?</p>
-      <a href="{% url 'account_signup' %}" class="text-blue-500 ml-1" hx-get="{% url 'account_signup' %}" hx-target="#my_modal_3 .modal-box">Sign Up</a>
-    </div>  
-    <form method="POST" hx-post="{% url 'account_login' %}" hx-target="#my_modal_3 .modal-box">
-      {% csrf_token %}
-      {{ form|crispy }}
-      {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-      {% endif %}
-      <a href="{% url 'account_reset_password' %}" class="text-blue-500 text-sm" hx-get="{% url 'account_reset_password' %}" hx-target="#my_modal_3 .modal-box">Forgot Password?</a>
-      <div class="flex flex-col w-full border-opacity-50 mt-3">
-        <div>
-          <button class="btn btn-accent w-full text-white" type="submit">{% trans "Login" %}</button>
-        </div>
-      </div>
-  </form>
+
+<!-- Main content -->
+<section aria-labelledby="login-title">
+
+	<!-- Icon -->
+	<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="#F7AD3A" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-16 h-16 mx-auto">
+		<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path>
+	</svg>
+	
+	<!-- Close button -->
+	<button type="button" aria-label="Close Login Modal" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick="document.getElementById('my_modal_3').close();">
+		<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+			<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+		</svg>
+	</button>
+
+	<!-- Heading section -->
+	<h1 id="login-title" class="text-2xl font-bold mt-2 text-center">Login</h1>
+
+	<!-- Signup Link -->
+	<div class="flex justify-center my-2 text-sm">
+		<p>Don't have an account?</p>
+			<a href="{% url 'account_signup' %}" class="text-blue-500 ml-1" hx-get="{% url 'account_signup' %}" hx-target="#my_modal_3 .modal-box">Sign Up</a>
+	</div>
+
+	<!-- Form Section -->
+	<form method="POST" hx-post="{{ request.path }}" hx-target="#my_modal_3 .modal-box">
+		{% csrf_token %}
+		{{ form|crispy }}
+		{% if redirect_field_value %}
+		<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+		{% endif %}
+		<a href="{% url 'account_reset_password' %}" class="text-blue-500 text-sm" hx-get="{% url 'account_reset_password' %}" hx-target="#my_modal_3 .modal-box">Forgot Password?</a>
+
+		<!-- Submit Button -->
+		<button class="btn btn-primary w-full text-secondary mt-6" type="submit">Login</button>
+	</form>
+
+</section>
+
 {% endblock %}
