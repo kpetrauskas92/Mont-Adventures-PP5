@@ -1,13 +1,55 @@
-{% if query and query|length >= 3 %}
-    {% if results %}
-        <ul>
-        {% for trip in results %}
-            <li>{{ trip.name }} - {{ trip.location }}</li>
-        {% endfor %}
-        </ul>
+
+<div class="mx-auto max-w-5xl mb-12">
+    {% if query %}
+
+        <!-- If query length is 3 or more -->
+        {% if query|length >= 3 %}
+
+            <!-- If results are found -->
+            {% if results %}
+
+                <!-- Display the number of trips found -->
+                <p class="text-center text-primary font-bold mt-4 uppercase glass bg-secondary rounded py-2"
+                    aria-live="polite">
+                    <span class="btn btn-sm btn-circle btn-primary text-secondary cursor-default">
+                        {{ results|length }}
+                    </span> 
+                    Trip{% if results|length != 1 %}s{% endif %} found
+                </p>
+
+            <!-- If no results are found -->
+            {% else %}
+                <p class="text-center text-primary font-bold mt-4 uppercase glass bg-secondary rounded py-2"
+                    aria-live="polite"
+                    >No results found
+                </p>
+            {% endif %}
+
+        <!-- If query length is less than 3 -->
+        {% elif query|length < 3 %}
+            <p class="text-center text-primary font-bold mt-4 uppercase glass bg-secondary rounded py-2"
+                aria-live="polite"
+                >Enter at least 3 characters to search
+            </p>
+        {% endif %}
+
+    <!-- If no query -->
     {% else %}
-        <p>No results found.</p>
+
+        <!-- Display all trips -->
+        <p class="text-center text-primary font-bold mt-4 uppercase glass bg-secondary rounded py-2">
+            Showing all trips
+        </p>
     {% endif %}
-{% elif query and query|length < 3 %}
-    <p>Please enter at least 3 characters to search.</p>
-{% endif %}
+
+    <!-- Container for search results -->
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+        {% for trip in results %}
+
+            <!-- Individual Trip Card -->
+            <div class="mt-6 rounded-xl shadow-2xl">
+                {% include 'includes/trips/trip-cards.html' %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
