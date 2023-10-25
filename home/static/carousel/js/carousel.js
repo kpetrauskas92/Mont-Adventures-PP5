@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   glideInstances['topTrips'] = new Glide('#top-trips-carousel', {
     startAt: 0,
-    perView: 4,
+    perView: 3,
     breakpoints: {
         1024: {
           perView: 3
         },
-        768: {
+        930: {
           perView: 2
         },
         640: {
