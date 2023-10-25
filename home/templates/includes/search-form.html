@@ -1,28 +1,78 @@
-<!-- Drawer -->
-<div class="drawer search-drawer z-20">
-    <input id="my-search-drawer" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content">
-
-    </div> 
+<!-- Search Drawer -->
+<div class="drawer search-drawer z-10">
+    <input id="my-search-drawer"
+		type="checkbox"
+		class="drawer-toggle"
+		hx-trigger="change" 
+		hx-target="#search-results">
     <div class="drawer-side">
-      <label for="my-search-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-      <div class="menu p-4 h-full w-full bg-base-200 text-base-content">
-        <h1 class="font-bold text-center"> Search for your adventure! </h1>
-        <!-- Search form -->
-        <form method="GET"
-              action="{% url 'search_trips' %}"
-              hx-get="{% url 'search_trips' %}"
-              hx-trigger="keyup delay:100ms"
-              hx-target="#search-results">
-          <div class="form-control">
-            <input type="text" name="q" placeholder="Search" class="input input-bordered w-auto" />
-          </div>
-        </form>
-        
-        <div id="search-results">
-          {% include 'includes/search-results.html' %}
-        </div>
-        
-      </div>
-    </div>
-  </div>
+
+        <!-- Drawer Toggle Label -->
+        <label for="my-search-drawer"
+				aria-label="Close/Open Search"
+				class="drawer-overlay">
+		</label>
+
+		<!-- Drawer Content -->
+        <div class="p-4 min-h-full w-full bg-slate-50 text-base-content">
+
+			<!-- Drawer Header -->
+			<div class="flex flex-col items-center justify-center text-2xl font-bold mb-2">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="#f0b760" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+				</svg>
+				<h1 class="text-center">
+					Search
+				</h1>
+			</div>
+
+            <!-- Search form -->
+            <form method="GET"
+                hx-get="{% url 'search_trips' %}"
+                hx-trigger="keyup delay:100ms"
+                hx-target="#search-results"
+				onkeydown="return event.key !== 'Enter';">
+                <div class="form-control mx-auto max-w-5xl">
+                    <input type="text"
+                        name="q"
+                        placeholder="Search by name or location..."
+                        aria-label="Search by name or location"
+                        class="input input-bordered w-auto">
+                </div>
+            </form>
+
+			<!-- Search Results -->
+			<div id="search-results">
+				{% include 'includes/search-results.html' %}
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		const searchDrawerToggle = document.getElementById("my-search-drawer");
+		const searchInput = document.querySelector("input[name='q']");
+		const searchResultsTarget = document.getElementById("search-results");
+	
+		searchDrawerToggle.addEventListener("change", function() {
+			if (this.checked) {
+				
+				this.setAttribute("hx-get", "{% url 'search_trips' %}?q=");
+				document.body.classList.add("overflow-hidden");
+	
+				
+				var url = "{% url 'search_trips' %}?q=";
+				fetch(url)
+					.then(response => response.text())
+					.then(data => {
+						searchResultsTarget.innerHTML = data;
+					})
+					.catch(error => console.error('Error fetching data:', error));
+			} else {
+				
+				this.removeAttribute("hx-get");
+				document.body.classList.remove("overflow-hidden");
+			}
+		});
+	});
+</script>
