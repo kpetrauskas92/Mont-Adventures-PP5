@@ -56,12 +56,16 @@ def index(request):
 
 def search_trips(request):
     query = request.GET.get('q', '')
-    results = Trips.objects.none()
-
-    if len(query) >= 3:
-        results = Trips.objects.filter(
-            Q(name__icontains=query) | Q(location__icontains=query)
-        )
+    if query:
+        if len(query) >= 3:
+            results = Trips.objects.filter(
+                Q(name__icontains=query) | Q(location__icontains=query)
+            )
+        else:
+            results = Trips.objects.none()
+    else:
+        # Return all trips if query is empty
+        results = Trips.objects.all()
 
     populate_trip_attributes(results)
     context = {
