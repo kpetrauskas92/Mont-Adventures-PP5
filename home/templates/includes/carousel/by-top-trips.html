@@ -1,19 +1,23 @@
 {% load static %}
-<div id="top-trips-carousel" class=" pl-2 glide">
+
+<!-- Top Trips Carousel -->
+<div id="top-trips-carousel" class="glide" aria-label="Top Trips Carousel">
     <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
             {% for trip in top_trips %}
-                <li class="glide__slide ">
-                    <div class="rounded-2xl z-10"></div>
-                    <div class=" pr-4">
-                        {% include 'includes/trips/trip-cards.html' with trip=trip is_carousel=True hide_favorite_btn=True %}
-                    </div>
+                <li class="glide__slide shadow-inner" 
+                    aria-label="Top trip: {{ trip.name }}"
+                >
+                    <!-- Include the trip card template -->
+                    {% include 'includes/trips/trip-cards.html' %}
                 </li>
             {% endfor %}
         </ul>
     </div>
+
+    <!-- Carousel Navigation Arrows -->
     <div class="glide__arrows" data-glide-el="controls">
-        <button class="glide__arrow glide__arrow--left" data-glide-dir="<">&#10094;</button>
-        <button class="glide__arrow glide__arrow--right" data-glide-dir=">">&#10095;</button>
+        <button class="glide__arrow glide__arrow--left" data-glide-dir="<" aria-label="Previous slide">&#10094;</button>
+        <button class="glide__arrow glide__arrow--right" data-glide-dir=">" aria-label="Next slide">&#10095;</button>
     </div>
 </div>

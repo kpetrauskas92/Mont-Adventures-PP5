@@ -2,26 +2,49 @@
 {% load location_count %}
 {% load countries %}
 
-<div id="country-carousel" class="glide overflow-x-hidden">
+<!-- Country Carousel -->
+<div id="country-carousel" class="glide" aria-label="Country Carousel">
     <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
             {% for country_code, image_url in country_image_map.items %}
-                <li class="glide__slide">
-                    <div class="relative">
-                      <a href="{% url 'trip_packages' %}?filter=on&location={{ country_code }}">
-                        <img src="{% static image_url %}" alt="{{ country_code }}" class="rounded-2xl shadow-lg z-0">
-                      </a>  
-                        <div class="absolute top-5 left-0 w-full text-center font-bold z-10">
-                          <p class="text-white uppercase text-5xl">{{ country_code|country_name }}</p>
-                            <p class="text-white text-xl">Trips: {{ location_count_dict|get_item:country_code|default:"0" }}</p>
-                        </div>
+
+                <!-- Each Slide -->
+                <li class="glide__slide relative">
+
+                    <!-- Gradient Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-40 z-9 rounded-b-2xl"></div>
+                    <img src="{% static image_url %}"
+                        alt="{{ country_code|country_name }}"
+                        class="rounded-2xl shadow-lg w-full"
+                    >
+
+                    <!-- Country Info -->
+                    <div class="absolute top-5 left-0 w-full text-center font-bold z-10">
+                        <p class="text-white uppercase text-5xl">
+                            {{ country_code|country_name }}
+                        </p>
+                    </div>
+
+                    <!-- Trips Link at the Bottom -->
+                    <div class="absolute bottom-5 left-0 w-full text-center">
+                        <a href="{% url 'trip_packages' %}?filter=on&location={{ country_code }}"
+                            class="btn glass lg:btn-sm text-white hover:bg-primary"
+                            aria-label="View adventures in {{ country_code|country_name }}"
+                        >
+                            Adventures: 
+                            <span class="text-secondary">
+                                {{ location_count_dict|get_item:country_code|default:"0" }}
+                            </span>
+                        </a>
                     </div>
                 </li>
             {% endfor %}
         </ul>
     </div>
+
+    <!-- Carousel Navigation Arrows -->
     <div class="glide__arrows" data-glide-el="controls">
-        <button class="glide__arrow glide__arrow--left" data-glide-dir="<">&#10094;</button>
-        <button class="glide__arrow glide__arrow--right" data-glide-dir=">">&#10095;</button>
+        <button class="glide__arrow glide__arrow--left" data-glide-dir="<" aria-label="Previous Slide">&#10094;</button>
+        <button class="glide__arrow glide__arrow--right" data-glide-dir=">" aria-label="Next Slide">&#10095;</button>
     </div>
 </div>
