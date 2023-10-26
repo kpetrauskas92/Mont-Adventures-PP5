@@ -89,11 +89,6 @@ def cancel_trip(request, lineitem_id):
         order.grand_total -= lineitem.lineitem_total
         order.save()
 
-        # Update the booked slots for the trip
-        available_date = lineitem.available_date
-        available_date.booked_slots -= lineitem.guests
-        available_date.save()
-
         messages.success(request, 'Trip canceled successfully.')
 
         return redirect('profile')
