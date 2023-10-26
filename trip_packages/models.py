@@ -45,7 +45,7 @@ class Trips(models.Model):
     season = JSONField(db_index=True)
     max_group_size = models.IntegerField(db_index=True)
     overall_rating = models.DecimalField(max_digits=3, decimal_places=1,
-                                         null=True, blank=True, db_index=True)
+                                         default=0.0, db_index=True)
     difficulty = models.IntegerField(db_index=True,
                                      choices=DifficultyLevel.choices)
 
