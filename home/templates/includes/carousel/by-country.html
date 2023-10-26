@@ -3,7 +3,7 @@
 {% load countries %}
 
 <!-- Country Carousel -->
-<div id="country-carousel" class="glide" aria-label="Country Carousel">
+<div id="country-carousel" class="glide mx-auto max-w-md sm:max-w-5xl" aria-label="Country Carousel">
     <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
             {% for country_code, image_url in country_image_map.items %}
