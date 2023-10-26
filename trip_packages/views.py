@@ -134,6 +134,22 @@ class TripPackages(View):
         else:
             user_favorites = []
 
+        for trip in filtered_trips:
+            trip.filled_stars = 0 if trip.overall_rating is None else round(
+                trip.overall_rating)
+            trip.review_count = trip.reviews.filter(is_approved=True).count()
+            trip.duration_str = display_funcs['duration'](trip.duration)
+            trip.duration_icon = (
+                'web_elements/svg_icons/trip_icons/duration_icon.svg')
+
+            trip.difficulty_str = display_funcs['difficulty'](trip.difficulty)
+            trip.difficulty_icon = (
+                'web_elements/svg_icons/trip_icons/difficulty_icon.svg')
+
+            trip.location_str = display_funcs['location'](trip.location)
+            trip.location_icon = (
+                'web_elements/svg_icons/trip_icons/location_icon.svg')
+
         if request.headers.get('HX-Request'):
             return render(request,
                           'includes/filter/filtered-trips.html',
@@ -216,12 +232,19 @@ class TripDetails(DetailView):
 
         # Fetch reviews for this trip
         reviews = Reviews.objects.filter(trip=trip, is_approved=True)
+        review_count = reviews.count()
 
         filled_stars = 0 if trip.overall_rating is None else round(
             trip.overall_rating)
 
+        all_trips = Trips.objects.all()
+
+        for each_trip in all_trips:
+            each_trip.filled_stars = round(each_trip.overall_rating)
+
         context['reviews'] = reviews
         context['filled_stars'] = filled_stars
+        context['review_count'] = review_count
 
         seasons = months_to_seasons(trip.season)
 
@@ -241,7 +264,10 @@ class TripDetails(DetailView):
              'value': display_funcs['max_group_size'](trip.max_group_size)},
             {'icon': 'web_elements/svg_icons/trip_icons/difficulty_icon.svg',
              'alt': 'Difficulty Icon', 'label': 'Difficulty',
-             'value': display_funcs['difficulty'](trip.difficulty)}
+             'value': display_funcs['difficulty'](trip.difficulty)},
+            {'icon': 'web_elements/svg_icons/trip_icons/rating_icon.svg',
+             'alt': 'Rating Icon', 'label': 'Rating',
+             'value': display_funcs['overall_rating'](trip.overall_rating)},
         ]
 
         is_favorite = False
@@ -271,8 +297,7 @@ class TripReviews(ListView):
 
     def get(self, request, trip_id, review_id=None, *args, **kwargs):
         trip = Trips.objects.get(pk=trip_id)
-        print("Debug: trip object:", trip)
-        print("Debug: trip id:", trip.id)
+
         reviews = Reviews.objects.select_related('user').prefetch_related(
             Prefetch('user__userprofile', queryset=UserProfile.objects.all())
         ).filter(trip=trip, is_approved=True)
