@@ -13,20 +13,21 @@
 	<!-- Hero Section -->
 	<div class="hero min-h-screen-hero relative"
 		style="background-image: url({% static 'web_elements/hero/main-hero-bg.webp' %}); background-position: bottom;">
-		<div class="animate-fade-up hero-content glass shadow-md rounded-br-2xl flex justify-start absolute top-0 left-0">
+		<div class="min-h-[80vh] shadow-none p-5 w-full sm:w-1/2 flex justify-start absolute top-0 left-0">
 			<div class="mx-left-0">
+
 				<!-- Title -->
-				<h1 class="mb-3 text-white text-5xl font-bold">
+				<h1 class="mb-3 text-white text-5xl font-bold uppercase">
 					Ascend into
-					<span class="text-[#f0b760] font-custom text-7xl font-bold">
+					<span class="text-[#f0b760] font-custom text-7xl lowercase font-bold">
 						Adventure
 					</span>
 				</h1>
 
 				<!-- Subtitle -->
-				<h2 class=" text-white text-3xl font-bold">
+				<h2 class=" text-white text-3xl font-bold uppercase">
 					Where every pitch is a 
-					<span class="text-[#f0b760] font-custom  text-5xl">
+					<span class="text-[#f0b760] font-custom lowercase text-5xl">
 						Story
 					</span>
 				</h2>
@@ -53,6 +54,7 @@
 		</div>
 	</div>
 
+
 	<!-- SVG Location Separator -->
 	<div class="divider px-2 pt-12"> 
 		<svg aria-hidden="true"
@@ -70,7 +72,7 @@
 	</div>
 
 	<!-- Locations Carousel Section -->
-	<div class="mx-auto max-w-md sm:max-w-5xl">
+	<div class="">
 		<h2 class="font-bold text-2xl text-center mb-4 pt-3"
 			>Locations
 		</h2>
@@ -93,13 +95,12 @@
 	</div>
 
 	<!-- Top Trips Carousel Section -->
-	<div class="mx-auto max-w-md sm:max-w-5xl">
+	<div class="">
 		<h2 class="font-bold text-2xl text-center mb-4 pt-3"
 			>Top Adventures
 		</h2>
 		{% include 'includes/carousel/by-top-trips.html' %}
 	<div>
-
 
 <!-- Carousel Script -->
 <script src="{% static 'carousel/js/carousel.js' %}"></script>
