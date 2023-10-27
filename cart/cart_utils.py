@@ -22,19 +22,19 @@ def add_to_cart(request, trip, available_date, guests=0):
         guests (int, optional): The number of additional guests. Defaults to 0.
 
     Returns:
-        bool: True if the trip was added, False otherwise.
+        tuple: A tuple containing the cart and the total number of items in the cart.
     """
     # Decrement one slot because one is taken by the user who adds the trip
     remaining_slots = available_date.remaining_slots() - 1
 
     if guests > remaining_slots:
-        return False
+        return None, 0
 
     cart = get_cart(request)
 
     for item in cart:
         if item['available_date_id'] == available_date.id:
-            return False
+            return None, 0
 
     try:
         trip_image_url = request.build_absolute_uri(trip.main_image.url)
@@ -55,7 +55,8 @@ def add_to_cart(request, trip, available_date, guests=0):
     }
     cart.append(cart_item)
     request.session['cart'] = cart
-    return True
+
+    return cart, len(cart)
 
 
 def remove_from_cart(request, trip_id, available_date_id):

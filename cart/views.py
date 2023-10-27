@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views import View
 from trip_packages.models import Trips, AvailableDate
 from .cart_utils import (
@@ -53,9 +54,36 @@ def add_to_cart_view(request, trip_id, available_date_id):
     """
     trip = get_object_or_404(Trips, id=trip_id)
     available_date = get_object_or_404(AvailableDate, id=available_date_id)
-    if not add_to_cart(request, trip, available_date):
+    cart, cart_total_items = add_to_cart(request, trip, available_date)
+
+    response = HttpResponse()
+
+    if cart is None:
+        cart, cart_total_items = get_cart(request), len(get_cart(request))
 
         messages.warning(request, 'This date is already in your cart.')
+
+        if 'HX-Request' in request.headers:
+            response['HX-Item-Already-In-Cart'] = 'true'
+            cart_html = render_to_string('includes/cart-items.html', {
+                'cart': cart,
+                'cart_total_items': cart_total_items,
+                'messages': messages.get_messages(request)
+            })
+            response.content = cart_html
+            return response
+        else:
+            return redirect('cart')
+
+    if 'HX-Request' in request.headers:
+        response['HX-Item-Added'] = 'true'
+        cart_html = render_to_string('includes/cart-items.html', {
+            'cart': cart,
+            'cart_total_items': cart_total_items
+        })
+        response.content = cart_html
+        return response
+
     return redirect('cart')
 
 
