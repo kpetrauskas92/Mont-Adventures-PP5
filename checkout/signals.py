@@ -10,18 +10,19 @@ def update_booked_slots_on_create_or_update(sender, instance, **kwargs):
     when an OrderLineItem is created, updated, or canceled.
     """
     if instance.pk is None:
-        change_in_guests = instance.guests
+        change_in_guests = instance.guests + 1
     else:
         old_instance = OrderLineItem.objects.get(pk=instance.pk)
-        change_in_guests = instance.guests - old_instance.guests
+        change_in_guests = (instance.guests + 1) - (old_instance.guests + 1)
 
         # Handle cancellation
         if old_instance.status == 'active' and instance.status == 'canceled':
-            change_in_guests = -old_instance.guests
+            change_in_guests = -(old_instance.guests + 1)
 
     available_date = instance.available_date
     available_date.booked_slots += change_in_guests
     available_date.save()
+
     print(f"Updating booked_slots. Change in guests: {change_in_guests}")
 
 
