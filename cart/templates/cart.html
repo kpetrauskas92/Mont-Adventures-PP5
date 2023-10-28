@@ -1,49 +1,92 @@
 {% extends 'base.html' %}
+
 {% load static %}
+
 {% load custom_filters %}
 
 {% block content %}
+
+<!-- Hero section with background image and overlay -->
 <div class="hero min-h-[300px]"
-     style="background-image: url({% static 'web_elements\banners\cart-banner.jpg' %});">
-    <div class="hero-overlay bg-opacity-60"></div>
+    style="background-image: url({% static 'web_elements\banners\cart-banner.jpg' %}); background-position: center;">
+    <div class="hero-overlay bg-gray-900 bg-opacity-50"></div>
     <div class="hero-content text-center text-neutral-content">
         <div class="max-w-md">
-            <h1 class="mb-5 text-5xl font-bold font-custom">Booking Cart</h1>
-            <p class="mb-5">example text.</p>
+            <h1 class="mb-5 text-6xl font-bold font-custom text-secondary">
+                The Mountains Are Calling
+            </h1>
+            <p class="mb-5 text-white">
+                "Mountains are both a challenge and a sanctuary, teaching us lessons in humility and preparation. Every step you're about to take will bring you closer to nature, to others, and most importantly, to yourself. It's a journey towards a safer, more fulfilling adventure."
+            </p>
         </div>
     </div>
 </div>
+
+<!-- Main content area -->
 <div class="py-10">
-    <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
+    <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-4 xl:px-0">
+
+        <!-- Check if cart has items -->
         {% if cart %}
         <div class="rounded-lg md:w-2/3">
             {% for item in cart %}
-            <div class="mb-6 rounded-lg bg-white p-6 shadow-md flex flex-col justify-between relative">
+            <div class="mb-6 rounded-lg bg-white shadow-xl flex flex-col justify-between relative">
+
+                <!-- Remove item button -->
                 <a href="{% url 'remove_from_cart_view' item.trip_id item.available_date_id %}" class="absolute top-2 right-2">
                     <button type="button" class="btn btn-sm btn-circle">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="orange" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            fill="orange"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-5 h-5">
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" 
+                                />
                         </svg>                                           
                     </button>
                 </a>
-                <div class="flex flex-col sm:flex-row">
-                    <img src="{{ item.trip_image|default:'/media/trip_packages/main_images/default-trip-img.jpg' }}" alt="trip-image" class="w-full rounded-lg sm:w-[14rem] mb-4 sm:mb-0" />
-                    <div class="ml-0 sm:ml-4 mt-2">
-                        <h2 class="text-2xl font-bold">{{ item.trip_name }}</h2>
-                        <p class="mt-1">Date: {{ item.start_date }} to {{ item.end_date }}</p>
-                        <p class="hidden">€{{ item.base_price }}</p>
-                        <div class="mt-4 flex space-x-4 justify-between">
-                            <form method="post" action="{% url 'update_cart_view' item.trip_id item.available_date_id %}">
+                <!-- Cart Item details -->
+                <div class="flex flex-col sm:flex-row shadow-inner">
+                    <img src="{{ item.trip_image|default:'/media/trip_packages/main_images/default-trip-img.jpg' }}"
+                        alt="trip-image"
+                        class="rounded-t-lg sm:rounded-r-none sm:rounded-t-lg sm:rounded-l-lg object-cover w-full sm:max-w-[250px] sm:max-h-[250px] md:max-w-[190px] md:max-h-[200px] lg:max-w-[240px] lg:max-h-[220px]" />
+                    <div class="ml-0 sm:ml-2 mt-2 pb-2 pl-3 sm:pl-1">
+
+                        <h2 class="text-xl md:text-sm lg:text-xl text-gray-900 font-bold pr-10">
+                            {{ item.trip_name }}
+                        </h2>
+
+                        <p class="mt-2 font-medium text-sm text-gray-500">Start Date:
+                            <span class="ml-1 mb-2 badge glass border-none  font-semibold">
+                                {{ item.start_date }}
+                            </span>
+                        </p> 
+                        <p class="font-medium text-sm text-gray-500">End Date:
+                            <span class="ml-3 badge glass border-none  font-semibold">
+                                {{ item.end_date }}
+                            </spav>
+                        </p>
+
+                        <!-- Add additional guests section -->
+                        <div class=" flex space-x-4 justify-between mt-6">
+                            <form method="POST" 
+                                action="{% url 'update_cart_view' item.trip_id item.available_date_id %}">
                                 {% csrf_token %}
-                                <p>Add guests to this trip:</p>
+                                <p class="font-medium text-gray-500 text-xs">Add Additional Guests</p>
                                 <div class="flex items-center border-gray-100">
-                                    <select class="select select-bordered select-sm w-full max-w-xs mr-2" name="guests">
+                                    <select class="select select-bordered select-sm w-full max-w-xs mr-2"
+                                            name="guests">
                                             <option value="0">0</option>
                                         {% for i in item.remaining_slots|get_range %}
                                             <option>{{ i }}</option>
                                         {% endfor %}
-                                      </select>
-                                    <button type="submit" class="btn btn-sm">+</button>
+                                    </select>
+                                    <button type="submit"
+                                            class="btn btn-sm text-xl">+
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -52,40 +95,70 @@
             </div>
             {% endfor %}
         </div>
+
         <!-- Subtotal section -->
-            <div class="mt-6 h-full rounded-lg border text-white bg-gray-900 p-6 shadow-md md:mt-0 md:w-1/3">
-                <h2 class="text-center text-2xl">Order Summary</h2>
+            <div class="mt-3  h-full rounded-lg text-white bg-gray-900 p-6 shadow-lg md:mt-0 md:w-[38%]">
+                    <h2 class="text-center font-bold text-2xl uppercase">
+                        Order Summary
+                    </h2>
                 <hr class="my-4">
-                {% for item in cart %}
-                    <div class="mb-2 flex justify-between">
-                        <p class="">{{ item.trip_name }}</p>
-                        <p class="">€{{ item.base_price }}</p>
-                    </div>
-                    <div class="mb-2 flex justify-between">
-                        <p class="text-sm">Additional Guests: {{ item.guests }}</p>
-                        <p class="">€{{ item.guests|multiply:item.base_price }}</p>
-                    </div>
-                {% endfor %}
+                <div class="rounded-lg">
+                    {% for item in cart %}
+                        <div class="my-2 flex justify-between items-center bg-secondary glass p-2 rounded-lg">
+                            <p class="text-sm text-primary font-bold max-w-[7rem] sm:max-w-[12rem] md:max-w-[7rem]">
+                                {{ item.trip_name }}
+                            </p>
+                            <p class="text-primary font-bold">€
+                                {{ item.base_price }}
+                            </p>
+                        </div>
+                        <div class=" flex justify-between items-center px-2">
+                            <p class="text-xs text-white font-bold max-w-[9rem]">
+                                Additional Guests: 
+                                <span class="ml-1 badge badge-sm p-2 font-bold">
+                                    {{ item.guests }}
+                                </span>
+                            </p>
+                            <p class=" text-sm text-white">€
+                                {{ item.guests|multiply:item.base_price }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
                 <hr class="my-4">
                 <div class="flex justify-between">
-                    <p class="text-lg font-bold">Total</p>
+                    <p class="text-lg font-bold">
+                        Total Price
+                    </p>
                     <div class="">
-                        <p class="text-lg font-bold">€{{ total }} EUR</p>
-                        <p class="text-sm">including VAT</p>
+                        <p class="text-lg font-bold">
+                            €{{ total }} EUR
+                        </p>
+                        <p class="text-xs text-right">
+                            including VAT
+                        </p>
                     </div>
                 </div>
-                <button class="btn btn-secondary w-full mt-3"
+                <button class="btn glass bg-secondary hover:bg-accent w-full mt-3"
                         hx-get="{% url 'checkout' %}"
                         hx-target="#my_modal_3 .modal-box"
-                        hx-select="#checkout_form"
+                        hx-select="#checkout_form" 
                         onclick="my_modal_3.showModal()">Proceed to Payment
                 </button>
             </div>
         {% else %}
+
+            <!-- Empty cart message -->
             <div class="mt-6 h-full rounded-lg border text-black p-6 shadow-md md:mt-0 md:w-2/3">
-                <h2 class="text-center text-2xl">Your Cart is Empty</h2>
-                <p class="text-center mt-4">You have no items in your cart.</p>
-                <a href="{% url 'trip_packages' %}" class="btn btn-secondary mt-6 w-full py-1.5">Browse Trips</a>
+                <h2 class="text-center text-2xl">
+                    Your Cart is Empty
+                </h2>
+                <p class="text-center mt-4">
+                    You have no trips in your cart.
+                </p>
+                <a href="{% url 'trip_packages' %}" class="btn btn-secondary mt-6 w-full py-1.5">
+                    Browse Trips
+                </a>
             </div>
         {% endif %}
     </div>
