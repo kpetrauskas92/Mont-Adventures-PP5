@@ -1,15 +1,17 @@
 [
+    
     {
         "model": "trip_packages.Trips",
         "pk": 1,
         "fields": {
-            "main_image": "trip_packages/main_images/mont-blanc-main.jpg",
-            "name": "Climb Mont Blanc (4810m)",
+            "main_image": "trip_packages/main_images/mont-blanc-main.webp",
+            "name": "Summit Mont Blanc in Chamonix",
             "price": 3000,
             "duration": 7,
-            "location": "France",
+            "location": "FR",
             "season": [6, 7, 9],
             "max_group_size": 4,
+            "overall_rating": 0.0,
             "difficulty": 4
         }
     },
@@ -17,28 +19,286 @@
         "model": "trip_packages.Trips",
         "pk": 2,
         "fields": {
-            "main_image": "trip_packages/main_images/mount-etna-main.jpg",
-            "name": "Hike Mount Etna in Winter",
-            "price": 760,
-            "duration": 3,
-            "location": "Italy",
-            "season": [1, 2, 3],
+            "main_image": "trip_packages/main_images/GR20-corsica-main.webp",
+            "name": "Hike the GR20 Trail in Corsica",
+            "price": 2000,
+            "duration": 15,
+            "location": "FR",
+            "season": [6, 7, 8, 9],
             "max_group_size": 10,
-            "difficulty": 2
+            "overall_rating": 0.0,
+            "difficulty": 4
         }
     },
     {
         "model": "trip_packages.Trips",
         "pk": 3,
         "fields": {
-            "main_image": "trip_packages/main_images/gran-paradiso-main.jpg",
-            "name": "Trekking in the Gran Paradiso",
+            "main_image": "trip_packages/main_images/french-alps-main.webp",
+            "name": "Mountaineering in the French Alps",
+            "price": 2500,
+            "duration": 10,
+            "location": "FR",
+            "season": [6, 7, 8],
+            "max_group_size": 8,
+            "overall_rating": 0.0,
+            "difficulty": 4
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 4,
+        "fields": {
+            "main_image": "trip_packages/main_images/mount-etna-main.webp",
+            "name": "Hike Mount Etna in Sicilian Winter",
+            "price": 760,
+            "duration": 3,
+            "location": "IT",
+            "season": [1, 2, 3],
+            "max_group_size": 10,
+            "overall_rating": 0.0,
+            "difficulty": 2
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 5,
+        "fields": {
+            "main_image": "trip_packages/main_images/gran-paradiso-main.webp",
+            "name": "Adventure in the Gran Paradiso",
             "price": 779,
             "duration": 3,
-            "location": "Italy",
+            "location": "IT",
             "season": [6, 7, 8, 9],
             "max_group_size": 10,
+            "overall_rating": 0.0,
+            "difficulty": 4
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 6,
+        "fields": {
+            "main_image": "trip_packages/main_images/dolomites-via-ferrata-main.webp",
+            "name": "Dolomites Via Ferrata Experience",
+            "price": 1250,
+            "duration": 7,
+            "location": "IT",
+            "season": [6, 7, 8, 9],
+            "max_group_size": 8,
+            "overall_rating": 0.0,
             "difficulty": 3
         }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 7,
+        "fields": {
+            "main_image": "trip_packages/main_images/camino-trek-main.webp",
+            "name": "Camino de Santiago Trek",
+            "price": 1990,
+            "duration": 10,
+            "location": "ES",
+            "season": [4, 5, 6, 9, 10],
+            "max_group_size": 15,
+            "overall_rating": 0.0,
+            "difficulty": 2
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 8,
+        "fields": {
+            "main_image": "trip_packages/main_images/mulhacen-main.webp",
+            "name": "Hike the Mulhacén in Sierra Nevada",
+            "price": 600,
+            "duration": 3,
+            "location": "ES",
+            "season": [6, 7, 8, 9],
+            "max_group_size": 8,
+            "overall_rating": 0.0,
+            "difficulty": 3
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 9,
+        "fields": {
+            "main_image": "trip_packages/main_images/ben-nevis-main.webp",
+            "name": "Ben Nevis Summit Adventure",
+            "price": 200,
+            "duration": 2,
+            "location": "GB",
+            "season": [5, 6, 7, 8],
+            "max_group_size": 12,
+            "overall_rating": 0.0,
+            "difficulty": 2
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 10,
+        "fields": {
+            "main_image": "trip_packages/main_images/three-peaks-main.webp",
+            "name": "Three Peaks Challenge in the UK",
+            "price": 500,
+            "duration": 3,
+            "location": "GB",
+            "season": [5, 6, 7, 8],
+            "max_group_size": 10,
+            "overall_rating": 0.0,
+            "difficulty": 3
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 11,
+        "fields": {
+            "main_image": "trip_packages/main_images/carrauntoohil-main.webp",
+            "name": "Carrauntoohil Ascent in Ireland",
+            "price": 200,
+            "duration": 1,
+            "location": "IE",
+            "season": [5, 6, 7, 8, 9],
+            "max_group_size": 15,
+            "overall_rating": 0.0,
+            "difficulty": 2
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 12,
+        "fields": {
+            "main_image": "trip_packages/main_images/mourne-mountains-main.webp",
+            "name": "Hiking in the Mourne Mountains",
+            "price": 250,
+            "duration": 2,
+            "location": "IE",
+            "season": [4, 5, 6, 7, 8, 9],
+            "max_group_size": 10,
+            "overall_rating": 0.0,
+            "difficulty": 3
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 13,
+        "fields": {
+            "main_image": "trip_packages/main_images/cliffs-of-moher-main.webp",
+            "name": "Cliffs of Moher Trek in Ireland",
+            "price": 350,
+            "duration": 2,
+            "location": "IE",
+            "season": [4, 5, 6, 7, 8, 9],
+            "max_group_size": 15,
+            "overall_rating": 0.0,
+            "difficulty": 1
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 14,
+        "fields": {
+            "main_image": "trip_packages/main_images/trolltunga-main.webp",
+            "name": "Trolltunga Hike in Norway's Fjords",
+            "price": 500,
+            "duration": 2,
+            "location": "NO",
+            "season": [6, 7, 8],
+            "max_group_size": 10,
+            "overall_rating": 0.0,
+            "difficulty": 3
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 15,
+        "fields": {
+            "main_image": "trip_packages/main_images/galdhopiggen-main.webp",
+            "name": "Ascent of Galdhøpiggen",
+            "price": 730,
+            "duration": 1,
+            "location": "NO",
+            "season": [6, 7, 8],
+            "max_group_size": 8,
+            "overall_rating": 0.0,
+            "difficulty": 4
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 16,
+        "fields": {
+            "main_image": "trip_packages/main_images/everest-base-camp-main.webp",
+            "name": "Everest Base Camp Trek in Nepal",
+            "price": 3200,
+            "duration": 12,
+            "location": "NP",
+            "season": [3, 4, 10, 11],
+            "max_group_size": 12,
+            "overall_rating": 0.0,
+            "difficulty": 4
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 17,
+        "fields": {
+            "main_image": "trip_packages/main_images/annapurna-circuit-main.webp",
+            "name": "Trek the Annapurna Circuit Route",
+            "price": 2600,
+            "duration": 14,
+            "location": "NP",
+            "season": [3, 4, 10, 11],
+            "max_group_size": 15,
+            "overall_rating": 0.0,
+            "difficulty": 3
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 18,
+        "fields": {
+            "main_image": "trip_packages/main_images/manaslu-circuit-main.webp",
+            "name": "Journey Through Manaslu Circuit",
+            "price": 3090,
+            "duration": 14,
+            "location": "NP",
+            "season": [3, 4, 10, 11],
+            "max_group_size": 8,
+            "overall_rating": 0.0,
+            "difficulty": 4
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 19,
+        "fields": {
+            "main_image": "trip_packages/main_images/k2-base-camp-main.webp",
+            "name": "Expedition to K2 Base Camp",
+            "price": 2500,
+            "duration": 14,
+            "location": "PK",
+            "season": [6, 7, 8],
+            "max_group_size": 12,
+            "overall_rating": 0.0,
+            "difficulty": 4
+        }
+    },
+    {
+        "model": "trip_packages.Trips",
+        "pk": 20,
+        "fields": {
+            "main_image": "trip_packages/main_images/concordia-main.webp",
+            "name": "Concordia Mountain Base Trekking",
+            "price": 2200,
+            "duration": 12,
+            "location": "PK",
+            "season": [6, 7, 8],
+            "overall_rating": 0.0,
+            "max_group_size": 8,
+            "difficulty": 4
+        }
     }
+
 ]

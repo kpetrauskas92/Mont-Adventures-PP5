@@ -1,0 +1,303 @@
+[
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 1,
+        "fields": {
+            "trip": 1,
+            "trip_overview": "Summit Mont Blanc in Chamonix is a 7-day adventure that takes you to the highest peaks of the French Alps. Experience breathtaking views and challenging hikes.",
+            "included": "Professional guides, All meals during the trek, Accommodation",
+            "not_included": "Airfare, Personal equipment, Travel insurance",
+            "equipment_list": "Hiking boots, Trekking poles, Weather-appropriate clothing",
+            "skill_level": "Intermediate to Advanced",
+            "weather_conditions": "Expect varied weather conditions including sunny days and occasional snowfall.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Ensure you have adequate travel insurance, Follow guide's instructions at all times."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 2,
+        "fields": {
+            "trip": 2,
+            "trip_overview": "The GR20 in Corsica is a 15-day trek that is considered one of the most beautiful and challenging in Europe. Navigate through stunning landscapes, rocky terrains, and lush forests.",
+            "included": "Experienced guides, All meals during the trek, Accommodation",
+            "not_included": "Airfare, Personal gear, Travel insurance",
+            "equipment_list": "Hiking boots, Trekking poles, Weather-appropriate clothing",
+            "skill_level": "Intermediate to Advanced",
+            "weather_conditions": "Expect a mix of sunny, cloudy, and rainy days.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Ensure you have comprehensive travel insurance, Adhere to guide's instructions for safety."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 3,
+        "fields": {
+            "trip": 3,
+            "trip_overview": "Embark on a 10-day mountaineering expedition in the stunning French Alps. This trip is designed for those who are looking for a challenging but rewarding alpine experience.",
+            "included": "Expert mountain guides, All meals during the expedition, Accommodation in mountain huts",
+            "not_included": "Airfare, Personal climbing gear, Travel insurance",
+            "equipment_list": "Climbing boots, Ice axe, Harness",
+            "skill_level": "Advanced",
+            "weather_conditions": "Weather can be highly variable, from sunny skies to snowstorms.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Participants must have prior mountaineering experience, Comprehensive travel insurance is mandatory."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 4,
+        "fields": {
+            "trip": 4,
+            "trip_overview": "Hike Mount Etna in Winter is a unique 3-day experience in the heart of Italy. Witness the snow-covered landscapes and the unique volcanic features of Mount Etna.",
+            "included": "Local guides, Meals during the hike, Snow gear",
+            "not_included": "Airfare, Personal equipment, Insurance",
+            "equipment_list": "Snow boots, Thermal clothing, Snow goggles",
+            "skill_level": "Beginner to Intermediate",
+            "weather_conditions": "Expect cold weather with possibilities of snowfall.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip.",
+            "important_notes": "Warm clothing is a must, Travel insurance is recommended."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 5,
+        "fields": {
+            "trip": 5,
+            "trip_overview": "Trekking in the Gran Paradiso offers a 3-day journey through Italy's first national park. Experience diverse landscapes, from alpine meadows to rocky terrains.",
+            "included": "Tour guides, All meals during the trek, Park entry fees",
+            "not_included": "Airfare, Personal trekking gear, Travel insurance",
+            "equipment_list": "Trekking boots, Outdoor clothing, Sun protection",
+            "skill_level": "Intermediate to Advanced",
+            "weather_conditions": "Expect warm weather with occasional rain showers.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Participants are expected to be in good physical condition, Travel insurance is highly recommended."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 6,
+        "fields": {
+            "trip": 6,
+            "trip_overview": "Dolomites Via Ferrata is a 7-day adventure in Italy that allows you to experience the thrill of climbing without the technical challenges. Navigate through fixed routes in the stunning Dolomite mountains.",
+            "included": "Professional climbing guides, All meals, Via Ferrata kit",
+            "not_included": "Airfare, Personal gear, Travel insurance",
+            "equipment_list": "Climbing shoes, Helmet, Gloves",
+            "skill_level": "Intermediate",
+            "weather_conditions": "Expect mostly sunny weather with occasional cloudy days.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Prior climbing experience is helpful but not mandatory, Comprehensive travel insurance is recommended."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 7,
+        "fields": {
+            "trip": 7,
+            "trip_overview": "The Camino de Santiago Trek is a 10-day pilgrimage route through the scenic landscapes of Spain. This moderately challenging trek takes you through a variety of terrains and cultural landmarks.",
+            "included": "Guided tours, All meals, Accommodations",
+            "not_included": "Airfare, Personal trekking gear, Travel insurance",
+            "equipment_list": "Comfortable trekking shoes, Lightweight clothing, Hat",
+            "skill_level": "Beginner to Intermediate",
+            "weather_conditions": "Mild weather, can vary from sunny to rainy days.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Suitable for all age groups, Travel insurance is recommended."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 8,
+        "fields": {
+            "trip": 8,
+            "trip_overview": "The Ascent of Mulhacén offers a 3-day adventure to the highest peak in mainland Spain. Experience the natural beauty of the Sierra Nevada mountains as you ascend to new heights.",
+            "included": "Mountain guides, Meals during the ascent, Camping gear",
+            "not_included": "Airfare, Personal climbing equipment, Travel insurance",
+            "equipment_list": "Climbing boots, Harness, Helmet",
+            "skill_level": "Intermediate",
+            "weather_conditions": "Generally sunny weather, but be prepared for sudden changes.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Good physical condition required, Travel insurance is advised."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 9,
+        "fields": {
+            "trip": 9,
+            "trip_overview": "The Ben Nevis Summit is a 2-day trek to the highest peak in the British Isles. Located in Scotland, this trek offers stunning vistas and a moderate challenge suitable for most hikers.",
+            "included": "Local guides, Meals during the trek, Camping gear",
+            "not_included": "Airfare, Personal hiking gear, Travel insurance",
+            "equipment_list": "Hiking boots, Rain jacket, Hat and gloves",
+            "skill_level": "Beginner to Intermediate",
+            "weather_conditions": "Variable weather, ranging from sunny to foggy and rainy.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Weather can change quickly, so be prepared, Travel insurance is recommended."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 10,
+        "fields": {
+            "trip": 10,
+            "trip_overview": "The Three Peaks Challenge is a 3-day adventure across the highest peaks in England, Scotland, and Wales. This trek offers a unique opportunity to conquer three mountains in a short time.",
+            "included": "Professional guides, All meals, Transportation between peaks",
+            "not_included": "Airfare, Personal gear, Travel insurance",
+            "equipment_list": "Hiking boots, Rain gear, Multi-layered clothing",
+            "skill_level": "Intermediate",
+            "weather_conditions": "Weather can be unpredictable; expect a mix of conditions.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Participants should have a moderate level of fitness, Travel insurance is advised."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 11,
+        "fields": {
+            "trip": 11,
+            "trip_overview": "The Carrauntoohil Ascent is a one-day hiking experience to the highest peak in Ireland. With a moderate difficulty level, it's a perfect opportunity for beginners to enjoy mountaineering.",
+            "included": "Local guide, Lunch, Safety gear",
+            "not_included": "Transportation to the trailhead, Personal hiking gear, Travel insurance",
+            "equipment_list": "Hiking boots, Weather-appropriate clothing, Water bottle",
+            "skill_level": "Beginner to Intermediate",
+            "weather_conditions": "Weather varies, but summer months are generally dry and mild.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Bring sufficient water and snacks, Travel insurance is advised."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 12,
+        "fields": {
+            "trip": 12,
+            "trip_overview": "Hike the Mourne Mountains is a 2-day adventure in Ireland that takes you through some of the most scenic landscapes. With moderate difficulty, it's suitable for hikers who have some experience.",
+            "included": "Experienced guides, Meals during the hike, Camping gear",
+            "not_included": "Transportation to the starting point, Personal gear, Travel insurance",
+            "equipment_list": "Hiking boots, Rain jacket, Backpack",
+            "skill_level": "Intermediate",
+            "weather_conditions": "Expect a mix of sunny and cloudy days, with occasional rain.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Participants should be physically fit, Travel insurance is recommended."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 13,
+        "fields": {
+            "trip": 13,
+            "trip_overview": "The Cliffs of Moher Trek is a 2-day walking tour along one of Ireland's most famous natural landmarks. This is a relatively easy trek, ideal for those new to hiking.",
+            "included": "Local guides, Meals during the trek, Entrance fees",
+            "not_included": "Airfare, Personal trekking gear, Travel insurance",
+            "equipment_list": "Comfortable walking shoes, Windbreaker, Sunscreen",
+            "skill_level": "Beginner",
+            "weather_conditions": "Mild weather, but be prepared for sudden changes, especially wind.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "The trek is family-friendly, Travel insurance is advised."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 14,
+        "fields": {
+            "trip": 14,
+            "trip_overview": "The Trolltunga Hike is a 2-day adventure in Norway that takes you to one of the most iconic rock formations in the world. This moderately challenging hike offers breathtaking views and an unforgettable experience.",
+            "included": "Tour guides, All meals, Camping equipment",
+            "not_included": "Airfare, Personal hiking gear, Travel insurance",
+            "equipment_list": "Hiking boots, Weather-appropriate clothing, Camera",
+            "skill_level": "Intermediate",
+            "weather_conditions": "Expect colder weather, even in summer. Rain is possible.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Be prepared for varied terrain, Travel insurance is recommended."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 15,
+        "fields": {
+            "trip": 15,
+            "trip_overview": "The Ascent of Galdhøpiggen is a one-day mountaineering experience to the highest peak in Norway and Northern Europe. This challenging ascent is for experienced hikers looking for an adrenaline rush.",
+            "included": "Mountain guide, Summit lunch, Safety equipment",
+            "not_included": "Airfare, Personal mountaineering gear, Travel insurance",
+            "equipment_list": "Climbing boots, Harness, Ice axe",
+            "skill_level": "Advanced",
+            "weather_conditions": "Variable mountain weather, prepare for cold and wind.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Participants must have prior mountaineering experience, Travel insurance with rescue coverage is highly recommended."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 16,
+        "fields": {
+            "trip": 16,
+            "trip_overview": "The Everest Base Camp Trek is a 12-day journey through the heart of the Khumbu region in Nepal. This trek is a challenging adventure that offers close-up views of the world's tallest mountain.",
+            "included": "Experienced Sherpas, All meals and accommodations, Permits and entrance fees",
+            "not_included": "International airfare, Personal trekking equipment, Travel insurance",
+            "equipment_list": "High-altitude trekking boots, Down jacket, Trekking poles",
+            "skill_level": "Advanced",
+            "weather_conditions": "Weather can vary greatly; expect both cold and mild temperatures.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Acclimatization days are included, Travel insurance with evacuation coverage is essential."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 17,
+        "fields": {
+            "trip": 17,
+            "trip_overview": "The Annapurna Circuit Trek is a 14-day journey that takes you through diverse landscapes in the Annapurna region of Nepal. The trek is moderate in difficulty and suitable for trekkers with some experience.",
+            "included": "Guides and porters, All meals and lodging, Trekking permits",
+            "not_included": "International flights, Personal trekking gear, Travel insurance",
+            "equipment_list": "Trekking boots, Layered clothing, Headlamp",
+            "skill_level": "Intermediate",
+            "weather_conditions": "Expect a mix of weather conditions, including cold nights and mild days.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Altitude sickness precautions are included, Travel insurance with emergency evacuation is recommended."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 18,
+        "fields": {
+            "trip": 18,
+            "trip_overview": "The Manaslu Circuit Trek is a 14-day adventure in one of the less crowded regions of Nepal. This trek offers a challenging experience with high-altitude passes and remote terrains.",
+            "included": "Mountain guides, All meals and accommodations, Trekking permits",
+            "not_included": "Flights to and from Nepal, Personal trekking equipment, Travel insurance",
+            "equipment_list": "High-altitude trekking boots, Insulated jacket, Trekking poles",
+            "skill_level": "Advanced",
+            "weather_conditions": "Weather conditions are variable; prepare for both cold and mild temperatures.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Participants should be in excellent physical condition, High-altitude travel insurance is advised."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 19,
+        "fields": {
+            "trip": 19,
+            "trip_overview": "The K2 Base Camp Trek is a 14-day challenging expedition in Pakistan that takes you to the base of the second-highest mountain in the world. This trek is for highly experienced trekkers seeking a serious adventure.",
+            "included": "Expert mountain guides, High-altitude meals, Safety and camping gear",
+            "not_included": "International airfare, Personal mountaineering gear, Travel and rescue insurance",
+            "equipment_list": "High-altitude boots, Crampons, Ice axe",
+            "skill_level": "Advanced",
+            "weather_conditions": "Expect cold weather conditions with a risk of snow and ice.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "This is a high-risk, high-reward trek requiring excellent physical fitness, Comprehensive travel and rescue insurance is mandatory."
+        }
+    },
+    {
+        "model": "trip_packages.TripOverview",
+        "pk": 20,
+        "fields": {
+            "trip": 20,
+            "trip_overview": "The Concordia Trek is a 12-day trek in Pakistan that takes you to the heart of the Karakoram mountain range. This challenging trek is ideal for experienced adventurers looking to explore less-traveled paths.",
+            "included": "Guided mountain treks, High-altitude meals, Safety gear",
+            "not_included": "Flights to and from Pakistan, Personal mountaineering gear, Travel insurance",
+            "equipment_list": "High-altitude trekking boots, Insulated jacket, Ice axe",
+            "skill_level": "Advanced",
+            "weather_conditions": "Expect varying weather conditions; cold temperatures are likely.",
+            "cancellation_policy": "Full refund if canceled 30 days before the trip starts.",
+            "important_notes": "Participants must have prior mountaineering experience, Travel insurance with emergency evacuation is highly recommended."
+        }
+    }
+    
+]
