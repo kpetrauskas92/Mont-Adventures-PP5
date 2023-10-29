@@ -5,9 +5,9 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.db.models import Q, Min, Max
 from ast import literal_eval
-from .models import Trips, AvailableDate, FavoriteTrip, Reviews
+from .models import Trips, TripOverview, AvailableDate, FavoriteTrip, Reviews
 from profiles.models import UserProfile
-from .trip_utils import display_funcs, MONTHS
+from .trip_utils import display_funcs, MONTHS, populate_filled_stars
 from django.http import HttpResponseBadRequest, HttpResponse, JsonResponse
 from .forms import ReviewForm
 from django.db.models import Prefetch
@@ -135,8 +135,7 @@ class TripPackages(View):
             user_favorites = []
 
         for trip in filtered_trips:
-            trip.filled_stars = 0 if trip.overall_rating is None else round(
-                trip.overall_rating)
+            filtered_trips = populate_filled_stars(filtered_trips)
             trip.review_count = trip.reviews.filter(is_approved=True).count()
             trip.duration_str = display_funcs['duration'](trip.duration)
             trip.duration_icon = (
@@ -282,7 +281,24 @@ class TripDetails(DetailView):
         if self.request.user.is_authenticated:
             context['review_form'] = ReviewForm()
 
+        try:
+            trip_overview = TripOverview.objects.get(trip=self.object)
+        except TripOverview.DoesNotExist:
+            trip_overview = None
+        context['trip_overview'] = trip_overview
+
         return context
+
+
+def trip_overview(request, trip_id):
+    trip = get_object_or_404(Trips, pk=trip_id)
+    try:
+        trip_overview = TripOverview.objects.get(trip=trip)
+    except TripOverview.DoesNotExist:
+        trip_overview = None
+
+    return render(request, 'includes/overview/trip-overview.html', {
+        'trip_overview': trip_overview})
 
 
 class TripReviews(ListView):
@@ -343,6 +359,8 @@ def trip_review_form(request, trip_id, review_id=None):
             new_review = form.save(commit=False)
             new_review.user = request.user
             new_review.trip = trip
+            trip.overall_rating = 0.0
+            trip.save()
             new_review.save()
             return render(request, 'includes/reviews/trip-review-success.html')
         else:
