@@ -71,6 +71,31 @@ class Trips(models.Model):
                 'default-trip-img.jpg')
 
 
+class TripOverview(models.Model):
+    """
+    TripOverview model for storing detailed information about a specific trip.
+
+    - Links to the associated trip in the Trips model through a ForeignKey.
+    - Contains a textual overview of the trip.
+    - Specifies what is included and not included in the trip package.
+    - Provides a list of equipment needed for the trip.
+    - Indicates the skill level required for the trip.
+    - Describes the expected weather conditions during the trip.
+    - Outlines the cancellation policy for the trip.
+    - Includes any other important notes or details about the trip.
+    """
+    trip = models.ForeignKey(Trips, related_name='overviews',
+                             on_delete=models.CASCADE)
+    trip_overview = models.TextField()
+    included = models.TextField()
+    not_included = models.TextField()
+    equipment_list = models.TextField()
+    skill_level = models.TextField()
+    weather_conditions = models.TextField()
+    cancellation_policy = models.TextField()
+    important_notes = models.TextField()
+
+
 class TripImage(models.Model):
     """
     TripImage model for storing additional images related to a trip.
@@ -176,5 +201,5 @@ def update_overall_rating(sender, instance, **kwargs):
     trip = instance.trip
     approved_reviews = Reviews.objects.filter(trip=trip, is_approved=True)
     new_rating = approved_reviews.aggregate(Avg('rating'))['rating__avg']
-    trip.overall_rating = round(new_rating, 1) if new_rating else None
+    trip.overall_rating = round(new_rating, 1) if new_rating else 0.0
     trip.save()
