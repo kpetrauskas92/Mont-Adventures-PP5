@@ -1,19 +1,31 @@
 {% block content %}
-<div class="favorite-trips-container">
+
+<!-- Container for Favorite Trips -->
+<div class="favorite-trips-container grid md:grid-cols-2">
     {% for favorite in favorite_trips %}
-    <div class="mb-2 rounded-lg bg-white p-6 shadow-md flex flex-col sm:flex-row justify-between relative">
-        
-            <div class="flex-none w-full sm:w-[14rem] mb-4 sm:mb-0">
-                <img src="{{ favorite.trip.main_image.url }}" alt="{{ favorite.trip.name }}" class="w-full rounded-lg">
-            </div>
-            <div class="flex-grow ml-2">
-                <h2>{{ favorite.trip.name }}</h2>
-                <p>Price: €{{ favorite.trip.price }}</p>
-                <p>Duration: {{ favorite.trip.duration }} days</p>
-                <p>Location: {{ favorite.trip.location }}</p>
-                <a href="{% url 'trip_details' favorite.trip.id %}" class="btn btn-sm btn-ghost">View Details</a>
-            </div>
+
+    <!-- Individual Favorite Trip Card -->
+    <div class="mb-4 rounded-lg bg-white shadow-md flex flex-row mr-4">
+        <div class="flex-col justify-center">
+            <h2 class="rounded-t-lg text-white text-sm font-semibold glass bg-gray-950 p-2 shadow-md text-center">
+                {{ favorite.trip.name }}
+            </h2>
+                <img src="{{ favorite.trip.main_image.url }}"
+                    alt="{{ favorite.trip.name }}"
+                    class="w-full"
+                >
+
+            <!-- Button to View Trip Details -->
+            <a href="{% url 'trip_details' favorite.trip.id %}"
+                class="btn rounded-t-none w-full">
+                View Trip Details
+            </a>
+        </div>
     </div>
+
+    <!-- Message if there are no favorite trips -->
+    {% empty %}
+        <p class="text-gray-500 py-2">You have not favorited any of the trips yet.</p>
     {% endfor %}
 </div>
 {% endblock %}

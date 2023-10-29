@@ -1,49 +1,98 @@
 {% load booking_filters %}
 
+<!-- Check for orders -->
 {% if orders %}
-    <div class="orders-container">
+    <div class="orders-container shadow-lg rounded-b-lg mr-4">
+
+        <!-- Loop through each order -->
         {% for order in orders %}
             <div class="order-item">
                 {% if order.lineitems.all|filter_not_canceled %}
-                    <div class="mb-6 rounded-lg text-white bg-gray-900 p-2 shadow-md flex flex-col sm:flex-row justify-between relative">
-                        <p><strong>Order Number:</strong> {{ order.order_number }}</p>
-                        <p><strong>Total:</strong> €{{ order.grand_total }}</p>
+                    <div class=" rounded-t-lg text-white glass bg-gray-950 p-2 shadow-md flex flex-col sm:flex-row justify-between relative">
+                        <p class="font-semibold">Order Number: 
+                            <span class="badge rounded-lg text-gray-700">
+                                {{ order.order_number }}
+                            </span>
+                        </p>
+                        <p class="font-semibold">Total: 
+                            <span class="badge rounded-lg text-gray-700">€
+                                {{ order.grand_total }}
+                            </span>
+                        </p>
                     </div>
                 {% endif %}
+
+                <!-- Loop through each line item in the order -->
                 {% for lineitem in order.lineitems.all %}
+                <div class="flex justify-between ">
+                    <h1 class="font-semibold text-sm mb-1 pl-2">
+                        <span class="text-xl rounded-lg justify-start font-bold w-full uppercase">
+                            {{ lineitem.trip.name }}
+                        <span>
+                    </h1>
+
+                    <!-- Cancel button for each line item -->
+                    <button class="btn btn-ghost shadow-md mt-1 btn-outline btn-xs hover:bg-error hover:text-white mr-2"
+                            hx-get="{% url 'cancel-trip' lineitem.id %}"
+                            hx-target="#my_modal_3 .modal-box"
+                            onclick="my_modal_3.showModal()">Cancel
+                    </button>
+                </div>
+
+                    <!-- Display line item details if the item is not canceled -->
                     {% if lineitem.status != 'canceled' %}
-                        <div class="mb-2 rounded-lg bg-white p-6 shadow-md flex flex-col sm:flex-row justify-between relative">
-                            <div class="flex-none w-full sm:w-[14rem] mb-4 sm:mb-0">
-                                <img src="{{ lineitem.trip.main_image.url }}" alt="{{ lineitem.trip.name }}" class="w-full rounded-lg">
+                        <div class="mb-2 rounded-lg bg-white flex flex-col sm:flex-row justify-between relative">
+
+                            <!-- Line item image -->
+                            <div class="flex-none w-full sm:w-[16rem] mb-4 sm:mb-0 md:pl-2 sm:pb-2">
+                                <img src="{{ lineitem.trip.main_image.url }}"
+                                    alt="{{ lineitem.trip.name }}"
+                                    class="w-full shadow-xl rounded-none sm:rounded-lg">
                             </div>
-                            <div class="flex-grow ml-2">
-                                <p><strong>Trip:</strong> {{ lineitem.trip.name }}</p>
-                                <p><strong>Start Date:</strong> {{ lineitem.available_date.start_date }}</p>
-                                <p><strong>End Date:</strong> {{ lineitem.available_date.end_date }}</p>
-                                <p><strong>Location:</strong> {{ lineitem.trip.location }}</p>
-                                <p><strong>Difficulty:</strong> {{ lineitem.trip.get_difficulty_display }}</p>
-                                <p><strong>Additional Guests:</strong> {{ lineitem.guests }}</p>
+
+                            <!-- Line item details -->
+                            <div class="flex-grow ml-2 pb-4 sm:py-1">
+                                <p class="text-gray-500 text-sm font-medium mb-2">Start Date:
+                                    <span class="text-sm font-semibold badge ml-1 shadow-sm"> 
+                                        {{ lineitem.available_date.start_date }}
+                                    </span>
+                                </p>
+                                <p class="text-gray-500 text-sm font-medium mb-2">End Date:
+                                    <span class="text-sm font-semibold badge ml-1 shadow-sm"> 
+                                        {{ lineitem.available_date.end_date }}
+                                    </span>
+                                </p>
+                                <p class="text-gray-500 text-sm font-medium mb-2">Location:
+                                    <span class="text-sm font-semibold badge ml-1 shadow-sm"> 
+                                        {{ lineitem.trip.location }}
+                                    </span>
+                                </p>
+                                <p class="text-gray-500 text-sm font-medium mb-2">Difficulty:
+                                    <span class="text-sm font-semibold badge ml-1 shadow-sm"> 
+                                        {{ lineitem.trip.get_difficulty_display }}
+                                    </span>
+                                </p>
+                                <p class="text-gray-500 text-sm font-medium">Additional Guests:
+                                    <span class="text-sm font-semibold badge ml-1 shadow-sm"> 
+                                        {{ lineitem.guests }}
+                                    </span>
+                                </p>
                             </div>
+                            
                         </div>
-                        <div class="flex justify-between">
-                            <button class="btn btn-sm btn-ghost mb-2 w-full py-1.5"
-                                    hx-get="{% url 'cancel-trip' lineitem.id %}"
-                                    hx-target="#my_modal_3 .modal-box"
-                                    onclick="my_modal_3.showModal()">Cancel Trip
-                            </button>
-                        </div>
-                        <hr class="py-4">
                     {% endif %}
                 {% endfor %}
             </div>
         {% endfor %}
     </div>
+
+<!-- If there are no orders -->
 {% else %}
-    <div class="mb-6 rounded-lg bg-white p-6 shadow-md ">
+    <div class="mb-6">
         <div class="">
-            <p>Oh no, you haven't booked a trip yet...</p>
+            <p class="text-gray-500 py-2">You have not booked a trip yet.</p>
             <a class="btn btn-secondary mt-5"
-               href="{% url 'trip_packages' %}">Book a trip now!
+                href="{% url 'trip_packages' %}">Book a trip now!
             </a>
         </div>
     </div>

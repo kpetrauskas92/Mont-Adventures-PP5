@@ -1,36 +1,64 @@
 {% block content %}
     {% for review in reviews %}
-    <div class="mb-2 rounded-lg bg-white p-6 shadow-md flex flex-col sm:flex-row justify-between relative">
-        <div class="flex-none w-full sm:w-[14rem] mb-4 sm:mb-0">
-            <img src="{{ review.trip.main_image.url }}" alt="{{ review.trip.name }}" class="w-full rounded-lg">
-        </div>
-            <div class="review">
-                <h3>{{ review.trip.name }}</h3>
-                <h2 class="font-bold">{{ review.title }}</h2>
-                <p>Comment: {{ review.comment }}</p>
+
+    <!-- Individual Review Container -->
+    <div class="mb-1 rounded-lg md:mr-4">
+        <div class="flex flex-col">
+
+            <!-- Review Header and Status -->
+            <div class="rounded-t-lg flex justify-between items-center text-white glass bg-gray-950 p-2 font-semibold shadow-md">
+                <h1 class="">
+                    {{ review.trip.name }}
+                </h1>
                 {% if not review.is_approved %}
-                    <p class="text-yellow-500">This review is pending approval.</p>
+                    <p class="text-yellow-500 text-sm">
+                        Review is pending approval
+                    </p>
                 {% endif %}
             </div>
+
+            <!-- Review Body -->
+            <div class="mb-2 rounded-lg bg-white shadow-md flex flex-col sm:flex-row justify-between relative">
+                <div class="mb-4 sm:mb-0">
+                    <img src="{{ review.trip.main_image.url }}"
+                        alt="{{ review.trip.name }}"
+                        class="sm:max-w-[250px] h-full rounded-b-lg">
+                </div>
+                <div class="review flex flex-col items-center p-4">
+                    <h2 class="font-bold uppercase items-center mb-2">{{ review.title }}</h2>
+                    <p class=" font-semibold">Comment: 
+                        <span class="italic font-normal">
+                            {{ review.comment }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Edit and Delete Buttons -->
+            <div class="flex justify-between">
+                <button hx-get="{% url 'edit_review' review.id %}"
+                        
+                        hx-target="#my_modal_3 .modal-box"
+                        onclick="my_modal_3.showModal()"
+                        hx-swap="innerHTML"
+                        class="btn btn-sm btn-secondary">
+                        Edit
+                </button>
+                <button hx-get="{% url 'delete_review' review.id %}"
+                        hx-swap="innerHTML"
+                        hx-target="#my_modal_3 .modal-box"
+                        onclick="my_modal_3.showModal()"
+                        class="btn btn-sm btn-error">
+                        Delete
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="flex justify-between">
-        <button hx-get="{% url 'edit_review' review.id %}"
-                
-                hx-target="#my_modal_3 .modal-box"
-                onclick="my_modal_3.showModal()"
-                hx-swap="innerHTML"
-                class="btn btn-sm btn-secondary">
-                Edit
-        </button>
-        <button hx-get="{% url 'delete_review' review.id %}"
-                hx-swap="innerHTML"
-                hx-target="#my_modal_3 .modal-box"
-                onclick="my_modal_3.showModal()"
-                class="btn btn-sm btn-error">
-                Delete
-        </button>
-    </div>
+
+    <!-- Message if there are no Reviews -->
     {% empty %}
-        <p>You have not written any reviews yet.</p>
+        <p class="text-gray-500 py-2">
+            You have not written any reviews yet.
+        </p>
     {% endfor %}
 {% endblock %}
