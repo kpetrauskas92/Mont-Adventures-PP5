@@ -1,0 +1,118 @@
+{% if trip_overview %}
+
+	<!-- Overview Section -->
+	<section id="overview-section" class="p-4 bg-secondary font-semibold glass text-gray-950 mb-2">
+		<p>{{ trip_overview.trip_overview }}</p>
+	</section>
+<div class="mx-2">
+
+	<!-- What's Included Section -->
+	<details class="collapse collapse-arrow border-current glass mb-2 rounded-xl">
+		<summary class="collapse-title text-xl font-medium">
+			<div style="display: flex; align-items: center;">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+				</svg>
+				What's Included
+			</div>
+		</summary>
+		<div class="collapse-content bg-white"> 
+			<p class="pt-3">{{ trip_overview.included }}</p>
+		</div>
+	</details>
+	
+	<!-- What's Not Included Section -->
+	<details class="collapse collapse-arrow border-current glass mb-2 rounded-xl">
+		<summary class="collapse-title text-xl font-medium">
+			<div style="display: flex; align-items: center;">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+				</svg>
+				What's Not Included
+			</div>
+		</summary>
+		<div class="collapse-content bg-white">
+			<p class="pt-3">{{ trip_overview.not_included }}</p>
+		</div>
+	</details>
+	
+	<!-- Equipment List Section -->
+	<details class="collapse collapse-arrow border-current glass mb-2 rounded-xl">
+		<summary class="collapse-title text-xl font-medium">
+			<div style="display: flex; align-items: center;">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+				</svg>
+				Equipment List
+			</div>
+		</summary>
+		<div class="collapse-content bg-white">
+			<p class="pt-3">{{ trip_overview.equipment_list }}</p>
+		</div>
+	</details>
+	
+	<!-- Skill Level Section -->
+	<details class="collapse collapse-arrow border-current glass mb-2 rounded-xl">
+		<summary class="collapse-title text-xl font-medium">
+			<div style="display: flex; align-items: center;">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+				</svg>
+				Skill Level
+			</div>
+		</summary>
+		<div class="collapse-content bg-white">
+			<p class="pt-3">{{ trip_overview.skill_level }}</p>
+		</div>
+	</details>
+	
+	<!-- Weather Conditions Section -->
+	<details class="collapse collapse-arrow border-current glass mb-2 rounded-xl">
+		<summary class="collapse-title text-xl font-medium">
+			<div style="display: flex; align-items: center;">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z" />
+				</svg>
+				Weather Conditions
+			</div>
+		</summary>
+		<div class="collapse-content bg-white">
+			<p class="pt-3">{{ trip_overview.weather_conditions }}</p>
+		</div>
+	</details>
+	
+	<!-- Cancellation Policy Section -->
+	<details class="collapse collapse-arrow border-current glass mb-2 rounded-xl">
+		<summary class="collapse-title text-xl font-medium">
+			<div style="display: flex; align-items: center;">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M14.25 7.756a4.5 4.5 0 100 8.488M7.5 10.5h5.25m-5.25 3h5.25M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+				</svg>
+				Cancellation Policy
+			</div>
+		</summary>
+		<div class="collapse-content bg-white">
+			<p class="pt-3">{{ trip_overview.cancellation_policy }}</p>
+		</div>
+	</details>
+	
+	<!-- Important Notes Section -->
+	<details class="collapse collapse-arrow border-current glass rounded-xl">
+		<summary class="collapse-title text-xl font-medium">
+			<div style="display: flex; align-items: center;">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+				</svg>
+				Important Notes
+			</div>
+		</summary>
+		<div class="collapse-content bg-white">
+			<p class="pt-3">{{ trip_overview.important_notes }}</p>
+		</div>
+	</details>
+</div>
+	{% else %}
+
+	<p>No overview available for this trip.</p>
+
+{% endif %}
