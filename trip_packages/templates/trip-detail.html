@@ -71,8 +71,8 @@
 
         <!-- Trip Price Section -->
         <div class="hidden md:grid lg:block bg-white p-4 md:pb-0 md:col-span-1">
-            <p class="text-xl text-center text-primary">
-                Book this trip today
+            <p class="text-xl text-gray-500 text-center">
+                Book this trip today!
             </p>
             <p class="flex justify-center items-center text-4xl font-bold text-primary my-2">
                 €{{ trip.price }}
@@ -80,7 +80,7 @@
                     /pp
                 </span>
             </p>
-            <div class="rating flex justify-center w-full">
+            <div class="rating flex justify-center items-center w-full">
                 
                 <!-- Reviews WIP -->
 
@@ -101,7 +101,7 @@
                     {% endif %}
                 </div>
                 <label for="my-drawer-4"
-                        class="btn btn-secondary w-full mt-2"
+                        class="btn btn-secondary glass bg-secondary w-full mt-2"
                         hx-get="{% url 'booking_drawer' trip.id %}"
                         hx-trigger="click"
                         hx-target="#booking-drawer-content">
@@ -129,25 +129,27 @@
 
     <!-- Trip Sub Details WIP -->
     <div class="bg-white md:grid md:grid-cols-[2fr,1fr]">
-        <div class="tabs pt-4 flex justify-center">
-            <a class="tab tab-bordered tab-active"
-                aria-label="Trip Details">
-                Trip Details
-            </a> 
-            <a class="tab tab-bordered"
-                aria-label="What's Included">
-                What's Included
+        <div class="tabs pt-4 justify-center items-center">
+            
+            <a id="overviewTab"
+                class="tab text-xl tab-bordered tab-active"
+                aria-label="Trip Details"
+                hx-get="{% url 'trip_overview' trip.id %}"
+                hx-trigger="click"
+                hx-target="#trip-sub-section">
+                &#9679; Overview
             </a>
+            
             <a id="reviewsTab"
-                class="tab tab-bordered"
+                class="tab text-xl tab-bordered"
                 aria-label="Reviews"
                 hx-get="{% url 'trip_reviews' trip.id %}"
                 hx-trigger="click"
                 hx-target="#trip-sub-section">
-                Reviews
+                &#9679; Reviews
             </a> 
-            <div id="trip-sub-section" class="p-6 w-full">
-
+            <div id="trip-sub-section" class="py-6 w-full">
+                {% include 'includes/overview/trip-overview.html' %}
             </div>
         </div>    
     </div>
