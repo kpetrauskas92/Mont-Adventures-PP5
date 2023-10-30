@@ -1,13 +1,27 @@
+
+<!-- Drawer Container -->
 <div class="drawer drawer-end z-10">
-    <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content">
-    </div>
-    <div class="drawer-side">
-      <label for="my-drawer-4" class="drawer-overlay"></label>
-      <ul class="menu p-4 min-h-full bg-base-100 text-base-content">
-        <div id="booking-drawer-content">
-            {% include 'includes/booking/available-dates.html' %}
-        </div>
-      </ul>
-    </div>
+
+	<!-- Drawer Toggle Checkbox -->
+	<input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+		<div class="drawer-content">
+		</div>
+
+		<!-- Drawer Side Content -->
+		<div class="drawer-side">
+
+			<!-- Overlay Label for Drawer Toggle -->
+			<label for="my-drawer-4"
+				class="drawer-overlay">
+			</label>
+
+			<!-- Menu Items Inside Drawer -->
+			<ul class="menu px-2 p-4 min-h-full bg-base-100 text-base-content">
+				<div id="booking-drawer-content">
+
+					<!-- Include Available Dates -->
+					{% include 'includes/booking/available-dates.html' %}
+				</div>
+			</ul>
+		</div>
 </div>

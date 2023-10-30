@@ -3,61 +3,82 @@
 <!-- JavaScript Section -->
 <script src="{% static 'available_dates/available_dates.js' %}"></script>
 
+<!-- Main Container for Available Dates -->
 <div class="join join-vertical w-full">
+
+	<!-- Container for Toast Messages -->
 	<div id="toast-messages" class="mb-4">
 		
 	</div>
-	
+
+	<!-- Check if there are any available dates -->
 	{% if available_dates %}
+
+	<!-- Group available dates by Month and Year -->
 	{% regroup available_dates by start_date|date:"F Y" as dates_grouped %}
+
+	<!-- Loop through each grouped set of dates -->
 	{% for date_group in dates_grouped %}
 	<div class="collapse collapse-arrow join-item border border-base-300 rounded">
+
+		<!-- Date Group Title -->
 		<input id="available-dates-accordion" type="radio" name="my-accordion-4"> 
 			<div class="collapse-title text-xl font-medium">
 				{{ date_group.grouper }}
 			</div>
-			<div class="collapse-content">
+
+			<!-- Collapsible Content Section -->
+			<div class="collapse-content px-1">
 				<div class="flex flex-col w-full">
+
+					<!-- Loop through each date within a group -->
 					{% for date in date_group.list %}
-					<div class="grid h-30 card shadow-2xl rounded-box glass place-items-left p-3 mb-3">
-					<div class="inline-flex">
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="orange" class="w-6 h-6">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
-						</svg>
-						
-						<p class="text-lg font-medium">
-							{{ date.start_date|date:"l" }} 
-							{{ date.start_date|date:"jS" }} of {{ date.start_date|date:"F" }}<br>
+					<div class="grid h-30 card shadow-xl rounded-box glass place-items-left p-3 mb-3">
+						<div class="inline-flex items-start">
+							<div>
+								<p class="text-lg font-medium">
+									{{ date.start_date|date:"l" }} 
+									{{ date.start_date|date:"jS" }} of {{ date.start_date|date:"F" }}
+								</p>
+								<p class="mb-2 text-gray-500 text-sm">  
+									to
+									{{ date.end_date|date:"l" }} {{ date.end_date|date:"jS" }} of {{ date.end_date|date:"F" }}
+								</p>
+							</div>
+						</div>
+
+						<!-- Display Booking Status -->
+						<p class="text-sm flex justify-evenly font-normal mt-2">
+							{% if date.remaining_slots == 0 %}
+								<span class="text-red-400">
+									Fully Booked!
+								</span>
+							{% else %}
+								<span class="badge badge-sm text-sm font-bold">
+									{{ date.booked_slots }}
+								</span>	
+							booked	
+								<span class="badge badge-sm text-sm font-bold">
+									{{ date.remaining_slots }}
+								</span> 
+							spots left
+							{% endif %}
 						</p>
 
-						
-					</div>
-					<p class="mb-2 text-sm">  
-						to
-							{{ date.end_date|date:"l" }} {{ date.end_date|date:"jS" }} of {{ date.end_date|date:"F" }}
-						</p>
-						
-						<p class="text-sm btn btn-xs btn-ghost bg-gray-100 cursor-default">
-						{% if date.remaining_slots == 0 %}
-							<span class="text-red-500">Fully Booked!</span>
-						{% else %}
-							{{ date.booked_slots }} <span class="badge font-normal">booked</span> 
-							{{ date.remaining_slots }} <span class="badge font-normal">spots left</span>
-						{% endif %}
-						</p>
+						<!-- Action Buttons -->
 						<div class="flex justify-between">
 							<a href="{% url 'add_to_cart' trip.id date.id %}"
 								hx-post="{% url 'add_to_cart' trip.id date.id %}"
 								hx-trigger="click"
 								hx-target="#entire-cart-section"
 								hx-swap="outerHTML"
-								class="btn btn-sm btn-primary-outline text-primary mt-2 mr-1 flex-auto {% if date.remaining_slots == 0 %}disabled{% endif %}"
+								class="btn btn-sm btn-outline mt-2 mr-1 flex-auto {% if date.remaining_slots == 0 %}disabled{% endif %}"
 									{% if date.remaining_slots == 0 %}disabled="disabled"{% endif %}>
 								Add to Cart
 							</a>
-	
+
 							<a href="{% url 'add_to_cart' trip.id date.id %}" 
-								class="btn btn-sm btn-secondary mt-2 flex-auto {% if date.remaining_slots == 0 %}disabled{% endif %}"
+								class="btn btn-sm glass bg-secondary hover:bg-accent hover:text-white mt-2 flex-auto {% if date.remaining_slots == 0 %}disabled{% endif %}"
 								{% if date.remaining_slots == 0 %}disabled="disabled"{% endif %}>
 								Book Now
 							</a>
@@ -68,7 +89,9 @@
 			</div>
 	</div>
 	{% endfor %}
+
+	<!-- Display message if no available dates -->
 	{% else %}
-		<p>There are currently no available dates.</p>
+		<p class="text-gray-500 py-2">There are currently no available dates.</p>
 	{% endif %}
 </div>

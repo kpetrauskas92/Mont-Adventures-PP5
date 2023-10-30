@@ -1,39 +1,62 @@
 {% load static %}
+
+<!-- Main Form for Filters -->
 <form hx-get="{% url 'trip_packages' %}" hx-target="#trip-package-list">
     <div class="join join-vertical w-full">
-        <!-- Price Slider -->
+
+        <!-- Price Slider Container -->
         <div class="collapse collapse-arrow join-item border border-base-300">
+
+            <!-- Collapse Title -->
             <input type="radio" name="filter" />
             <div class="collapse-title text-xl font-medium flex items-center">
                 <img src="{% static 'web_elements/svg_icons/trip_icons/price_icon.svg' %}" 
                     alt="Price Icon"
-                    class="w-6 h-6 mr-2 filter-icon">
-                Price
+                    class="w-6 h-6 mr-2 filter-icon">Price
             </div>
             <div class="collapse-content">
+
+                <!-- Price Labels and Range Input -->
                 <div class="flex justify-between">
-                    <label class="btn btn-sm">Up to:</label>
-                    <p id="max-price-label" class="btn btn-sm">€{{ price_range.max_price }}</p>
+                    <label class="btn btn-sm">
+                        Up to:
+                    </label>
+                    <p id="max-price-label" class="btn btn-sm">€
+                        {{ price_range.max_price }}
+                    </p>
                 </div>
+
+                <!-- Price Range Slider -->
                 <input type="range" id="max-price" name="price" 
-                       min="{{ price_range.min_price }}" 
-                       max="{{ price_range.max_price }}"
-                       value="{{ price_range.max_price }}"
-                       class="range range-sm range-warning mt-1" />
+                        min="{{ price_range.min_price }}" 
+                        max="{{ price_range.max_price }}"
+                        value="{{ price_range.max_price }}"
+                        class="range range-sm range-warning mt-2"
+                >
             </div>
         </div>
+
+        <!-- Loop to Generate Other Filters -->
         {% for filter_name, filter_items in filters.items %}
         {% if filter_name != "price" %}
+
+        <!-- Generic Filter Section -->
         <div class="collapse collapse-arrow join-item border border-base-300">
             <input type="radio" name="filter" /> 
             <div class="collapse-title text-xl font-medium flex items-center">
+
+                <!-- Dynamic Filter Icon -->
                 <img src="{% static 'web_elements/svg_icons/trip_icons/'|add:filter_name|add:'_icon.svg' %}" 
-                     alt="{{ filter_name|capfirst }} Icon"
-                     class="w-6 h-6 mr-2 filter-icon">
+                    alt="{{ filter_name|capfirst }} Icon"
+                    class="w-6 h-6 mr-2 filter-icon">
+
+                <!-- Filter Name -->
                 {{ filter_name|capfirst }}
             </div>
             <div class="collapse-content">
                 <ul class="flex-col">
+
+                    <!-- Special case for 'season' filter -->
                     {% if filter_name == "season" %}
                         {% for season, months in filter_items.items %}
                             <div class="collapse collapse-arrow join-item border border-base-300 mt-2">
@@ -46,9 +69,9 @@
                                         {% for month in months %}
                                             <li class="flex mt-2">
                                                 <input type="checkbox" 
-                                                       class="checkbox mr-2" 
-                                                       name="{{ filter_name }}" 
-                                                       value="{{ month.value }}">
+                                                        class="checkbox mr-2" 
+                                                        name="{{ filter_name }}" 
+                                                        value="{{ month.value }}">
                                                 {{ month.display }}
                                             </li>
                                         {% endfor %}
@@ -57,12 +80,14 @@
                             </div>
                         {% endfor %}
                     {% else %}
+
+                        <!-- Generic filter items -->
                         {% for item in filter_items %}
                             <li class="flex mt-2">
                                 <input type="checkbox" 
-                                       class="checkbox mr-2" 
-                                       name="{{ filter_name }}" 
-                                       value="{{ item.value }}">
+                                        class="checkbox mr-2" 
+                                        name="{{ filter_name }}" 
+                                        value="{{ item.value }}">
                                 {{ item.display }}
                             </li>
                         {% endfor %}
@@ -73,7 +98,11 @@
         {% endif %}
         {% endfor %}
     </div>
-    <button class="btn w-full mt-2" type="submit">Apply Filters</button>
+
+    <!-- Apply Filters Button -->
+    <button class="btn bg-secondary glass w-full mt-2" type="submit">
+        Apply Filters
+    </button>
 </form>
 
 
@@ -109,5 +138,4 @@
         });
     });
 
-    
 </script>
