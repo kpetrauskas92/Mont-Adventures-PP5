@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap');
 
 .min-h-screen-hero {
-    min-height: 100vh;
+    min-height: 80vh;
 }
 
 .navbar {
@@ -20,6 +20,7 @@
 
 .font-custom {
     font-family: 'Niconne', cursive;
+    text-shadow: 3px 1px 10px #141516b2;
   }
 
 .filter-icon {
@@ -59,8 +60,10 @@ footer {
 }
 
 .search-drawer .drawer-side {
+  position: fixed;
   top: 70px;
   left: 0;
+  height: calc(100vh - 70px);
 }
 
 .search-drawer .drawer-toggle:checked ~ .drawer-side {
@@ -81,4 +84,15 @@ footer {
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.hero {
+  background-position: top center;
+}
+
+#toast-messages {
+  display: none;
+}
+.badge {
+  border-radius: 0.5rem;
 }

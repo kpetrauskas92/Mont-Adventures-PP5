@@ -23,7 +23,13 @@
 	<!-- Signup Link -->
 	<div class="flex justify-center my-2 text-sm">
 		<p>Don't have an account?</p>
-			<a href="{% url 'account_signup' %}" class="text-blue-500 ml-1" hx-get="{% url 'account_signup' %}" hx-target="#my_modal_3 .modal-box">Sign Up</a>
+			<a href="{% url 'account_signup' %}"
+				class="text-blue-500 ml-1"
+				hx-get="{% url 'account_signup' %}"
+				hx-target="#my_modal_3 .modal-box"
+				hx-swap="innerHTML transition:true">
+				Sign Up
+			</a>
 	</div>
 
 	<!-- Form Section -->

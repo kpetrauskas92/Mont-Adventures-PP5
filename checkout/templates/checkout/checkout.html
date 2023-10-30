@@ -15,9 +15,9 @@
                 </svg>
             </button>
             <form action="{% url 'checkout' %}"
-                method="POST"
-                id="payment-form"
-                class="space-y-5">
+                  method="POST"
+                  id="payment-form"
+                  class="space-y-5">
                 
                 <p class="text-center">Please fill out the form below to complete your order</p>
 
@@ -35,7 +35,7 @@
                             <div id="card-element" class="mb-3"></div>
                             <div id="card-errors" class="mb-3 text-red-400" role="alert"></div>
                             <input type="hidden" value="{{ client_secret }}" name="client_secret">
-                            <button id="submit-button" class="btn btn-secondary w-full">
+                            <button id="submit-button" type="submit" class="btn btn-secondary w-full">
                                 <span class="font-bold">Pay Now €{{ total_price |floatformat:2 }}</span>
                             </button>
                     </fieldset>

@@ -46,13 +46,15 @@ def user_bookings(request):
     This view fetches the logged-in user's orders and displays them
     on the bookings page.
     """
-    orders = Order.objects.filter(
+    all_orders = Order.objects.filter(
         user_profile=request.user.userprofile).order_by('-id')
-    for order in orders:
-        order.non_canceled_lineitems = order.lineitems.exclude(
-            status='canceled')
+
+    # Filter out orders that only contain canceled line items
+    valid_orders = list(filter(lambda order: order.lineitems.exclude(
+        status='canceled').exists(), all_orders))
+
     context = {
-        'orders': orders
+        'orders': valid_orders
     }
     return render(request, 'includes/user-bookings.html', context)
 

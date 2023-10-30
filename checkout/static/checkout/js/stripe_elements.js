@@ -1,4 +1,3 @@
-
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 var clientSecret = $('#id_client_secret').text().slice(1, -1);
 var stripe = Stripe(stripePublicKey);
@@ -21,7 +20,6 @@ var style = {
         iconColor: '#dc3545'
     }
 };
-
 
 var card = elements.create('card', {style: style});
 card.mount('#card-element');
@@ -94,7 +92,7 @@ card.addEventListener('change', function (event) {
 // Handle form submit
 var form = document.getElementById('payment-form');
 
-form.addEventListener('submit', function(ev) {
+form.addEventListener('submit', async function(ev) {
     ev.preventDefault();
 
     if (!validateForm() || !isCardComplete) {
@@ -122,58 +120,60 @@ form.addEventListener('submit', function(ev) {
         'csrfmiddlewaretoken': csrfToken,
     };
 
-    // Create a new payment intent
-    $.ajax({
-        url: '/checkout/create_payment_intent/',
-        method: 'POST',
-        headers: { 'X-CSRFToken': csrfToken },
-        data: postData,
-        success: function(data) {
-            // Use the new client secret
-            var newClientSecret = data.client_secret;
-            document.getElementsByName('client_secret')[0].value = newClientSecret;
+    try {
+        const response = await fetch('/checkout/create_payment_intent/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify(postData)
+        });
+        
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        
+        const data = await response.json();
+        var newClientSecret = data.client_secret;
+        document.getElementsByName('client_secret')[0].value = newClientSecret;
 
-            stripe.confirmCardPayment(newClientSecret, {
-                payment_method: {
-                    card: card,
-                    billing_details: {
-                        name: `${form.first_name.value} ${form.last_name.value}`,
-                        email: $.trim(form.email.value),
-                    }
-                },
-            }).then(function(result) {
-                if (result.error) {
-                    var errorDiv = document.getElementById('card-errors');
-                    var html = `
-                        <span class="icon" role="alert">
-                        <i class="fas fa-times"></i>
-                        </span>
-                        <span>${result.error.message}</span>`;
-                    $(errorDiv).html(html);
-                    $('#payment-form').fadeToggle(100);
-                    $('#loading-overlay').fadeToggle(100);
-                    card.update({ 'disabled': false });
-                    $('#submit-button').attr('disabled', false);
-                } else {
-                    if (result.paymentIntent.status === 'succeeded') {
-                        form.submit();
-                    }
+        const result = await stripe.confirmCardPayment(newClientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    name: `${form.first_name.value} ${form.last_name.value}`,
+                    email: $.trim(form.email.value),
                 }
-            });
-        },
-        error: function(error) {
-            console.log("Error in creating payment intent: ", error);
+            },
+        });
+
+        if (result.error) {
             var errorDiv = document.getElementById('card-errors');
             var html = `
                 <span class="icon" role="alert">
                 <i class="fas fa-times"></i>
                 </span>
-                <span>Unable to process the payment. Please try again.</span>`;
+                <span>${result.error.message}</span>`;
             $(errorDiv).html(html);
-            $('#payment-form').fadeToggle(100);
-            $('#loading-overlay').fadeToggle(100);
-            card.update({ 'disabled': false });
-            $('#submit-button').attr('disabled', false);
+        } else {
+            if (result.paymentIntent.status === 'succeeded') {
+                form.submit();
+            }
         }
-    });
+    } catch (error) {
+        console.log("Error in creating payment intent: ", error);
+        var errorDiv = document.getElementById('card-errors');
+        var html = `
+            <span class="icon" role="alert">
+            <i class="fas fa-times"></i>
+            </span>
+            <span>Unable to process the payment. Please try again.</span>`;
+        $(errorDiv).html(html);
+    } finally {
+        $('#payment-form').fadeToggle(100);
+        $('#loading-overlay').fadeToggle(100);
+        card.update({ 'disabled': false });
+        $('#submit-button').attr('disabled', false);
+    }
 });

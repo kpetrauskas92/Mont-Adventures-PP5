@@ -52,7 +52,7 @@
     <title>Mont Adventures | Summit Your Dreams{% block extra_title %}{% endblock %}</title>
   </head>
 
-  <body flex flex-col min-h-screen hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+  <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     <header class="container-fluid fixed-top">
       {% include 'includes/accounts-modal.html' %}
       {% include 'includes/nav-bar.html' %}

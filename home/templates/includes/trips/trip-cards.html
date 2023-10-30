@@ -1,15 +1,17 @@
 {% load static %}
 
+{% load rating_filters %}
+
 {% block content %}
 
 <!-- Trip Card -->
-<article class="">
+<article class="border rounded-xl">
 
     <!-- Trip Link and Image -->
     <a href="{% url 'trip_details' trip.id %}"
         aria-label="View details for {{ trip.name }}">
         {% if trip.main_image %}
-            <img class="h-80 md:h-[260px] w-full object-cover mb-4 border rounded-t-lg"
+            <img class="h-80 sm:h-[240px] w-full object-cover mb-4 border rounded-t-lg"
                 src="{{ trip.main_image.url }}"
                 alt="{{ trip.name }}">
         {% else %}
@@ -21,7 +23,7 @@
 
     <!-- Trip Details -->
     <section class="mb-2">
-        <h2 class="font-semibold text-gray-800 pl-5 mb-3 uppercase">
+        <h2 class="font-semibold md:text-sm lg:text-base text-gray-900 pl-5 mb-3">
             {{ trip.name }}
         </h2>
 
@@ -29,7 +31,7 @@
         <hr class="mx-5">
 
         <!-- Trip Attributes -->
-        <div class="flex justify-evenly px-3 mt-3 opacity-70 py-3">
+        <div class="flex justify-evenly px-3 mt-3 opacity-70 py-1">
             <div class="text-center text-sm w-1/4">
                 <img src="{% static trip.location_icon %}"
                     alt="Location icon"
@@ -61,15 +63,15 @@
     </section>
 
     <!-- Booking and Price -->
-    <div class="py-2 px-4 flex justify-between bg-primary glass border rounded-b-lg">
+    <div class="py-2 px-4 flex justify-between bg-gray-100 rounded-b-lg">
         <a href="{% url 'trip_details' trip.id %}"
-            class="btn btn-ghost btn-sm text-white"
+            class="btn glass bg-secondary btn-sm text-primary"
             aria-label="Book this trip now"
         >
             Book Now
         </a>
-        <span class="inline-flex items-center text-white">
-            <strong class="text-secondary">
+        <span class="inline-flex items-center text-primary">
+            <strong class="text-primary">
                 €{{ trip.price }}
             </strong> /pp.
         </span>

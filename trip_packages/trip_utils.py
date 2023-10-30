@@ -2,6 +2,7 @@ from .models import Trips
 from datetime import datetime, timedelta
 from django_countries import countries
 
+
 MONTHS = [
     '', 'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
@@ -13,8 +14,8 @@ display_funcs = {
     'duration': lambda x: f"{x} day{'s' if x > 1 else ''}",
     'season': lambda x: ', '.join([MONTHS[month] for month in x]),
     'max_group_size': lambda x: f"Up to {x}",
-    'overall_rating': lambda x: f"{x} Stars",
-    'location': lambda x: dict(countries).get(x, x),
+    'overall_rating': lambda x: f"{x}",
+    'location': lambda x: 'UK' if x == 'GB' else dict(countries).get(x, x),
 }
 
 
@@ -50,3 +51,10 @@ def generate_available_dates(season, duration, include_departure_day=True):
                 start_date += timedelta(days=1)
 
     return available_dates
+
+
+def populate_filled_stars(trips_queryset):
+    for trip in trips_queryset:
+        trip.filled_stars = 0 if trip.overall_rating is None else round(
+            trip.overall_rating)
+    return trips_queryset

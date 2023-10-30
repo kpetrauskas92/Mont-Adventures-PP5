@@ -10,4 +10,6 @@ def subtract(value, arg):
 
 @register.filter
 def generate_range(value):
+    if value is None:
+        return range(0)
     return range(value)

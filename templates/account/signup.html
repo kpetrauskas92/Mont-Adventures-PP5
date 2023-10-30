@@ -29,7 +29,10 @@
         <a href="{% url 'account_login' %}"
             class="text-blue-500 ml-1"
             hx-get="{% url 'account_login' %}"
-            hx-target="#my_modal_3 .modal-box">Login</a>
+            hx-target="#my_modal_3 .modal-box"
+            hx-swap="innerHTML transition:true">
+            Login
+        </a>
     </div>
 
     <!-- Form Section -->
