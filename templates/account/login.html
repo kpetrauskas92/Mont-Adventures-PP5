@@ -42,7 +42,16 @@
 		<a href="{% url 'account_reset_password' %}" class="text-blue-500 text-sm" hx-get="{% url 'account_reset_password' %}" hx-target="#my_modal_3 .modal-box">Forgot Password?</a>
 
 		<!-- Submit Button -->
-		<button class="btn btn-primary w-full text-secondary mt-6" type="submit">Login</button>
+		<button id="loginButton" class="btn btn-primary w-full text-secondary mt-6" 
+				type="submit"
+				hx-trigger="submit"
+				hx-post="{{ request.path }}" 
+				hx-target="#my_modal_3 .modal-box"
+				hx-indicator="#loadingIndicator"
+				hx-swap="innerHTML">
+		Login
+		<span id="loadingIndicator" class="hidden loading loading-spinner"></span>
+		</button>
 	</form>
 
 </section>

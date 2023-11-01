@@ -96,3 +96,7 @@ footer {
 .badge {
   border-radius: 0.5rem;
 }
+
+.htmx-request #loadingIndicator {
+  display: inline-block !important;
+}
