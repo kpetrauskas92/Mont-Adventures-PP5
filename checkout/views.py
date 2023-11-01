@@ -11,7 +11,8 @@ from .checkout_utils import (
     initialize_order_form,
     validate_order_form,
     create_and_validate_order,
-    handle_successful_checkout
+    handle_successful_checkout,
+    validate_metadata
 )
 from .models import Order
 from cart.cart_utils import get_cart, stripe_metadata
@@ -37,10 +38,12 @@ def cache_checkout_data(request):
         # Prepare the cart for Stripe metadata
         metadata_cart = stripe_metadata(full_cart)
 
+        username = request.user.username if request.user.is_authenticated else 'Anonymous'
         stripe.PaymentIntent.modify(pid, metadata={
-            'cart': json.dumps(metadata_cart),  # Use the trimmed cart
-            'username': request.user,
+            'cart': json.dumps(metadata_cart),
+            'username': username,
         })
+
         return HttpResponse(status=200)
     except Exception as e:
         messages.error(request, ('Sorry, your payment cannot be '
@@ -143,10 +146,15 @@ def create_payment_intent(request):
                 'cart': json.dumps(metadata_cart),  # Use the trimmed cart
                 'username': str(request.user),
             }
-            intent = create_stripe_payment_intent(
-                stripe_total, settings.STRIPE_CURRENCY, metadata)
-            client_secret = intent.client_secret
-            return JsonResponse({'client_secret': client_secret})
+
+            # Validate metadata before proceeding
+            if validate_metadata(metadata):
+                intent = create_stripe_payment_intent(
+                    stripe_total, settings.STRIPE_CURRENCY, metadata)
+                client_secret = intent.client_secret
+                return JsonResponse({'client_secret': client_secret})
+            else:
+                return JsonResponse({'error': 'Invalid metadata.'})
         else:
             return JsonResponse({'error': 'Invalid amount.'})
     except Exception as e:

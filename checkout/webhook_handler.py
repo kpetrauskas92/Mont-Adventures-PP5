@@ -10,68 +10,89 @@ from trip_packages.models import Trips, AvailableDate
 from profiles.models import UserProfile
 import json
 import time
-import logging
-
-# Configure logging
-logger = logging.getLogger(__name__)
+import stripe
 
 
 class StripeWH_Handler:
-    """Handle Stripe webhooks."""
+    """
+    Handle Stripe webhooks
+    """
 
     def __init__(self, request):
-        """Initialize the StripeWH_Handler with a request object."""
+        """
+        Initialize the StripeWH_Handler with a request object
+        """
         self.request = request
 
     def _send_confirmation_email(self, order):
-        """Send a confirmation email to the customer."""
+        """
+        Send a confirmation email to the customer
+        """
         cust_email = order.email
         subject = render_to_string(
-            'checkout/emails/confirmation-email-subject.txt', {'order': order})
+            'checkout/emails/confirmation-email-subject.txt',
+            {'order': order})
         body = render_to_string(
             'checkout/emails/confirmation-email-body.txt',
-            {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
-        send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [cust_email])
+            {'order': order,
+             'contact_email': settings.DEFAULT_FROM_EMAIL})
+
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [cust_email]
+        )
 
     def handle_event(self, event):
-        """Handle unhandled or unknown events."""
+        """
+        Handle unhandled or unknown events
+        """
         return HttpResponse(
             content=f'Unhandled webhook received: {event["type"]}',
             status=HTTPStatus.OK)
 
     def handle_payment_intent_succeeded(self, event):
-        """Handle payment_intent.succeeded events."""
+        """
+        Handle successful payment intents.
+        """
         try:
             # Extract important info from event data
             intent = event.data.object
             pid = intent.id
+            latest_charge = intent.latest_charge
             metadata = intent.metadata
-            cart_info = json.loads(metadata.get('cart', '{}'))
-            username = metadata.get('username', None)
-            charges_data = intent.get('charges', {}).get('data', [])
 
-            # Check if charges are available
-            if not charges_data:
+            # Deserialize the cart data from metadata
+            cart_str = metadata.get('cart', '[]')
+            username = metadata.get('username', 'AnonymousUser')
+
+            try:
+                cart_data = json.loads(cart_str)
+            except json.JSONDecodeError:
                 return HttpResponse(
-                    content=f'Webhook received: {event["type"]} | '
-                            f'ERROR: No charges found',
-                    status=HTTPStatus.BAD_REQUEST)
+                    content=f'Webhook received: {event["type"]} | ERROR: JSON decoding error',
+                    status=HTTPStatus.INTERNAL_SERVER_ERROR
+                )
 
-            billing_details = charges_data[0].get('billing_details', None)
+            cart_info = cart_data
+
+            # Get the billing details from Stripe
+            charge_obj = stripe.Charge.retrieve(latest_charge)
+            billing_details = charge_obj.get('billing_details', {})
 
         except KeyError as e:
-            logger.error(f"KeyError: {e}")
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | ERROR: {e}',
-                status=HTTPStatus.INTERNAL_SERVER_ERROR)
-
+                status=HTTPStatus.INTERNAL_SERVER_ERROR
+            )
         except Exception as e:
-            logger.error(f"An error occurred: {e}")
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | ERROR: {e}',
-                status=HTTPStatus.INTERNAL_SERVER_ERROR)
+                status=HTTPStatus.INTERNAL_SERVER_ERROR
+            )
 
-        # Handle user profile and billing details
+        # Update or fetch user profile based on username
         profile = None
         if username != 'AnonymousUser':
             profile = get_object_or_404(UserProfile, user__username=username)
@@ -80,15 +101,20 @@ class StripeWH_Handler:
                     'address', {}).get('country', None)
                 profile.save()
 
-        # Check for existing order
+        # Check if the order already exists
         order_exists = False
         attempt = 1
+        name_split = []
+        if billing_details and 'name' in billing_details:
+            name = billing_details.get('name', '')
+            if name:
+                name_split = name.split(' ')
+
         while attempt <= 5:
             try:
-                name_split = billing_details.get('name', '').split(' ')
                 first_name = name_split[0] if len(name_split) > 0 else ''
                 last_name = name_split[1] if len(name_split) > 1 else ''
-                email = billing_details.get('email', '')
+                email = billing_details.get('email', '') if billing_details else ''
                 order = Order.objects.get(
                     first_name__iexact=first_name,
                     last_name__iexact=last_name,
@@ -109,6 +135,7 @@ class StripeWH_Handler:
 
         try:
             with transaction.atomic():
+
                 # Create order and line items
                 order = Order.objects.create(
                     user_profile=profile,
@@ -137,7 +164,6 @@ class StripeWH_Handler:
         except Exception as e:
             if order:
                 order.delete()
-            logger.error(f"An error occurred while creating order: {e}")
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | ERROR: {e}',
                 status=HTTPStatus.INTERNAL_SERVER_ERROR)
@@ -149,7 +175,9 @@ class StripeWH_Handler:
             status=HTTPStatus.OK)
 
     def handle_payment_intent_payment_failed(self, event):
-        """Handle payment failures."""
+        """
+        Handle payment failures
+        """
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=HTTPStatus.OK)

@@ -6,6 +6,7 @@
 
 {% block content %}
 
+{% include 'checkout/loading-overlay.html' %}
 <!-- Hero section with background image and overlay -->
 <div class="hero min-h-[300px]"
     style="background-image: url({% static 'web_elements\banners\cart-banner.jpg' %}); background-position: center;">
@@ -25,7 +26,6 @@
 <!-- Main content area -->
 <div class="py-10">
     <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-4 xl:px-0">
-
         <!-- Check if cart has items -->
         {% if cart %}
         <div class="rounded-lg md:w-2/3">
@@ -102,7 +102,7 @@
                         Order Summary
                     </h2>
                 <hr class="my-4">
-                <div class="rounded-lg">
+                <div id="order-summary" class="rounded-lg">
                     {% for item in cart %}
                         <div class="my-2 flex justify-between items-center bg-secondary glass p-2 rounded-lg">
                             <p class="text-sm text-primary font-bold max-w-[7rem] sm:max-w-[12rem] md:max-w-[7rem]">

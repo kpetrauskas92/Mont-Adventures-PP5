@@ -31,6 +31,11 @@ def create_stripe_payment_intent(amount, currency, metadata=None):
     return intent
 
 
+def validate_metadata(metadata):
+    required_keys = ['cart', 'username']
+    return all(key in metadata for key in required_keys)
+
+
 def initialize_order_form(user):
     """
     Initialize the OrderForm with default user information if available.

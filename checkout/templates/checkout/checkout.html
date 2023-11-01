@@ -1,51 +1,100 @@
 {% extends 'base.html' %}
+
 {% load static %}
 {% load custom_filters %}
 {% load tailwind_filters %}
 
 {% block content %}
-<div class=" h-screen">
+
+<!-- Main container with full screen height -->
+<div class="h-screen">
+
+    <!-- Card for checkout form -->
     <div class="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto">
-        <div id="checkout_form" >
+        <div id="checkout_form">
+
+            <!-- Load Stripe JavaScript library -->
+            <script src="https://js.stripe.com/v3/"></script>
+
+            <!-- Load custom Stripe elements JavaScript and CSS -->
             <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
             <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+
+            <!-- Close button for the modal -->
             <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick="document.getElementById('my_modal_3').close();">
+                <!-- SVG icon for close button -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
-            <form action="{% url 'checkout' %}"
-                  method="POST"
-                  id="payment-form"
-                  class="space-y-5">
-                
-                <p class="text-center">Please fill out the form below to complete your order</p>
-
+            
+            <!-- Payment form -->
+            <form method="POST" action="{% url 'checkout' %}" id="payment-form" class="mb-0">
+                <p class="text-center">
+                    Please fill out the form below to complete your order
+                </p>
                 {% csrf_token %}
-                <fieldset class="">
-                    <legend class="font-bold py-2 w-auto">Personal details:</legend>
+
+                <!-- Personal Details Section -->
+                <fieldset class="bottom-0">
+                    <legend class="font-bold mt-6 mb-2 w-auto">
+                        Personal details:
+                    </legend>
+
+                    <!-- First Name Field -->
+                    <div class="pb-3">
                         {{ order_form.first_name | as_crispy_field }}
+                        <div id="first-name-error" class="text-red-500 text-xs italic font-bold -mt-3" role="alert"></div>
+                    </div>
+
+                    <!-- Last Name Field -->
+                    <div class="pb-3">
                         {{ order_form.last_name | as_crispy_field }}
-                        {{ order_form.email | as_crispy_field }}
-                        <div id="form-errors" class="mb-3 text-red-400" role="alert"></div>
+                        <div id="last-name-error" class="text-red-500 text-xs italic font-bold -mt-3" role="alert"></div>
+                    </div>
+
+                    <!-- Email Field -->
+                    {{ order_form.email | as_crispy_field }}
+                    <div id="email-error" class="text-red-500 text-xs italic font-bold -mt-3" role="alert"></div>
+                    
+                    <!-- Form Errors Display -->
+                    <div id="form-errors" class="font-bold text-red-500 text-xs italic inline-flex items-center py-1" role="alert"></div>
                 </fieldset>
-                <div class="mb-6 rounded-lg bg-gray-900 p-2 shadow-md flex flex-col justify-between">
-                    <fieldset class="p-3 space-y-3">
-                        <legend class="text-white font-bold pt-2 w-auto">Card details:</legend>
-                            <div id="card-element" class="mb-3"></div>
-                            <div id="card-errors" class="mb-3 text-red-400" role="alert"></div>
-                            <input type="hidden" value="{{ client_secret }}" name="client_secret">
-                            <button id="submit-button" type="submit" class="btn btn-secondary w-full">
-                                <span class="font-bold">Pay Now €{{ total_price |floatformat:2 }}</span>
-                            </button>
+                
+                <!-- Card Details Section -->
+                <div class="mb-6 rounded-lg bg-gray-900 p-2 mt-0 shadow-md flex flex-col justify-between">
+                    <fieldset class="p-3">
+                        <legend class="text-white font-bold pt-2 w-auto">
+                            Card details:
+                        </legend>
+
+                        <!-- Stripe Card Element -->
+                        <div id="card-element" class="mb-3"></div>
+
+                        <!-- Card Errors Display -->
+                        <div id="card-errors" class="font-bold text-red-500 text-xs italic inline-flex items-center" role="alert"></div>
+
+                        <!-- Hidden field for client secret -->
+                        <input type="hidden" value="{{ client_secret }}" name="client_secret">
+
+                        <!-- Submit Button -->
+                        <button id="submit-button" type="submit" disabled class="btn btn-secondary w-full disabled:bg-gray-400">
+                            <span class="font-bold">
+                                Pay Now €{{ total_price | floatformat:2 }}
+                            </span>
+                        </button>
                     </fieldset>
                 </div>
+
+                <!-- Payment Cards Info -->
                 <img src="{% static 'web_elements/payment-cards.png' %}" alt="Payment Cards" class="mt-4">
             </form>
+            
             {{ block.super }}
+            <!-- Stripe Public Key and Client Secret -->
             {{ stripe_public_key|json_script:"id_stripe_public_key" }}
             {{ client_secret|json_script:"id_client_secret" }}
         </div>
     </div>
-</div> 
+</div>
 {% endblock %}
