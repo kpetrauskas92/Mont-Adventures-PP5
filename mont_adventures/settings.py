@@ -23,6 +23,12 @@ ALLOWED_HOSTS = ['127.0.0.1',
                  'www.montadventures.com',
                  '192.168.0.102']
 
+CSRF_COOKIE_DOMAIN = '.montadventures.com'
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SAMESITE = 'None'
+
 
 # Application definition
 
@@ -63,6 +69,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     'django_htmx.middleware.HtmxMiddleware',
+    'home.middleware.BlockDirectAccessMiddleware',
 ]
 
 ROOT_URLCONF = 'mont_adventures.urls'
