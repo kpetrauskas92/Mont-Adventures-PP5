@@ -1,10 +1,10 @@
     // Function to activate and scroll to the Reviews tab
     function activateReviewsTab() {
-        const reviewsTab = document.getElementById('reviewsTab');
+        const reviewsTab = document.getElementById('reviewsTab', 'overviewTab');
         if (reviewsTab) {
             manageActiveTab(reviewsTab);
             reviewsTab.click();
-            reviewsTab.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            reviewsTab.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     }
     
