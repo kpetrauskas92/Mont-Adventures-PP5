@@ -25,9 +25,9 @@ ALLOWED_HOSTS = ['127.0.0.1',
 
 
 CSRF_TRUSTED_ORIGINS = [
-    'mont-adventures-pp5-23ff8a97d0dd.herokuapp.com',
-    'montadventures.com',
-    'www.montadventures.com'
+    'https://mont-adventures-pp5-23ff8a97d0dd.herokuapp.com',
+    'https://montadventures.com',
+    'https://www.montadventures.com'
 ]
 
 
