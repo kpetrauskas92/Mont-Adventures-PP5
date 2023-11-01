@@ -23,11 +23,11 @@ ALLOWED_HOSTS = ['127.0.0.1',
                  'www.montadventures.com',
                  '192.168.0.102']
 
-CSRF_COOKIE_DOMAIN = '.montadventures.com'
+CSRF_COOKIE_DOMAIN = '.mont-adventures-pp5-23ff8a97d0dd.herokuapp.com'
 CSRF_COOKIE_SECURE = True
 
 SESSION_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SAMESITE = True
 
 
 # Application definition
