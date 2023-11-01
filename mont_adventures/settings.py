@@ -30,6 +30,11 @@ CSRF_TRUSTED_ORIGINS = [
     'https://www.montadventures.com'
 ]
 
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SAMESITE = 'None'
+
 
 # Application definition
 
