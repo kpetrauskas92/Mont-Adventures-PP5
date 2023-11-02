@@ -11,18 +11,10 @@
         <a href="{% url 'trip_details' trip.id %}">
             <div class="relative">
 
-                <!-- Main Trip Image -->
-                {% if trip.main_image %}
-                    <img class="w-full min-h-[260px]  object-cover mb-4 border rounded-t-lg"
-                        src="{{ trip.main_image.url }}"
-                        alt="{{ trip.name }}">
-
-                <!-- Default Trip Image -->
-                {% else %}
-                    <img class="w-full  object-cover mb-4"
-                        src="{{ trip.default_image_url }}"
-                        alt="Default image">
-                {% endif %}
+                <!-- Trip Image -->
+                <img class="w-full min-h-[260px] object-cover mb-4 border rounded-t-lg"
+                    src="{{ trip.get_image_url }}"
+                    alt="{{ trip.name }}">
 
                 <!-- Favorite Button -->
                     <div class="absolute top-2 right-2">

@@ -10,15 +10,9 @@
     <!-- Trip Link and Image -->
     <a href="{% url 'trip_details' trip.id %}"
         aria-label="View details for {{ trip.name }}">
-        {% if trip.main_image %}
-            <img class="h-80 sm:h-[240px] w-full object-cover mb-4 border rounded-t-lg"
-                src="{{ trip.main_image.url }}"
-                alt="{{ trip.name }}">
-        {% else %}
-            <img class="w-full object-cover mb-4"
-                src="{{ trip.default_image_url }}"
-                alt="Default Trip Image">
-        {% endif %}
+        <img class="h-80 sm:h-[240px] w-full object-cover mb-4 border rounded-t-lg"
+            src="{{ trip.get_image_url }}"
+            alt="{{ trip.name }}">
     </a>
 
     <!-- Trip Details -->

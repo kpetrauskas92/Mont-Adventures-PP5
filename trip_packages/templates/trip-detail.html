@@ -9,16 +9,9 @@
 
     <!-- Trip Name for Desktop View -->
     <div class="w-full relative gradient-container" style="height: 55vh;">
-        {% if trip.main_image %}
-            <img class="absolute w-full h-full object-cover"
-                src="{{ trip.main_image.url }}"
-                alt="{{ trip.name }}">
-        {% else %}
-            <img class="absolute w-full h-full object-cover"
-                src="{{ trip.default_image_url }}"
-                alt="{{ trip.name }}">
-        {% endif %}
-        
+        <img class="absolute w-full h-full object-cover"
+            src="{{ trip.get_image_url }}"
+            alt="{{ trip.name }}">
         <div class=" md:w-[70%] absolute bottom-0 left-0 right-0 hidden sm:block text-container">
             
             <!-- Breadcrumbs WIP -->
