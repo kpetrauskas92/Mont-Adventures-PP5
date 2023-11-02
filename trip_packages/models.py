@@ -1,4 +1,5 @@
 import uuid
+from django.templatetags.static import static
 from django.db import models
 from django.conf import settings
 from django.db.models import JSONField, Avg
@@ -34,7 +35,6 @@ class Trips(models.Model):
     """
     main_image = models.ImageField(
         upload_to='trip_packages/main_images/',
-        default='trip_packages/main_images/default-trip-img.jpg',
         null=True,
         blank=True
     )
@@ -48,6 +48,11 @@ class Trips(models.Model):
                                          default=0.0, db_index=True)
     difficulty = models.IntegerField(db_index=True,
                                      choices=DifficultyLevel.choices)
+
+    def get_image_url(self):
+        if self.main_image:
+            return self.main_image.url
+        return static('web_elements/default-trip-img.webp')
 
     def duration_str(self):
         return f"{self.duration} day{'s' if self.duration > 1 else ''}"
@@ -63,12 +68,6 @@ class Trips(models.Model):
 
     def __str__(self):
         return self.name
-
-    @property
-    def default_image_url(self):
-        return (settings.MEDIA_URL +
-                'trip_packages/main_images/' +
-                'default-trip-img.jpg')
 
 
 class TripOverview(models.Model):
