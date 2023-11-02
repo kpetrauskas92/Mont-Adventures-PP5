@@ -88,7 +88,8 @@ class TripPackages(View):
         query = Q()
 
         all_trips = Trips.objects.all()
-        filtered_trips = []
+
+        filtered_trips = all_trips.order_by('-price')
 
         for name in filter_names:
             display_func = display_funcs.get(name, None)
@@ -102,31 +103,31 @@ class TripPackages(View):
                                                    display_name,
                                                    model_name)
 
+            local_query = Q()
+
             if filter_values:
                 if model_name == "price":
                     max_price = int(filter_values[0])
                     if max_price != 0:
-                        query &= Q(price__lte=max_price)
+                        local_query &= Q(price__lte=max_price)
+
                 elif model_name == "season":
-                    filtered_trips = [
-                        trip for trip in all_trips
-                        if any(month in trip.season for month in filter_values)
-                    ]
-                    all_trips = filtered_trips
+                    season_filtered_trip_pks = []
+                    for trip in filtered_trips:
+                        if any(month in trip.season for month in filter_values):
+                            season_filtered_trip_pks.append(trip.pk)
+                    filtered_trips = Trips.objects.filter(pk__in=season_filtered_trip_pks)
+
                 else:
-                    query &= Q(**{f"{model_name}__in": filter_values})
-                    filtered_trips = all_trips.filter(query)
-                    all_trips = filtered_trips
+                    local_query &= Q(**{f"{model_name}__in": filter_values})
 
-            if 'price' in request.GET:
-                max_price = int(request.GET['price'])
-                if max_price != 0:
-                    query &= Q(price__lte=max_price)
+                if model_name != "season":
+                    filtered_trips = filtered_trips.filter(local_query)
 
-            filtered_trips = Trips.objects.filter(query)
-
-        if not filtered_trips:
-            filtered_trips = all_trips
+                if 'price' in request.GET:
+                    max_price = int(request.GET['price'])
+                    if max_price != 0:
+                        query &= Q(price__lte=max_price)
 
         if request.user.is_authenticated:
             user_favorites = FavoriteTrip.objects.filter(
