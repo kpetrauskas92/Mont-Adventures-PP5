@@ -1,14 +1,20 @@
 {% load static %}
 
+<!-- JavaScript Section -->
+<script src="{% static 'filter_sidebar/filter-sidebar.js' %}"></script>
+
 <!-- Main Form for Filters -->
-<form hx-get="{% url 'trip_packages' %}" hx-target="#trip-package-list">
+<form hx-get="{% url 'trip_packages' %}"
+    hx-target="#trip-package-list"
+    id="filterForm"
+    hx-trigger="change">
     <div class="join join-vertical w-full">
 
         <!-- Price Slider Container -->
         <div class="collapse collapse-arrow join-item border border-base-300">
 
             <!-- Collapse Title -->
-            <input type="radio" name="filter" />
+            <input type="radio" name="filter" class="collapse-trigger">
             <div class="collapse-title text-xl font-medium flex items-center">
                 <img src="{% static 'web_elements/svg_icons/trip_icons/price_icon.svg' %}" 
                     alt="Price Icon"
@@ -27,7 +33,7 @@
                 </div>
 
                 <!-- Price Range Slider -->
-                <input type="range" id="max-price" name="price" 
+                <input type="range" id="max-price" name="price"
                         min="{{ price_range.min_price }}" 
                         max="{{ price_range.max_price }}"
                         value="{{ price_range.max_price }}"
@@ -42,7 +48,7 @@
 
         <!-- Generic Filter Section -->
         <div class="collapse collapse-arrow join-item border border-base-300">
-            <input type="radio" name="filter" /> 
+            <input type="radio" name="filter"> 
             <div class="collapse-title text-xl font-medium flex items-center">
 
                 <!-- Dynamic Filter Icon -->
@@ -99,43 +105,10 @@
         {% endfor %}
     </div>
 
-    <!-- Apply Filters Button -->
-    <button class="btn bg-secondary glass w-full mt-2" type="submit">
-        Apply Filters
+    <!-- Reset Filters Button (initially hidden) -->
+    <button id="resetButton" class="btn bg-neutral text-primary glass hover:bg-secondary w-full mt-2 hidden"
+            type="button"
+            onclick="resetFilters()">
+        Reset Filters
     </button>
 </form>
-
-
-<script>
-    // Function to update all #max-price and #max-price-label elements
-    function syncMaxPrice(value) {
-        var maxPriceInputs = document.querySelectorAll('#max-price');
-        var maxPriceLabels = document.querySelectorAll('#max-price-label');
-        
-        maxPriceInputs.forEach(function(input) {
-            input.value = value;
-        });
-
-        maxPriceLabels.forEach(function(label) {
-            label.innerText = '€' + value;
-        });
-    }
-
-    // Listen for changes on any #max-price element
-    document.body.addEventListener('input', function(event) {
-        if (event.target.id === 'max-price') {
-            syncMaxPrice(event.target.value);
-        }
-    });
-
-    //  Function for trip count
-    document.addEventListener('DOMContentLoaded', function() {
-        document.body.addEventListener('htmx:afterOnLoad', function(event) {
-            var tripCountElement = document.getElementById('trip-count');
-            var tripItems = document.querySelectorAll('#trip-package-list .trip-item').length;
-            var expeditionText = tripItems === 1 ? ' Expedition' : ' Expeditions';
-            tripCountElement.innerHTML = '<strong>' + tripItems + '</strong>' + expeditionText;
-        });
-    });
-
-</script>

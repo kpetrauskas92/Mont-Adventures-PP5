@@ -5,6 +5,7 @@
 {% block content %}
 
 {% for trip in trips %}
+
 <div class="trip-item w-full sm:w-1/2 md:w-1/2 px-4 pb-4 ">
     <div class="border rounded-lg shadow-xl">
         <a href="{% url 'trip_details' trip.id %}">
@@ -77,7 +78,11 @@
                     </span>
                 </div>
             </div>
-        </div> 
+        </div>
+    {% empty %}
+        <div class="mx-auto px-4">
+            <h2 class="text-gray-500 py-2">"Oops! No expeditions match your current filters. Try adjusting your search criteria."</h2>
+        </div>
 {% endfor %}  
 
 {% endblock  %}
