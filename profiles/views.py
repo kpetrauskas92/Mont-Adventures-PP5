@@ -217,9 +217,13 @@ class UserProfileUpdateView(UpdateView):
         """
         form.instance.user = self.request.user
         form.save()
+
+        # For HTMX requests, render the success template
         if self.request.headers.get('HX-Request') == 'true':
-            return JsonResponse({'form_valid': True}, status=200)
-        return super().form_valid(form)
+            return render(self.request, 'profile-edit-success.html')
+
+        # For non-HTMX requests, redirect to the profile page
+        return redirect('profile')
 
     def form_invalid(self, form):
         """

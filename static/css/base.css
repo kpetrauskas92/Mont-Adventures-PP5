@@ -100,3 +100,35 @@ footer {
 .htmx-request #loadingIndicator {
   display: inline-block !important;
 }
+
+.file-input {
+  display: none;
+}
+
+.file-label {
+  padding: 10px;
+  background-color: #f4f4f4;
+  border: 1px solid #d4d4d4;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.file-label:hover {
+  background-color: #e4e4e4;
+}
+
+.file-name {
+  flex-grow: 1;
+  margin-right: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1rem;
+}
+
+.file-action {
+  margin-right: 10px;
+  font-weight: bold;
+}

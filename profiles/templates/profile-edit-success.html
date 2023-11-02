@@ -1,4 +1,26 @@
 {% load static %}
+
+<!-- Script to reload the window on exit -->
+
+<script>
+	const modal = document.getElementById('my_modal_3');
+	const closeButton = document.querySelector(".btn-circle");
+
+	const reloadPage = () => {
+		window.location.reload();
+	};
+
+	if (closeButton) {
+		closeButton.addEventListener("click", reloadPage);
+	}
+
+	document.addEventListener("keydown", function(event) {
+		if (event.key === "Escape") {
+		reloadPage();
+		}
+	});
+</script>
+
 	<button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick="document.getElementById('my_modal_3').close();">
 		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 			<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -12,10 +34,7 @@
 		</svg>
 		<div class="text-center">
 			<h3 class="md:text-2xl text-base font-semibold text-center">
-				Thank you!
+				Profile Updated Successfuly!
 			</h3>
-			<p> 
-				Your review has been submitted and is now pending aproval.
-			</p>	
 		</div>
 	</div>

@@ -82,6 +82,10 @@ class CustomSignupForm(SignupForm):
         return user
 
 
+class CustomClearableFileInput(forms.ClearableFileInput):
+    template_name = 'custom_widgets/custom_clearable_file_input.html'
+
+
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
@@ -89,6 +93,9 @@ class UserProfileForm(forms.ModelForm):
             'profile_image', 'country', 'city', 'phone_number',
             'emergency_contact_name', 'emergency_contact_phone'
         ]
+        widgets = {
+            'profile_image': CustomClearableFileInput
+        }
 
     def __init__(self, *args, **kwargs):
         """

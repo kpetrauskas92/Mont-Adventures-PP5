@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+import os
 
 
 class CustomerIDCounter(models.Model):
@@ -40,3 +43,19 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+@receiver(pre_save, sender=UserProfile)
+def delete_old_image(sender, instance, **kwargs):
+    # If the object is in the database and the profile_image has changed
+    if instance.pk:
+        try:
+            old_image = UserProfile.objects.get(pk=instance.pk).profile_image
+        except UserProfile.DoesNotExist:
+            return
+
+        # If the image is cleared or changed, delete it
+        new_image = instance.profile_image
+        if not new_image or (old_image and not old_image == new_image):
+            if old_image and os.path.isfile(old_image.path):
+                os.remove(old_image.path)

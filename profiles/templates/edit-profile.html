@@ -1,4 +1,5 @@
 {% load tailwind_filters %}
+
 {% block content %}
 
 <!-- Edit Profile Container -->
@@ -20,7 +21,7 @@
     <div id="formContainer">
         <form method="POST"
             enctype="multipart/form-data"
-            hx-post="{% url 'edit-profile' %}"
+            hx-post="{% if form_action %}{{ form_action }}{% else %}{% url 'edit-profile' %}{% endif %}"
             hx-trigger="submit"
             hx-target="#my_modal_3 .modal-box"
         >
@@ -33,20 +34,5 @@
     </div>
 </div>
 
-<!-- HTMX Configuration Script -->
-<script>
-    document.body.addEventListener('htmx:configRequest', function(event) {
-        event.detail.headers['HX-Request'] = 'true';
-    });
 
-    document.body.addEventListener('htmx:afterOnLoad', function(event) {
-        const responseData = JSON.parse(event.detail.xhr.responseText);
-        if (responseData && responseData.form_valid) {
-            // Close the modal
-            document.getElementById('my_modal_3').close();
-            // Reload the page
-            window.location.reload();
-        }
-    });
-</script>
 {% endblock %}

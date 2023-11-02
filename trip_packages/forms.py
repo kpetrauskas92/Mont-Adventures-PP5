@@ -5,10 +5,17 @@ from .models import Reviews
 import re
 
 
+class CustomClearableFileInput(forms.ClearableFileInput):
+    template_name = 'custom_widgets/custom_clearable_file_input.html'
+
+
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Reviews
         fields = ['title', 'rating', 'comment', 'image']
+        widgets = {
+            'image': CustomClearableFileInput(),
+        }
 
     title = forms.CharField(max_length=30, required=True)
     rating = forms.IntegerField(required=True)
@@ -35,7 +42,8 @@ class ReviewForm(forms.ModelForm):
         if image:
             if isinstance(image, UploadedFile):
                 if image.size > (5 * 1024 * 1024):
-                    raise ValidationError('File size must be no more than 5mb.')
+                    raise ValidationError('File size must be no more than '
+                                          '5mb.')
                 if image.content_type not in ['image/jpeg', 'image/png']:
                     raise ValidationError('File format must be JPEG or PNG.')
         return image
