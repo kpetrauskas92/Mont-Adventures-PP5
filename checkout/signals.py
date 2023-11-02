@@ -20,7 +20,7 @@ def update_booked_slots_on_create_or_update(sender, instance, **kwargs):
             change_in_guests = -(old_instance.guests + 1)
 
     available_date = instance.available_date
-    available_date.booked_slots += change_in_guests
+    available_date.booked_slots = max(available_date.booked_slots + change_in_guests, 0)
     available_date.save()
 
     print(f"Updating booked_slots. Change in guests: {change_in_guests}")
@@ -33,5 +33,7 @@ def update_booked_slots_on_delete(sender, instance, **kwargs):
     when an OrderLineItem is deleted.
     """
     available_date = instance.available_date
-    available_date.booked_slots -= (instance.guests + 1)
-    available_date.save()
+
+    if instance.status != 'canceled':
+        available_date.booked_slots = max(available_date.booked_slots - (instance.guests + 1), 0)
+        available_date.save()

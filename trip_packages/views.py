@@ -32,7 +32,9 @@ def generate_filter_options(model, field_name, display_func=None):
 
         return season_filters
 
-    values = list(model.objects.values_list(field_name, flat=True).distinct())
+    values = list(
+        model.objects.values_list(
+            field_name, flat=True).distinct().order_by(field_name))
     if display_func:
         return [{'value': v, 'display': display_func(v)} for v in values]
     else:
@@ -413,8 +415,8 @@ class BookingDrawer(View):
         - Renders the appropriate template with context.
         """
         trip = get_object_or_404(Trips, id=trip_id)
-        available_dates = AvailableDate.objects.filter(trips=trip,
-                                                       is_available=True)
+        available_dates = AvailableDate.objects.filter(
+            trips=trip, is_available=True).order_by('start_date')
 
         if 'HX-Request' in request.headers:
             return render(request,

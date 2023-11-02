@@ -146,11 +146,8 @@ class StripeWH_Handler:
 
                 for item in cart_info:
                     trip = Trips.objects.get(id=item['trip_id'])
-                    available_date = AvailableDate.objects.get(
-                        id=item['available_date_id'])
+                    available_date = AvailableDate.objects.get(id=item['available_date_id'])
                     if available_date.remaining_slots() >= item['guests']:
-                        available_date.booked_slots += item['guests']
-                        available_date.save()
                         OrderLineItem.objects.create(
                             order=order,
                             trip=trip,
