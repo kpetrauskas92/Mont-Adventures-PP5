@@ -5,6 +5,7 @@
 {% block head_title %}Confirm Email Address{% endblock %}
 
 {% block content %}
+
 <!-- Main Content -->
 <section aria-labelledby="confirm-email-title">
 
@@ -26,7 +27,7 @@
             {% if can_confirm %}
 
             <!-- Confirmation message -->
-            <p class="my-3 text-center">Please confirm that <a href="mailto:{{ email }}" class="text-blue-500 font-bold text-center">{{ email }}</a> is an email address for user <strong>{{ user_display }}</strong>.</p>
+            <p class="my-3 text-center">Please confirm that <a href="mailto:{{ confirmation.email_address.email }}" class="text-blue-500 font-semibold text-center">{{ confirmation.email_address.email }}</a> is an email address for user <strong>{{ confirmation.email_address.user.first_name }}</strong>.</p>
 
             <!-- Confirm button -->
             <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
