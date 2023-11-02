@@ -50,8 +50,8 @@
                 </a>
                 <!-- Cart Item details -->
                 <div class="flex flex-col sm:flex-row shadow-inner">
-                    <img src="{{ item.trip_image|default:'/media/trip_packages/main_images/default-trip-img.jpg' }}"
-                        alt="trip-image"
+                    <img src="{{ item.trip_image }}"
+                        alt="{{ item.trip_name }}"
                         class="rounded-t-lg sm:rounded-r-none sm:rounded-t-lg sm:rounded-l-lg object-cover w-full sm:max-w-[250px] sm:max-h-[250px] md:max-w-[190px] md:max-h-[200px] lg:max-w-[240px] lg:max-h-[220px]" />
                     <div class="ml-0 sm:ml-2 mt-2 pb-2 pl-3 sm:pl-1">
 
