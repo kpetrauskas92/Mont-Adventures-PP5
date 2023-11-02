@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-import os
 
 
 class CustomerIDCounter(models.Model):
@@ -57,5 +56,5 @@ def delete_old_image(sender, instance, **kwargs):
         # If the image is cleared or changed, delete it
         new_image = instance.profile_image
         if not new_image or (old_image and not old_image == new_image):
-            if old_image and os.path.isfile(old_image.path):
-                os.remove(old_image.path)
+            if old_image and old_image.storage.exists(old_image.name):
+                old_image.storage.delete(old_image.name)
