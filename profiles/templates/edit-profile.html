@@ -28,7 +28,14 @@
         {% csrf_token %}
         {{ form|crispy }}
             <button class="btn btn-secondary w-full"
-                    type="submit">Save changes
+                    type="submit"
+                    hx-trigger="submit"
+                    hx-post="{{ request.path }}" 
+                    hx-target="#my_modal_3 .modal-box"
+                    hx-indicator="#loadingIndicator"
+                    hx-swap="innerHTML"
+                    >Save changes
+            <span id="loadingIndicator" class="hidden loading loading-spinner"></span>
             </button>
         </form>
     </div>
