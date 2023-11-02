@@ -113,13 +113,15 @@ class UserProfileForm(forms.ModelForm):
         image = self.cleaned_data.get('profile_image')
         if image:
             # Validate file size
-            if image.size > 5 * 1024 * 1024:
+            if hasattr(image, 'size') and image.size > 5 * 1024 * 1024:
                 raise ValidationError("Image size should not exceed 5MB.")
 
-            # Validate file format
-            content_type = image.content_type
-            if content_type not in ['image/jpeg', 'image/png']:
-                raise ValidationError("Accepted file formats are: JPEG, PNG.")
+            # Validate file format only for UploadedFile objects
+            if hasattr(image, 'content_type'):
+                content_type = image.content_type
+                if content_type not in ['image/jpeg', 'image/png']:
+                    raise ValidationError("Accepted file formats are: "
+                                          "JPEG, PNG.")
 
         return image
 
