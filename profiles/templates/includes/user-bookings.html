@@ -89,10 +89,13 @@
 <!-- If there are no orders -->
 {% else %}
     <div class="mb-6">
-        <div class="">
-            <p class="text-gray-500 py-2">You have not booked a trip yet.</p>
-            <a class="btn btn-secondary mt-5"
-                href="{% url 'trip_packages' %}">Book a trip now!
+        <div class="mx-auto text-center">
+            <p class="text-gray-500 py-2 px-4">
+                No trips in your booking history.<br />
+                Why not check out our latest offerings?
+            </p>
+            <a class="btn btn-primary text-secondary btn-wide mt-5"
+                href="{% url 'trip_packages' %}">Go Explore!
             </a>
         </div>
     </div>

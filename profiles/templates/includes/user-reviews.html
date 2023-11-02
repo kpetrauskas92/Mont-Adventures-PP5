@@ -57,8 +57,14 @@
 
     <!-- Message if there are no Reviews -->
     {% empty %}
-        <p class="text-gray-500 py-2">
-            You have not written any reviews yet.
+    <div class="mx-auto text-center">
+        <p class="text-gray-500 py-2 px-4">
+            You haven't written any reviews yet..<br />
+            Share your experiences to help other travelers!
         </p>
+        <a class="btn btn-primary text-secondary btn-wide mt-5"
+            href="{% url 'trip_packages' %}">Go Explore!
+        </a>
+    </div>
     {% endfor %}
 {% endblock %}
