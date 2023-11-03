@@ -8,10 +8,10 @@ from .views import (TripPackages,
 
 
 urlpatterns = [
-    path('trip_packages/', TripPackages.as_view(), name='trip_packages'),
+    path('explore/', TripPackages.as_view(), name='trip_packages'),
     path('trip_packages/<int:trip_id>/', TripPackages.as_view(),
          name='trip_with_id'),
-    path('trip_details/<int:pk>/', TripDetails.as_view(), name='trip_details'),
+    path('trip/<int:pk>/', TripDetails.as_view(), name='trip_details'),
     path('trip_packages/trip_overview/<int:trip_id>/', trip_overview,
          name='trip_overview'),
     path('booking_drawer/<int:trip_id>/', BookingDrawer.as_view(),
