@@ -17,7 +17,7 @@ class ReviewForm(forms.ModelForm):
             'image': CustomClearableFileInput(),
         }
 
-    title = forms.CharField(max_length=30, required=True)
+    title = forms.CharField(max_length=25, required=True)
     rating = forms.IntegerField(required=True)
     comment = forms.CharField(
         widget=forms.Textarea(attrs={'rows': 4, 'cols': 50}),

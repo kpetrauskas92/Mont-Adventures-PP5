@@ -1,5 +1,3 @@
-{% load booking_filters %}
-
 <!-- Check for orders -->
 {% if orders %}
     <div class="orders-container shadow-lg rounded-b-lg mr-4">
@@ -7,49 +5,47 @@
         <!-- Loop through each order -->
         {% for order in orders %}
             <div class="order-item">
-                {% if order.lineitems.all|filter_not_canceled %}
-                    <div class=" rounded-t-lg text-white glass bg-gray-950 p-2 shadow-md flex flex-col sm:flex-row justify-between relative">
-                        <p class="font-semibold">Order Number: 
-                            <span class="badge rounded-lg text-gray-700">
-                                {{ order.order_number }}
-                            </span>
-                        </p>
-                        <p class="font-semibold">Total: 
-                            <span class="badge rounded-lg text-gray-700">€
-                                {{ order.grand_total }}
-                            </span>
-                        </p>
-                    </div>
-                {% endif %}
+                <div class="rounded-t-lg text-white glass bg-gray-950 p-2 shadow-md flex flex-col sm:flex-row justify-between relative">
+                    <p class="font-semibold">Order Number: 
+                        <span class="badge rounded-lg text-gray-700">
+                            {{ order.order_number }}
+                        </span>
+                    </p>
+                    <p class="font-semibold">Total: 
+                        <span class="badge rounded-lg text-gray-700">€
+                            {{ order.grand_total }}
+                        </span>
+                    </p>
+                </div>
 
                 <!-- Loop through each line item in the order -->
                 {% for lineitem in order.lineitems.all %}
-                <div class="flex justify-between ">
-                    <h1 class="font-semibold text-sm mb-1 pl-2">
-                        <span class="text-xl rounded-lg justify-start font-bold w-full uppercase">
-                            {{ lineitem.trip.name }}
-                        <span>
-                    </h1>
+                    {% if lineitem.status == 'active' %}
+                        <div class="flex justify-between">
+                            <h1 class="font-semibold text-sm mb-1 pl-2">
+                                <span class="text-xl rounded-lg justify-start font-bold w-full uppercase">
+                                    {{ lineitem.trip.name }}
+                                </span>
+                            </h1>
 
-                    <!-- Cancel button for each line item -->
-                    <button class="btn btn-ghost shadow-md mt-1 btn-outline btn-xs hover:bg-error hover:text-white mr-2"
-                            hx-get="{% url 'cancel-trip' lineitem.id %}"
-                            hx-target="#my_modal_3 .modal-box"
-                            onclick="my_modal_3.showModal()">Cancel
-                    </button>
-                </div>
+                            <!-- Cancel button for each line item -->
+                            <button class="btn btn-ghost shadow-md mt-1 btn-outline border-gray-700 btn-xs hover:bg-error hover:text-white mr-2"
+                                    hx-get="{% url 'cancel-trip' lineitem.id %}"
+                                    hx-target="#my_modal_3 .modal-box"
+                                    onclick="my_modal_3.showModal()">Cancel
+                            </button>
+                        </div>
 
-                    <!-- Display line item details if the item is not canceled -->
-                    {% if lineitem.status != 'canceled' %}
+                        <!-- Display line item details -->
                         <div class="mb-2 rounded-lg bg-white flex flex-col sm:flex-row justify-between relative">
-
                             <!-- Line item image -->
                             <div class="flex-none w-full sm:w-[16rem] mb-4 sm:mb-0 md:pl-2 sm:pb-2">
-                                <img src="{{ lineitem.trip.main_image.url }}"
-                                    alt="{{ lineitem.trip.name }}"
-                                    class="w-full shadow-xl rounded-none sm:rounded-lg">
+                                <a href="{% url 'trip_details' lineitem.trip.id %}">
+                                    <img src="{{ lineitem.trip.main_image.url }}"
+                                         alt="{{ lineitem.trip.name }}"
+                                         class="w-full shadow-xl rounded-none sm:rounded-lg">
+                                </a>
                             </div>
-
                             <!-- Line item details -->
                             <div class="flex-grow ml-2 pb-4 sm:py-1">
                                 <p class="text-gray-500 text-sm font-medium mb-2">Start Date:
@@ -64,7 +60,7 @@
                                 </p>
                                 <p class="text-gray-500 text-sm font-medium mb-2">Location:
                                     <span class="text-sm font-semibold badge ml-1 shadow-sm"> 
-                                        {{ lineitem.trip.location }}
+                                        {{ lineitem.trip.get_location_display }}
                                     </span>
                                 </p>
                                 <p class="text-gray-500 text-sm font-medium mb-2">Difficulty:
@@ -78,7 +74,6 @@
                                     </span>
                                 </p>
                             </div>
-                            
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -95,7 +90,7 @@
                 Why not check out our latest offerings?
             </p>
             <a class="btn btn-primary text-secondary btn-wide mt-5"
-                href="{% url 'trip_packages' %}">Go Explore!
+               href="{% url 'trip_packages' %}">Go Explore!
             </a>
         </div>
     </div>

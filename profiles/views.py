@@ -21,17 +21,13 @@ def login_success_view(request):
 
 @login_required
 def user_profile(request):
-    """Display the user's profile.
-
-    This view fetches the logged-in user's profile and orders, and renders them
-    on the profile page.
-    """
+    """Display the user's profile."""
     profile = get_object_or_404(UserProfile, user=request.user)
+
     orders = Order.objects.filter(
-        user_profile=request.user.userprofile).order_by('-id')
-    for order in orders:
-        order.non_canceled_lineitems = order.lineitems.exclude(
-            status='canceled')
+        user_profile=request.user.userprofile,
+        lineitems__status='active').distinct().order_by('-id')
+
     context = {
         'profile': profile,
         'orders': orders,
@@ -41,20 +37,14 @@ def user_profile(request):
 
 @login_required
 def user_bookings(request):
-    """Display the user's bookings.
+    """Display the user's bookings."""
 
-    This view fetches the logged-in user's orders and displays them
-    on the bookings page.
-    """
-    all_orders = Order.objects.filter(
-        user_profile=request.user.userprofile).order_by('-id')
-
-    # Filter out orders that only contain canceled line items
-    valid_orders = list(filter(lambda order: order.lineitems.exclude(
-        status='canceled').exists(), all_orders))
+    orders = Order.objects.filter(
+        user_profile=request.user.userprofile,
+        lineitems__status='active').distinct().order_by('-id')
 
     context = {
-        'orders': valid_orders
+        'orders': orders
     }
     return render(request, 'includes/user-bookings.html', context)
 

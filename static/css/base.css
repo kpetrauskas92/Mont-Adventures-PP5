@@ -132,3 +132,7 @@ footer {
   margin-right: 10px;
   font-weight: bold;
 }
+
+.btn-outline {
+  border-color: #bdbdbd;
+}

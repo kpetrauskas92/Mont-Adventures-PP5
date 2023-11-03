@@ -1,7 +1,6 @@
 import uuid
 from django.templatetags.static import static
 from django.db import models
-from django.conf import settings
 from django.db.models import JSONField, Avg
 from django_countries.fields import CountryField
 from django.contrib.auth import get_user_model
@@ -183,8 +182,8 @@ class Reviews(models.Model):
     trip = models.ForeignKey(Trips, related_name='reviews',
                              on_delete=models.CASCADE)
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
-    title = models.CharField(max_length=20, null=True, blank=True)
-    comment = models.TextField(max_length=500)
+    title = models.CharField(max_length=25, null=True, blank=True)
+    comment = models.TextField(max_length=300)
     is_approved = models.BooleanField(default=False)
     image = models.ImageField(upload_to=review_image_path,
                               null=True, blank=True)
