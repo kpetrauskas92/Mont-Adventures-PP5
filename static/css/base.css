@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap');
 
 .min-h-screen-hero {
     min-height: 80vh;
@@ -15,6 +15,7 @@
 .top-footer-bg {
     background-image: url('/static/web_elements/top-footer-bg.webp');
     background-size: cover;
+    background-position: bottom;
     height: 50vh;
 }
 
@@ -35,10 +36,7 @@
     z-index: 1;
     transition: bottom 0.9s ease;
   }
-  
-  /* .footer-nearby {
-    bottom: -100px;
-  } */
+
 
 .gradient-container .gradient-bg {
     content: "";
@@ -93,6 +91,7 @@ footer {
 #toast-messages {
   display: none;
 }
+
 .badge {
   border-radius: 0.5rem;
 }
@@ -135,4 +134,34 @@ footer {
 
 .btn-outline {
   border-color: #bdbdbd;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+      opacity: 1;
+  }
+  to {
+      opacity: 0;
+  }
+}
+
+.auto-dismiss-toast {
+  opacity: 0;
+  animation: fadeIn 1.5s forwards;
+}
+
+.auto-dismiss-toast-fade-out {
+  animation-name: fadeOut;
+  animation-timing-function: ease-out;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
 }

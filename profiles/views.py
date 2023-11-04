@@ -173,6 +173,7 @@ def delete_review(request, review_id):
     review = get_object_or_404(Reviews, id=review_id)
     if request.method == 'POST':
         review.delete()
+        messages.success(request, 'Review deleted successfully.')
         return redirect('profile')
     return render(request, 'includes/delete-review.html', {'review': review})
 
