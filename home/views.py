@@ -1,8 +1,41 @@
+import os
+import requests
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.db.models import Count
 from django.db.models import Q
 from trip_packages.models import Trips
 from trip_packages.trip_utils import display_funcs
+
+
+def error_404(request, exception):
+    return render(request, 'includes/error_handlers/404.html', {}, status=404)
+
+
+def error_500(request):
+    return render(request, 'includes/error_handlers/500.html', {}, status=500)
+
+
+def index(request):
+    top_trips = Trips.objects.annotate(
+        num_favorites=Count('favorited_by')
+    ).order_by('-num_favorites')[:8]
+
+    populate_trip_attributes(top_trips)
+
+    locations_with_count = Trips.objects.values('location').annotate(
+        num_trips=Count('id')
+    )
+
+    location_count_dict = {
+        loc['location']: loc['num_trips'] for loc in locations_with_count}
+
+    context = {
+        'top_trips': top_trips,
+        'location_count_dict': location_count_dict,
+        'country_image_map': COUNTRY_IMAGE_MAP,
+    }
+    return render(request, 'index.html', context)
 
 
 COUNTRY_IMAGE_MAP = {
@@ -32,36 +65,6 @@ def populate_trip_attributes(trip_list):
             'web_elements/svg_icons/trip_icons/location_icon.svg')
 
 
-def index(request):
-    top_trips = Trips.objects.annotate(
-        num_favorites=Count('favorited_by')
-    ).order_by('-num_favorites')[:8]
-
-    populate_trip_attributes(top_trips)
-
-    locations_with_count = Trips.objects.values('location').annotate(
-        num_trips=Count('id')
-    )
-
-    location_count_dict = {
-        loc['location']: loc['num_trips'] for loc in locations_with_count}
-
-    context = {
-        'top_trips': top_trips,
-        'location_count_dict': location_count_dict,
-        'country_image_map': COUNTRY_IMAGE_MAP,
-    }
-    return render(request, 'index.html', context)
-
-
-def error_404(request, exception):
-    return render(request, 'includes/error_handlers/404.html', {}, status=404)
-
-
-def error_500(request):
-    return render(request, 'includes/error_handlers/500.html', {}, status=500)
-
-
 def search_trips(request):
     query = request.GET.get('q', '')
     if query:
@@ -81,3 +84,39 @@ def search_trips(request):
         'query': query
     }
     return render(request, 'includes/search-results.html', context)
+
+
+def subscribe_to_newsletter(request):
+    context = {}
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if not email:
+            context = {'alert_class': 'alert-error', 'message': 'Email is required'}
+
+        # Mailchimp API setup
+        api_key = os.environ.get('MAILCHIMP_API_KEY')
+        region = os.environ.get('MAILCHIMP_REGION')
+        list_id = os.environ.get('MAILCHIMP_AUDIENCE_ID')
+
+        url = f"https://{region}.api.mailchimp.com/3.0/lists/{list_id}/members/"
+
+        headers = {
+            'Authorization': f'apikey {api_key}',
+            'Content-Type': 'application/json'
+        }
+
+        data = {
+            'email_address': email,
+            'status': 'subscribed'
+        }
+
+        response = requests.post(url, headers=headers, json=data)
+
+        if response.status_code == 200:
+            context = {'alert_class': 'alert-success', 'message': 'Successfully subscribed! Thank you!'}
+        elif response.status_code == 400 and "already a list member" in response.text:
+            context = {'alert_class': 'alert-warning', 'message': 'This email is already subscribed.'}
+        else:
+            context = {'alert_class': 'alert-error', 'message': 'Failed to subscribe, please try again.'}
+
+    return render(request, 'snippets/response_message.html', context)
