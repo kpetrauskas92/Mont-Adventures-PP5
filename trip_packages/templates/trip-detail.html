@@ -122,24 +122,24 @@
 
     <!-- Trip Sub Details WIP -->
     <div class="bg-white md:grid md:grid-cols-[2fr,1fr]">
-        <div class="tabs pt-4 justify-center items-center">
+        <div class="tabs tabs-boxed bg-white pt-4 justify-center items-center">
             
             <a id="overviewTab"
-                class="tab text-xl tab-bordered tab-active"
+                class="tab text-xl tab-active uppercase"
                 aria-label="Trip Details"
                 hx-get="{% url 'trip_overview' trip.id %}"
                 hx-trigger="click"
                 hx-target="#trip-sub-section">
-                &#9679; Overview
+                Overview
             </a>
             
             <a id="reviewsTab"
-                class="tab text-xl tab-bordered"
+                class="tab text-xl uppercase"
                 aria-label="Reviews"
                 hx-get="{% url 'trip_reviews' trip.id %}"
                 hx-trigger="click"
                 hx-target="#trip-sub-section">
-                &#9679; Reviews
+                Reviews
             </a> 
             <div id="trip-sub-section" class="py-6 w-full">
                 {% include 'includes/overview/trip-overview.html' %}

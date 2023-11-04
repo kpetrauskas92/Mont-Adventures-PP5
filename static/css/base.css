@@ -160,8 +160,9 @@ footer {
 }
 
 .auto-dismiss-toast-fade-out {
-  animation-name: fadeOut;
-  animation-timing-function: ease-out;
-  animation-duration: 1.5s;
-  animation-fill-mode: forwards;
+  animation: fadeOut 1s ease-out forwards;
+}
+
+li {
+  list-style: none !important;
 }

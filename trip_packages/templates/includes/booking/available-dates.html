@@ -1,15 +1,7 @@
 {% load static %}
 
-<!-- JavaScript Section -->
-<script src="{% static 'available_dates/available-dates.js' %}"></script>
-
 <!-- Main Container for Available Dates -->
 <div class="join join-vertical w-full">
-
-	<!-- Container for Toast Messages -->
-	<div id="toast-messages" class="mb-4">
-		
-	</div>
 
 	<!-- Check if there are any available dates -->
 	{% if available_dates %}

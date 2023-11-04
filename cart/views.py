@@ -75,14 +75,18 @@ def add_to_cart_view(request, trip_id, available_date_id):
         else:
             return redirect('cart')
 
-    if 'HX-Request' in request.headers:
-        response['HX-Item-Added'] = 'true'
-        cart_html = render_to_string('includes/cart-items.html', {
-            'cart': cart,
-            'cart_total_items': cart_total_items
-        })
-        response.content = cart_html
-        return response
+    else:
+        messages.success(request, 'Trip added to cart')
+
+        if 'HX-Request' in request.headers:
+            response['HX-Item-Added'] = 'true'
+            cart_html = render_to_string('includes/cart-items.html', {
+                'cart': cart,
+                'cart_total_items': cart_total_items,
+                'messages': messages.get_messages(request)
+            })
+            response.content = cart_html
+            return response
 
     return redirect('cart')
 
@@ -104,6 +108,7 @@ def update_cart_view(request, trip_id, available_date_id):
             status=400)
 
     update_cart_item(request, trip_id, available_date_id, guests)
+    messages.success(request, 'Additional guests added.')
     return redirect('cart')
 
 
@@ -113,9 +118,20 @@ def remove_from_cart_view(request, trip_id, available_date_id):
 
     - Removes the trip from the cart using
     `remove_from_cart()` utility function.
-    - Redirects to the cart page.
+    - Redirects to the cart page or returns the updated cart
+    HTML if it's an HTMX request.
     """
     remove_from_cart(request, trip_id, available_date_id)
+    messages.success(request, 'Trip removed from cart')
+
+    # Check if the request is from HTMX
+    if 'HX-Request' in request.headers:
+        cart_html = render_to_string('includes/cart-items.html', {
+            'cart': get_cart(request),
+            'messages': messages.get_messages(request)
+        })
+        return HttpResponse(cart_html)
+
     return redirect('cart')
 
 

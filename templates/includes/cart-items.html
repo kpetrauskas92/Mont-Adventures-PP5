@@ -1,5 +1,9 @@
 <div id="entire-cart-section">
-
+    {% if messages %}
+    <div class="message-container">
+        {% include 'includes/toast-notifications.html' %}
+    </div>
+    {% endif %}
 <div class="dropdown dropdown-end"
     aria-haspopup="true">
 
@@ -30,31 +34,33 @@
 
         <div id="cart-items" class="card-body">
 
-        <!-- Cart Title -->
-        {% comment %} <span class="text-2xl font-bold mt-2 text-center">Cart</span> {% endcomment %}
-            <ul class="mt-2">
             {% if cart %}
 
             <!-- Loop through items in the cart -->
             {% for item in cart %}
 
-            <li class="flex justify-between items-center mb-2 relative"> <!-- Add relative here -->
-                <span>
-                    <!-- Display trip image -->
-                    <img src="{{ item.trip_image }}" alt="{{ item.trip.name }}" class="w-full rounded-lg">
-                    
+            <li class="flex justify-between items-center mb-2 relative text-center shadow-lg rounded-b-lg">
+                <span class="">
                     <!-- Link to trip details page -->
-                    <a href="{% url 'trip_details' item.trip_id %}" class="">
+                    <a href="{% url 'trip_details' item.trip_id %}">
+                        <!-- Display trip image -->
+                        <img src="{{ item.trip_image }}" alt="{{ item.trip.name }}" class="w-full rounded-t-lg mb-1">
                         <!-- Display trip name and date range -->
-                        {{ forloop.counter }}. {{ item.trip_name }}
-                        <span class="font-normal lowercase">
-                            ({{ item.start_date }} <strong>to</strong> {{ item.end_date }})
+                        <span class="font-bold">
+                            {{ item.trip_name }}
+                        </span>    
+                        <span class="font-normal lowercase badge badge-lg rounded-l mt-1 mb-2">
+                            {{ item.start_date }} <strong class="mx-2">to</strong> {{ item.end_date }}
                         </span>
                     </a>
                 </span>
             
                 <!-- Button to remove item from the cart -->
-                <a href="{% url 'remove_from_cart_view' item.trip_id item.available_date_id %}" class="absolute top-0 right-0"> <!-- Adjust positioning here -->
+                <a href="{% url 'remove_from_cart_view' item.trip_id item.available_date_id %}"
+                    hx-get="{% url 'remove_from_cart_view' item.trip_id item.available_date_id %}" 
+                    hx-target="#entire-cart-section" 
+                    hx-swap="outerHTML"
+                    class="absolute top-1 right-1">
                     <button type="button"
                             class="btn btn-sm btn-circle"
                             aria-label="Remove Item">
@@ -70,13 +76,11 @@
                         </svg>                                           
                     </button>
                 </a>
-            </li>
-            
-                <div class="divider"></div>  
+            </li>  
             {% endfor %}
 
             <!-- View cart button -->
-            <div class="mt-4">
+            <div class="mt-2">
                 <a href="{% url 'cart' %}">
                     <button class="btn btn-primary text-secondary btn-block">View cart</button>
                 </a>
@@ -87,7 +91,7 @@
             <li class="text-center">Cart is empty</li>
 
             <!-- View trips button -->
-            <div class="mt-4">
+            <div class="mt-2">
                 <a href="{% url 'trip_packages' %}">
                     <button class="btn btn-primary text-secondary btn-block">View Trips</button>
                 </a>
