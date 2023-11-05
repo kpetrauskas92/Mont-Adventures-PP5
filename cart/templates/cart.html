@@ -30,67 +30,59 @@
         {% if cart %}
         <div class="rounded-lg md:w-2/3">
             {% for item in cart %}
-            <div class="mb-6 rounded-lg bg-white shadow-xl flex flex-col justify-between relative">
-
-                <!-- Remove item button -->
-                <a href="{% url 'remove_from_cart_view' item.trip_id item.available_date_id %}" class="absolute top-2 right-2">
-                    <button type="button" class="btn btn-sm btn-circle">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            fill="orange"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="w-5 h-5">
-                            <path stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" 
-                                />
-                        </svg>                                           
-                    </button>
-                </a>
+            <div class="mb-4 rounded-lg bg-white shadow-xl flex flex-col justify-between">
+                <h2 class=" text-white py-1 font-bold px-10 text-center bg-gray-700 glass rounded-t-lg">
+                    {{ item.trip_name }}
+                </h2>
                 <!-- Cart Item details -->
                 <div class="flex flex-col sm:flex-row shadow-inner">
-                    <img src="{{ item.trip_image }}"
-                        alt="{{ item.trip_name }}"
-                        class="rounded-t-lg sm:rounded-r-none sm:rounded-t-lg sm:rounded-l-lg object-cover w-full sm:max-w-[250px] sm:max-h-[250px] md:max-w-[190px] md:max-h-[200px] lg:max-w-[240px] lg:max-h-[220px]" />
-                    <div class="ml-0 sm:ml-2 mt-2 pb-2 pl-3 sm:pl-1">
-
-                        <h2 class="text-xl md:text-sm lg:text-xl text-gray-900 font-bold pr-10">
-                            {{ item.trip_name }}
-                        </h2>
-
-                        <p class="mt-2 font-medium text-sm text-gray-500">Start Date:
-                            <span class="ml-1 mb-2 badge glass border-none  font-semibold">
-                                {{ item.start_date }}
-                            </span>
-                        </p> 
-                        <p class="font-medium text-sm text-gray-500">End Date:
-                            <span class="ml-3 badge glass border-none  font-semibold">
-                                {{ item.end_date }}
-                            </spav>
-                        </p>
-
-                        <!-- Add additional guests section -->
-                        <div class=" flex space-x-4 justify-between mt-6">
-                            <form method="POST" 
-                                action="{% url 'update_cart_view' item.trip_id item.available_date_id %}">
-                                {% csrf_token %}
-                                <p class="font-medium text-gray-500 text-xs">Add Additional Guests</p>
-                                <div class="flex items-center border-gray-100">
-                                    <select class="select select-bordered select-sm w-full max-w-xs mr-2"
-                                            name="guests">
-                                            <option value="0">0</option>
-                                        {% for i in item.remaining_slots|get_range %}
-                                            <option>{{ i }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <button type="submit"
-                                            class="btn btn-sm text-xl">+
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                    <div class="p-3 relative">
+                        <a href="{% url 'trip_details' pk=item.trip_id %}">
+                        <img src="{{ item.trip_image }}"
+                            alt="{{ item.trip_name }}"
+                            class="object-cover rounded-lg">
+                            
+                        </a>
+                        <!-- Remove item button -->
+                        <a href="{% url 'remove_from_cart_view' item.trip_id item.available_date_id %}" class="absolute top-2 right-2">
+                            <button type="button" class="btn btn-sm btn-circle">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    fill="orange"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="w-5 h-5">
+                                    <path stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" 
+                                        />
+                                </svg>                                           
+                            </button>
+                        </a>
                     </div>
+                    
+                    <div class="p-4 md:px-4 sm:px-6 w-full">
+                        <div class="text-center">
+                            <p class="text-sm font-bold uppercase text-gray-700 mb-1">
+                                Selected Dates
+                            </p>
+                            <hr>
+                            <p class="mt-3 font-medium text-sm text-gray-500">
+                                Your Trip Starts
+                            </p> 
+                            <p class="w-full text-xl mb-2 badge glass bg-slate-100 py-4">
+                                {{ item.start_date }}
+                            </p>
+                            <p class="font-medium text-sm text-gray-500">
+                                Your Trip Ends
+                            </p>
+                            <p class="w-full text-xl mb-2 badge glass bg-slate-100 py-4">
+                                {{ item.end_date }}
+                            </p>
+                        </div>
+                        
+                    </div>
+                    
                 </div>
             </div>
             {% endfor %}
@@ -112,16 +104,37 @@
                                 {{ item.base_price }}
                             </p>
                         </div>
-                        <div class=" flex justify-between items-center px-2">
+                        
+                        <div class=" flex justify-between items-center">
                             <p class="text-xs text-white font-bold max-w-[9rem]">
                                 Additional Guests: 
                                 <span class="ml-1 badge badge-sm p-2 font-bold">
                                     {{ item.guests }}
                                 </span>
                             </p>
-                            <p class=" text-sm text-white">€
+                            <p class=" text-sm text-white pr-2">€
                                 {{ item.guests|multiply:item.base_price }}
                             </p>
+                        </div>
+                        <!-- Add additional guests section -->
+                        <div class="w-full mb-3 mt-1">
+                            <form method="POST" 
+                                action="{% url 'update_cart_view' item.trip_id item.available_date_id %}">
+                                {% csrf_token %}
+                                
+                                <div class="flex items-center border-gray-100">
+                                    <select class="text-gray-900 select select-bordered border-secondary select-xs max-w-xs mr-2"
+                                            name="guests">
+                                            <option value="0">0</option>
+                                        {% for i in item.remaining_slots|get_range %}
+                                            <option>{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <button type="submit"
+                                            class="btn btn-xs btn-secondary">+
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     {% endfor %}
                 </div>
@@ -139,7 +152,7 @@
                         </p>
                     </div>
                 </div>
-                <button class="btn glass bg-secondary hover:bg-accent w-full mt-3"
+                <button class="btn glass bg-secondary hover:bg-accent hover:text-white w-full mt-3"
                         hx-get="{% url 'checkout' %}"
                         hx-target="#my_modal_3 .modal-box"
                         hx-select="#checkout_form" 
@@ -149,14 +162,11 @@
         {% else %}
 
             <!-- Empty cart message -->
-            <div class="mt-6 h-full rounded-lg border text-black p-6 shadow-md md:mt-0 md:w-2/3">
+            <div class="mt-6 h-full rounded-lg border text-black p-6 shadow-md md:mt-0 md:w-1/2">
                 <h2 class="text-center text-2xl">
                     Your Cart is Empty
                 </h2>
-                <p class="text-center mt-4">
-                    You have no trips in your cart.
-                </p>
-                <a href="{% url 'trip_packages' %}" class="btn btn-secondary mt-6 w-full py-1.5">
+                <a href="{% url 'trip_packages' %}" class="btn btn-primary text-secondary mt-6 w-full py-1.5">
                     Browse Trips
                 </a>
             </div>
