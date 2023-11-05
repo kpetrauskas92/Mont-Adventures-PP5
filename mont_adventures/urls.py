@@ -3,6 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
+from django.views.static import serve
 from home.sitemaps import (HomeSitemap,
                            MainTripPackagesSitemap,
                            IndividualTripSitemap,
@@ -27,7 +28,11 @@ urlpatterns = [
     path('', include('profiles.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('robots.txt', serve, {
+        'path': 'robots.txt',
+        'document_root': settings.STATIC_ROOT,
+    }),
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
