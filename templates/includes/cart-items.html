@@ -1,6 +1,9 @@
+{% load static %}
+
 <div id="entire-cart-section">
     {% if messages %}
     <div class="message-container">
+        
         {% include 'includes/toast-notifications.html' %}
     </div>
     {% endif %}
@@ -39,7 +42,7 @@
             <!-- Loop through items in the cart -->
             {% for item in cart %}
 
-            <li class="flex justify-between items-center mb-2 relative text-center shadow-lg rounded-b-lg">
+            <li class="flex justify-between items-center mb-2 relative text-center border rounded-lg">
                 <span class="">
                     <!-- Link to trip details page -->
                     <a href="{% url 'trip_details' item.trip_id %}">
@@ -49,7 +52,7 @@
                         <span class="font-bold">
                             {{ item.trip_name }}
                         </span>    
-                        <span class="font-normal lowercase badge badge-lg rounded-l mt-1 mb-2">
+                        <span class="text-sm lowercase badge badge-lg bg-secondary w-full border-none mt-1">
                             {{ item.start_date }} <strong class="mx-2">to</strong> {{ item.end_date }}
                         </span>
                     </a>
@@ -62,7 +65,7 @@
                     hx-swap="outerHTML"
                     class="absolute top-1 right-1">
                     <button type="button"
-                            class="btn btn-sm btn-circle"
+                            class="btn btn-sm btn-circle hover:bg-secondary"
                             aria-label="Remove Item">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             fill="none"
