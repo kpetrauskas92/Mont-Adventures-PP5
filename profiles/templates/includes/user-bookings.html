@@ -1,6 +1,6 @@
 <!-- Check for orders -->
 {% if orders %}
-    <div class="orders-container shadow-lg rounded-b-lg mr-4">
+    <div class="orders-container shadow-lg rounded-b-lg ">
 
         <!-- Loop through each order -->
         {% for order in orders %}
@@ -29,7 +29,7 @@
                             </h1>
 
                             <!-- Cancel button for each line item -->
-                            <button class="btn btn-ghost shadow-md mt-1 btn-outline border-gray-700 btn-xs hover:bg-error hover:text-white mr-2"
+                            <button class="btn shadow-md mt-1 btn-outline border-none btn-xs hover:bg-error hover:text-white mr-2"
                                     hx-get="{% url 'cancel-trip' lineitem.id %}"
                                     hx-target="#my_modal_3 .modal-box"
                                     onclick="my_modal_3.showModal()">Cancel

@@ -6,11 +6,11 @@
         <!-- Apply grid when there are favorite trips -->
         <div class="grid md:grid-cols-2">
             {% for favorite in favorite_trips %}
-
+            <div class="flex flex-wrap"
                 <!-- Individual Favorite Trip Card -->
-                <div class="mb-4 rounded-lg bg-white shadow-md flex flex-row mr-4">
+                <div class="mb-4 md:mx-1 rounded-lg bg-white shadow-md flex flex-row">
                     <div class="flex-col justify-center">
-                        <h2 class="rounded-t-lg text-white text-sm font-semibold glass bg-gray-950 p-2 shadow-md text-center">
+                        <h2 class="rounded-t-lg text-white text-sm md:text-xs lg:text-sm font-semibold glass bg-gray-700   py-2 shadow-md text-center">
                             {{ favorite.trip.name }}
                         </h2>
                         <img src="{{ favorite.trip.main_image.url }}"
@@ -22,6 +22,7 @@
                         </a>
                     </div>
                 </div>
+            </div>
             {% endfor %}
         </div>
     {% else %}
