@@ -68,20 +68,25 @@ def cancel_trip(request, lineitem_id):
 
     can_cancel = (
         (lineitem.available_date.start_date - timezone.now().date()) >
-        timedelta(days=14)
+        timedelta(days=30)
     )
 
-    if request.method == 'POST' and can_cancel:
-        # Update the line item status to 'canceled'
-        lineitem.status = 'canceled'
-        lineitem.save()
+    if request.method == 'POST':
+        if can_cancel:
+            # Update the line item status to 'canceled'
+            lineitem.status = 'canceled'
+            lineitem.save()
 
-        # Update the total amount for the Order
-        order = lineitem.order
-        order.grand_total -= lineitem.lineitem_total
-        order.save()
+            # Update the total amount for the Order
+            order = lineitem.order
+            order.grand_total -= lineitem.lineitem_total
+            order.save()
 
-        messages.success(request, 'Trip canceled successfully.')
+            messages.success(request, 'Trip canceled successfully.')
+
+        else:
+            messages.error(request, 'Trip cannot be canceled 30 days '
+                           'before start date!')
 
         return redirect('profile')
 

@@ -2,6 +2,7 @@ from django.db import transaction
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
+from checkout.models import Order
 from .models import UserProfile, CustomerIDCounter
 
 
@@ -26,6 +27,16 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
                 counter_obj.save()
 
             customer_id = f"{counter_obj.counter:05}"
-            UserProfile.objects.create(user=instance, customer_id=customer_id)
+            user_profile = UserProfile.objects.create(user=instance,
+                                                      customer_id=customer_id)
+
+            # Associate past orders with this user profile
+            past_orders = Order.objects.filter(email=instance.email,
+                                               user_profile__isnull=True)
+
+            for order in past_orders:
+                order.user_profile = user_profile
+                order.save()
+
     else:
         instance.userprofile.save()

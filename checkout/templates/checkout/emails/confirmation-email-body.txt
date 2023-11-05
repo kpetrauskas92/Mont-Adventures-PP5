@@ -7,7 +7,12 @@ Order Date: {{ order.date|date:"F j, Y" }}
 Trip Name: {{ lineitem.trip.name }}
 Trip Start Date:{{ lineitem.available_date.start_date|date:"F j, Y" }}
 Trip End Date: {{ lineitem.available_date.end_date|date:"F j, Y" }}
-Order Total: ${{ order.order_total }}
+Order Total: €{{ order.order_total }}
+
+{% if not order.user_profile %}
+Dear Guest,
+If you wish to view or cancel the trip, please register for an account on our website.
+{% endif %}
 
 
 If you have any questions, feel free to contact us at {{ contact_email }}.
