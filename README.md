@@ -2,6 +2,14 @@
     <img alt="logo" src="github_assets/readme_images/docs-logo.png" width="300px">
 </div>
 
+<div align="center">
+    
+![](https://tokei.rs/b1/github/kpetrauskas92/Mont-Adventures-PP5?category=files)
+![](https://tokei.rs/b1/github/kpetrauskas92/Mont-Adventures-PP5?category=code)
+![](https://tokei.rs/b1/github/kpetrauskas92/Mont-Adventures-PP5?category=comments)
+
+</div>
+
 # 🏔️Introduction
 
 Welcome to Mont Adventures, a comprehensive platform dedicated to making your next mountain-climbing adventure just a few clicks away. Designed specifically for thrill-seekers and outdoor enthusiasts, Mont Adventures combines a user-friendly interface with a robust set of features to create a seamless booking experience.
