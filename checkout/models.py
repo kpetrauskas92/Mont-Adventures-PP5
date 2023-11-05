@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Sum
+from django.utils import timezone
 from trip_packages.models import Trips, AvailableDate
 from profiles.models import UserProfile
 import uuid
@@ -11,6 +12,7 @@ class Order(models.Model):
     """
 
     order_number = models.CharField(max_length=32, null=False, editable=False)
+    date = models.DateTimeField(default=timezone.now)
     user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
                                      null=True, blank=True,
                                      related_name='orders')

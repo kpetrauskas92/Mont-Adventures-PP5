@@ -111,7 +111,7 @@ WSGI_APPLICATION = 'mont_adventures.wsgi.application'
 
 if 'DEVELOPMENT' in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    DEFAULT_FROM_EMAIL = 'support@montadventures.com'
+    DEFAULT_FROM_EMAIL = 'Mont Adventures <support@montadventures.com>'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'mail.spacemail.com'
@@ -120,7 +120,8 @@ else:
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
     DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL',
-                                        'support@montadventures.com')
+                                        'Mont Adventures '
+                                        '<support@montadventures.com>')
 
 # Allauth settings
 
@@ -128,11 +129,11 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = False
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_SESSION_REMEMBER = True
-ACCOUNT_USER_DISPLAY = 'profiles.utils.display_user'
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/accounts/login_success/'
 EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'

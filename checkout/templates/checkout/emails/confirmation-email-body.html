@@ -1,0 +1,51 @@
+<html>
+<head></head>
+<body>
+<p>Hello {{ order.first_name }}!
+
+This is a confirmation of your booking at Mont Adventures. Your order information is below:
+
+</p>
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <td><strong>Order Number:</strong></td>
+        <td>{{ order.order_number }}</td>
+    </tr>
+    <tr>
+        <td><strong>Order Date:</strong></td>
+        <td>{{ order.date|date:"F j, Y" }}</td>
+    </tr>
+    {% for lineitem in order.lineitems.all %}
+        <tr>
+            <td><strong>Trip Name:</strong></td>
+            <td>{{ lineitem.trip.name }}</td>
+        </tr>
+        <tr>
+            <td><strong>Available Date Start:</strong></td>
+            <td>{{ lineitem.available_date.start_date|date:"F j, Y" }}</td>
+        </tr>
+        <tr>
+            <td><strong>Available Date End:</strong></td>
+            <td>{{ lineitem.available_date.end_date|date:"F j, Y" }}</td>
+        </tr>
+        {% if lineitem.guests > 1 %}
+            <tr>
+                <td><strong>Additional Guests:</strong></td>
+                <td>{{ lineitem.guests|add:"-1" }}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    <tr>
+        <td><strong>Order Total:</strong></td>
+        <td>${{ order.order_total }}</td>
+    </tr>
+</table>
+
+If you have any questions, feel free to contact us at {{ contact_email }}.
+
+Thank you for booking a trip with us!
+
+Sincerely,
+
+Mont Adventures</body>
+</html>

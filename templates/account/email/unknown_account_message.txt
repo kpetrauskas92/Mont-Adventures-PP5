@@ -7,6 +7,6 @@ with email {{ email }} in our database.
 
 This mail can be safely ignored if you did not request a password reset.
 
-If it was you, you can sign up for an account using the link below.{% endblocktrans %}
+If it was you, you can sign up for an account by visiting our website.{% endblocktrans %}
 
-{{ signup_url }}{% endautoescape %}{% endblock %}
+{{ current_site.domain }}{% endautoescape %}{% endblock %}

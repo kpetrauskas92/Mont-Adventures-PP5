@@ -3,11 +3,11 @@ Hello {{ order.first_name }}!
 This is a confirmation of your booking at Mont Adventures. Your order information is below:
 
 Order Number: {{ order.order_number }}
-Order Date: {{ order.date }}
-
+Order Date: {{ order.date|date:"F j, Y" }}
+Trip Name: {{ lineitem.trip.name }}
+Trip Start Date:{{ lineitem.available_date.start_date|date:"F j, Y" }}
+Trip End Date: {{ lineitem.available_date.end_date|date:"F j, Y" }}
 Order Total: ${{ order.order_total }}
-
-Grand Total: ${{ order.grand_total }}
 
 
 If you have any questions, feel free to contact us at {{ contact_email }}.

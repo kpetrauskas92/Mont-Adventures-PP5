@@ -1,1 +1,1 @@
-Mont Adventures Booking Number {{ order.order_number }}
+Booking Number {{ order.order_number }}
