@@ -35,13 +35,14 @@
     </button>
     
     <!-- Welcome Content -->
-    <div class="bg-white p-2 mb-2 md:mx-auto">
+    <div class="bg-white p-2 md:mx-auto">
         
         <!-- Welcome Message -->
         <div class="text-center">
-            <p id="welcome-message" class="text-xl mb-6" aria-label="Welcome Message">
-                Welcome Back: <strong>{{ user.first_name }}</strong>
-            </p>
+            <h1 id="welcome-message" class="text-xl" aria-label="Welcome Message">
+                Welcome Back
+            </h1>
+            <h2 class="text-lg font-semibold py-3">{{ user.first_name }}</h2>
             <p>Adventures are waiting for you.</p>
             
             <!-- Explore Button -->
