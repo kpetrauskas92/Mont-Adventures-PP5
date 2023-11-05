@@ -1,29 +1,50 @@
 {% load rating_filters %}
 
-{% if user.is_authenticated %}
-    <button hx-get="{% url 'trip_review_form' trip.id %}"
-            hx-target="#my_modal_3 .modal-box"
-            onclick="my_modal_3.showModal()"
-            class="btn btn-sm btn-primary-outline text-primary ml-6">
-        Leave a Review
-    </button>
-{% else %}
-    <button hx-get="{% url 'account_login' %}"
-            hx-swap="innerHTML"
-            hx-target="#my_modal_3 .modal-box"
-            onclick="my_modal_3.showModal()"
-            class="btn btn-sm btn-primary-outline text-primary ml-6">
-        Log in to Add Review
-    </button>
-{% endif %}
-
+<div class="flex justify-center sm:justify-start pl-5 mt-5">
+    {% if user.is_authenticated %}
+        <button hx-get="{% url 'trip_review_form' trip.id %}"
+                hx-target="#my_modal_3 .modal-box"
+                onclick="my_modal_3.showModal()"
+                class="btn btn-primary mt-3 text-secondary ">
+            Leave a Review
+        </button>
+    {% else %}
+        <button hx-get="{% url 'account_login' %}"
+                hx-swap="innerHTML"
+                hx-target="#my_modal_3 .modal-box"
+                onclick="my_modal_3.showModal()"
+                class="btn btn-ghost btn-wide mt-1 text-primary">
+            Log in to Add Review
+        </button>
+    {% endif %}
+</div>
 <!-- Display existing reviews WIP -->
 {% for review in reviews %}
-    <section class="review mt-6">
+    <section class="review mt-6 ml-2 mr-4">
 
-        <div class="mb-2 rounded-lg bg-white p-6 pt-0 shadow-xl flex flex-col sm:flex-col justify-between relative">
-            <h2 class="font-bold glass border-none text-center rounded-md text-secondary capitalize bg-gray-700 py-1 px-0">{{ review.title }}</h2>
-            
+        <div class="rounded-lg bg-white pl-3 py-3 pt-0 shadow-xl flex flex-col sm:flex-col justify-between relative">
+            <header class="review-header">
+                <h2 class="comment-text font-bold glass border-none text-center rounded-md text-primary uppercase bg-slate-100 py-1 px-8">
+                    {{ review.title }}
+                </h2>
+
+                <div class="w-12 rounded-full absolute -top-2 left-0 ring ring-primary ring-offset-base-100 ring-offset-2">
+                    {% if review.user.userprofile.profile_image %}
+                        <img src="{{ review.user.userprofile.profile_image.url }}"
+                            alt="Profile Image of {{ review.user.first_name }}"
+                            class="w-12 h-12 rounded-full object-cover">
+                    {% else %}
+                        <div class="avatar placeholder">
+                            <div class="bg-secondary-focus text-neutral-content rounded-full w-12 h-12 flex items-center justify-center">
+                                <span class="text-lg">
+                                    {{ review.user.first_name|slice:":1" }}{{ review.user.last_name|slice:":1" }}
+                                </span>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </header>
+
             <!-- Filled Stars -->
             <div class="flex justify-center mt-1" role="img" aria-label="Star Rating">
                 {% for i in review.rating|generate_range %}
@@ -39,30 +60,33 @@
                 {% endfor %}
             </div>
             <span class="text-center text-xs text-gray-500">{{ review.created_at|date:"F d, Y" }}</span>
-            
-            <header class="review-header">
-                <div class="w-8 rounded ring ring-warning ring-offset-base-100 ring-offset-2">
-                    {% if review.user.userprofile.profile_image %}
-                        <img src="{{ review.user.userprofile.profile_image.url }}" alt="Profile Image of {{ review.user.first_name }} {{ review.user.last_name }}" class="w-8 h-8 rounded-full object-cover">
-                    {% else %}
-                        <div class="avatar placeholder">
-                            <div class="bg-secondary-focus text-neutral-content rounded w-8 h-8 flex items-center justify-center">
-                                <span class="text-lg">
-                                    {{ review.user.first_name|slice:":1" }}{{ review.user.last_name|slice:":1" }}
-                                </span>
-                            </div>
-                        </div>
-                    {% endif %}
+
+            <div class="flex flex-col sm:flex-row mb-4">
+                <div class="flex-grow sm:pr-4">
+                    <p class="comment-text mt-6 text-sm px-4 text-center">
+                        {{ review.comment }}
+                    </p>
                 </div>
-                
-                <p class="mt-2 italic">{{ review.comment }}</p>
+
                 {% if review.image %}
-                    <img src="{{ review.image.url }}" alt="Review Image by {{ review.user.first_name }} {{ review.user.last_name }}" class="w-24 h-24 object-cover rounded">
+                <div class="flex-shrink-0 mt-4 sm:mt-0 mr-3 sm:mr-0">
+                    <a href="{{ review.image.url }}" data-lightbox="review-image" data-title="{{ review.title }}">
+                        <img src="{{ review.image.url }}"
+                            alt="Review Image by {{ review.user.first_name }}"
+                            class="w-full h-24 object-cover rounded sm:mask sm:mask-squircle review-image">
+                    </a>
+                </div>
                 {% endif %}
-            </header>
-            
+            </div>
         </div>
     </section>
 {% empty %}
-    <p class="text-gray-500 ml-6 mt-1">No reviews available for this trip.</p>
+    <p class="text-gray-500 flex justify-center sm:justify-start pl-5 mt-1">No reviews available for this trip.</p>
 {% endfor %}
+
+<script>
+    lightbox.option({
+        'resizeDuration': 0,
+        'disableScrolling': true
+    })
+</script>

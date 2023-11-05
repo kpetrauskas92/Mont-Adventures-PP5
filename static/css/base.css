@@ -88,6 +88,15 @@ footer {
   background-position: top center;
 }
 
+.hero-overlay {
+  background-color: #11182793;
+}
+
+.main-hero-overlay {
+  background: linear-gradient(to right, #1520369c, transparent);
+}
+
+
 #toast-messages {
   display: none;
 }
@@ -165,4 +174,10 @@ footer {
 
 li {
   list-style: none !important;
+}
+
+.comment-text {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  
 }

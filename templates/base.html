@@ -31,6 +31,8 @@
     {% endblock %}
 
     {% block extra_css %}
+    <!-- Lightbox CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@latest/dist/css/glide.core.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@latest/dist/css/glide.theme.min.css">
     {% endblock %}
@@ -63,6 +65,9 @@
     {% endblock %}
 
     {% block postloadjs %}
+      <script src="{% static 'js/toasts.js' %}"></script>
+      <!-- Lightbox JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@latest/dist/glide.min.js"></script>
     {% endblock %}
     {% include 'includes/footer.html' %}

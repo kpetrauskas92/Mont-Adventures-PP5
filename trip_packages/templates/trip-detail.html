@@ -122,26 +122,27 @@
 
     <!-- Trip Sub Details WIP -->
     <div class="bg-white md:grid md:grid-cols-[2fr,1fr]">
-        <div class="tabs tabs-boxed bg-white pt-4 justify-center items-center">
-            
-            <a id="overviewTab"
-                class="tab text-xl tab-active uppercase"
-                aria-label="Trip Details"
-                hx-get="{% url 'trip_overview' trip.id %}"
-                hx-trigger="click"
-                hx-target="#trip-sub-section">
-                Overview
-            </a>
-            
-            <a id="reviewsTab"
-                class="tab text-xl uppercase"
-                aria-label="Reviews"
-                hx-get="{% url 'trip_reviews' trip.id %}"
-                hx-trigger="click"
-                hx-target="#trip-sub-section">
-                Reviews
-            </a> 
-            <div id="trip-sub-section" class="py-6 w-full">
+        <div class="border rounded-b-xl">
+            <div class="tabs tabs-boxed shadow-md flex justify-center bg-slate-100 font-bold">
+                <a id="overviewTab"
+                    class="tab tab-active uppercase"
+                    aria-label="Trip Details"
+                    hx-get="{% url 'trip_overview' trip.id %}"
+                    hx-trigger="click"
+                    hx-target="#trip-sub-section">
+                    Overview
+                </a>
+                
+                <a id="reviewsTab"
+                    class="tab uppercase"
+                    aria-label="Reviews"
+                    hx-get="{% url 'trip_reviews' trip.id %}"
+                    hx-trigger="click"
+                    hx-target="#trip-sub-section">
+                    Reviews
+                </a>
+            </div>
+            <div id="trip-sub-section" class="pb-6 w-full">
                 {% include 'includes/overview/trip-overview.html' %}
             </div>
         </div>    
