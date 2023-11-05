@@ -12,29 +12,22 @@
 
 	<!-- Hero Section -->
 	<div class="hero min-h-screen-hero relative"
-		style="background-image: url({% static 'web_elements/hero/main-hero-bg.webp' %}); background-position: bottom;">
-		<div class="min-h-[80vh] shadow-none p-5 w-full sm:w-1/2 flex justify-start absolute top-0 left-0">
-			<div class="mx-left-0">
-
+		style="background-image: url({% static 'web_elements/hero/bg.webp' %}); background-position: bottom;">
+		<div class="min-h-[80vh] main-hero-overlay w-full absolute sm:top-0 sm:left-0">
+			<div class="px-5 mt-4 text-center sm:text-left">
 				<!-- Title -->
-				<h1 class="mb-3 text-white text-5xl font-bold uppercase">
-					Ascend into
-					<span class="text-[#f0b760] font-custom text-7xl lowercase font-bold">
-						Adventure
-					</span>
+				<h1 class="mb-3 text-white text-4xl sm:text-5xl font-bold uppercase sm:max-w-[400px]">
+					Every Summit Holds a Tale
 				</h1>
 
 				<!-- Subtitle -->
-				<h2 class=" text-white text-3xl font-bold uppercase">
-					Where every pitch is a 
-					<span class="text-[#f0b760] font-custom lowercase text-5xl">
-						Story
-					</span>
+				<h2 class="text-secondary text-2xl sm:text-3xl font-bold uppercase sm:ml-6">
+					"Discover Yours"
 				</h2>
 
 				<!-- Explore Button -->  
 				<a href="{% url 'trip_packages' %}">
-					<button class="btn btn-secondary btn-wide border-none hover:bg-accent transition duration-500 mt-5">
+					<button class="btn btn-secondary sm:ml-10 btn-wide border-none hover:bg-accent transition duration-500 mt-5">
 						<svg aria-hidden="true"
 							xmlns="http://www.w3.org/2000/svg"
 							fill="#ffffff"
@@ -49,7 +42,7 @@
 						<span>Explore</span>
 					</button>
 				</a>
-				<p class="ml-1 text-white font-bold"> Discover amazing expierences!</p>
+				<p class="ml-1 sm:ml-11 text-white font-bold"> Discover amazing expierences!</p>
 			</div>
 		</div>
 	</div>
