@@ -12,7 +12,8 @@
     {% endblock %}
 
     {% block extra_meta %}
-        <meta name="description" content="Mountain climbing and expierences">
+      <meta name="description"
+            content="Join expert-guided mountain climbing and hiking adventures in stunning destinations worldwide. Small group tours for all levels in the Alps, Himalayas, Rockies and more.">
     {% endblock %}
 
     {% block favicon %}
@@ -22,7 +23,6 @@
         href="{% static 'web_elements/favicon/favicon-32x32.png' %}">
         <link rel="icon" type="image/png" sizes="16x16"
         href="{% static 'web_elements/favicon/favicon-16x16.png' %}">
-        <link rel="manifest" href="/site.webmanifest">
     {% endblock %}
 
     {% block corecss %}
@@ -38,12 +38,14 @@
     {% endblock %}
 
     {% block corejs %}
+    <script src="{% static 'js/lazysizes.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/sticky.min.js' %}"></script>
     <script src="{% static 'js/htmx.min.js' %}"></script>
     <script
-			  src="https://code.jquery.com/jquery-3.7.1.min.js"
-			  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-			  crossorigin="anonymous"></script>
+			src="https://code.jquery.com/jquery-3.7.1.min.js"
+			integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+			crossorigin="anonymous"></script>
     {% endblock %}
 
     {% block extra_js %}
@@ -53,7 +55,7 @@
   </head>
 
   <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
-    <header class="container-fluid fixed-top">
+    <header>
       {% include 'includes/accounts-modal.html' %}
       {% include 'includes/nav-bar.html' %}
     </header>
