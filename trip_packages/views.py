@@ -11,6 +11,7 @@ from .trip_utils import display_funcs, MONTHS, populate_filled_stars
 from django.http import HttpResponseBadRequest, HttpResponse, JsonResponse
 from .forms import ReviewForm
 from django.db.models import Prefetch
+from django.utils import timezone
 
 
 def generate_filter_options(model, field_name, display_func=None):
@@ -31,6 +32,12 @@ def generate_filter_options(model, field_name, display_func=None):
                                        'display': MONTHS[m]} for m in months]
 
         return season_filters
+
+    if field_name == 'overall_rating':
+        return [{'value': '0', 'display': "New"}] + \
+            [{'value': str(i),
+              'display': f"{i} star{'s' if i > 1 else ''}"}
+                for i in range(1, 6)]
 
     values = list(
         model.objects.values_list(
@@ -116,9 +123,11 @@ class TripPackages(View):
                 elif model_name == "season":
                     season_filtered_trip_pks = []
                     for trip in filtered_trips:
-                        if any(month in trip.season for month in filter_values):
+                        if any(month in trip.season
+                               for month in filter_values):
                             season_filtered_trip_pks.append(trip.pk)
-                    filtered_trips = Trips.objects.filter(pk__in=season_filtered_trip_pks)
+                    filtered_trips = Trips.objects.filter(
+                        pk__in=season_filtered_trip_pks)
 
                 else:
                     local_query &= Q(**{f"{model_name}__in": filter_values})
@@ -130,6 +139,24 @@ class TripPackages(View):
                     max_price = int(request.GET['price'])
                     if max_price != 0:
                         query &= Q(price__lte=max_price)
+
+                if model_name == "overall_rating":
+                    star_queries = Q()
+                    for value in filter_values:
+                        if value == '0':
+                            star_queries |= Q(overall_rating=0.0)
+                        else:
+                            star_rating = int(value)
+                            if star_rating == 1:
+                                lower_bound = 0.0
+                            else:
+                                lower_bound = (star_rating - 1) + 0.05
+                            upper_bound = star_rating + 0.95
+                            star_queries |= Q(
+                                overall_rating__gte=lower_bound,
+                                overall_rating__lt=upper_bound)
+
+                    filtered_trips = filtered_trips.filter(star_queries)
 
         if request.user.is_authenticated:
             user_favorites = FavoriteTrip.objects.filter(
@@ -415,14 +442,20 @@ class BookingDrawer(View):
         - Renders the appropriate template with context.
         """
         trip = get_object_or_404(Trips, id=trip_id)
-        available_dates = AvailableDate.objects.filter(
-            trips=trip, is_available=True).order_by('start_date')
+
+        # Fetch all future available dates for the trip.
+        future_dates = AvailableDate.objects.filter(
+            trips=trip, 
+            start_date__gte=timezone.now().date()
+        ).order_by('start_date')
+
+        available_dates = [
+            date for date in future_dates if date.is_currently_available]
 
         if 'HX-Request' in request.headers:
-            return render(request,
-                          'includes/booking/available-dates.html',
-                          {'trip': trip, 'available_dates': available_dates})
+            template = 'includes/booking/available-dates.html'
         else:
-            return render(request, self.template_name,
-                          {'trip': trip,
-                           'available_dates': available_dates})
+            template = self.template_name
+
+        return render(request, template, {
+            'trip': trip, 'available_dates': available_dates})
