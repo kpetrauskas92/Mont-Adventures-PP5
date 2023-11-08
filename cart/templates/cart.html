@@ -12,11 +12,11 @@
     style="background-image: url({% static 'web_elements\banners\cart-banner.jpg' %}); background-position: center;">
     <div class="hero-overlay bg-gray-900 bg-opacity-50"></div>
     <div class="hero-content text-center text-neutral-content">
-        <div class="max-w-md">
-            <h1 class="mb-5 text-6xl font-bold font-custom text-secondary">
+        <div class="mx-auto max-w-5xl">
+            <h1 class="mb-5 text-4xl sm:text-6xl font-bold font-shadow text-secondary">
                 The Mountains Are Calling
             </h1>
-            <p class="mb-5 text-white">
+            <p class="mb-5 text-white font-shadow">
                 "Mountains are both a challenge and a sanctuary, teaching us lessons in humility and preparation. Every step you're about to take will bring you closer to nature, to others, and most importantly, to yourself. It's a journey towards a safer, more fulfilling adventure."
             </p>
         </div>
@@ -86,6 +86,10 @@
                 </div>
             </div>
             {% endfor %}
+            <!-- General notification about the cancellation policy -->
+            <div class="p-2 my-4 bg-secondary glass rounded-lg text-sm text-center">
+                <p><strong>Please note:</strong> Trips cannot be canceled within <strong>30 days</strong> of the start date.</p>
+            </div>
         </div>
 
         <!-- Subtotal section -->
@@ -106,9 +110,9 @@
                         </div>
                         
                         <div class=" flex justify-between items-center">
-                            <p class="text-xs text-white font-bold max-w-[9rem]">
+                            <p class="text-xs text-white font-bold max-w-[10rem]">
                                 Additional Guests: 
-                                <span class="ml-1 badge badge-sm p-2 font-bold">
+                                <span class="ml-1 badge badge-sm px-[0.6rem] font-bold">
                                     {{ item.guests }}
                                 </span>
                             </p>
@@ -116,6 +120,17 @@
                                 {{ item.guests|multiply:item.base_price }}
                             </p>
                         </div>
+                        {% if item.guests > 0 %}
+                        <div class="py-1">
+                            <form method="POST" action="{% url 'update_cart_view' item.trip_id item.available_date_id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="remove_all" value="1">
+                                <button type="submit" class="btn btn-xs hover:btn-error hover:text-white">
+                                    Remove all guests
+                                </button>
+                            </form>
+                        </div>
+                        {% endif %}
                         <!-- Add additional guests section -->
                         <div class="w-full mb-3 mt-1">
                             <form method="POST" 
@@ -125,13 +140,12 @@
                                 <div class="flex items-center border-gray-100">
                                     <select class="text-gray-900 select select-bordered border-secondary select-xs max-w-xs mr-2"
                                             name="guests">
-                                            <option value="0">0</option>
                                         {% for i in item.remaining_slots|get_range %}
                                             <option>{{ i }}</option>
                                         {% endfor %}
                                     </select>
                                     <button type="submit"
-                                            class="btn btn-xs btn-secondary">+
+                                            class="btn btn-xs btn-accent">ADD
                                     </button>
                                 </div>
                             </form>

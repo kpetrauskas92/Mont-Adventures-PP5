@@ -100,15 +100,26 @@ def update_cart_view(request, trip_id, available_date_id):
     - Updates the cart item using `update_cart_item()` utility function.
     """
     available_date = get_object_or_404(AvailableDate, id=available_date_id)
+    remove_all = request.POST.get('remove_all', None)
     guests = int(request.POST.get('guests', 1))
 
-    if guests > available_date.remaining_slots():
-        return JsonResponse(
-            {'error': 'Number of guests exceeds the remaining slots'},
-            status=400)
+    if remove_all:
+        guests = 0
+        messages.success(request, 'All additional guests removed.')
+    else:
+        available_date = get_object_or_404(AvailableDate, id=available_date_id)
+        if guests > available_date.remaining_slots():
+            return JsonResponse(
+                {'error': 'Number of guests exceeds the remaining slots'},
+                status=400)
+        messages.success(request, 'Additional guests added.')
 
     update_cart_item(request, trip_id, available_date_id, guests)
-    messages.success(request, 'Additional guests added.')
+
+    if 'HX-Request' in request.headers:
+
+        return JsonResponse({'status': 'success', 'guests': guests})
+
     return redirect('cart')
 
 
