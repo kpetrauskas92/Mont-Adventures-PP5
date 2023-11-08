@@ -31,7 +31,7 @@
 </div>
 
 <!-- Main Content Container -->
-<div  class="bg-gray-900">
+<div  class="bg-gray-900" data-sticky-container>
 
     <!-- Grid Layout for Trip Details and Price -->
     <div class="mb-5 md:mb-0 md:grid md:grid-cols-[2fr,1fr]">
@@ -59,11 +59,10 @@
             <hr class="h-px mb-0 bg-gray-200 border-0 dark:bg-gray-700 col-span-3 sm:hidden">
 
             {% include 'includes/trip_details/trip-details-grid.html'%}
-
         </div>
 
         <!-- Trip Price Section -->
-        <div class="hidden md:grid lg:block bg-white p-4 md:pb-0 md:col-span-1">
+        <div class="hidden md:grid lg:block bg-white p-4 md:pb-0 md:col-span-1 sticky-selector">
             <p class="text-xl text-gray-500 text-center">
                 Reserve Your Spot Today!
             </p>
@@ -74,32 +73,31 @@
                 </span>
             </p>
             <div class="rating flex justify-center items-center w-full">
-                
-                <!-- Reviews WIP -->
 
-                    {% include 'includes/reviews/review-stars.html'%}
-
-                    {% if trip.overall_rating %}
-                        <a id="ReviewLink" href="{% url 'trip_details' trip.id %}"
-                            hx-get="{% url 'trip_reviews' trip.id %}"
-                            hx-trigger="click"
-                            hx-target="#trip-sub-section"
-                            class="ml-1 mt-1 text-sm text-blue-500">
-                            ({{ review_count }} review{{ review_count|pluralize }})
-                        </a>
-                    {% else %}
-                        <span class="badge badge-sm badge-accent badge-outline ml-1">
-                            New
-                        </span>
-                    {% endif %}
-                </div>
-                <label for="my-drawer-4"
-                        class="btn btn-secondary glass bg-secondary w-full mt-2"
-                        hx-get="{% url 'booking_drawer' trip.id %}"
+            <!-- Reviews WIP -->
+            {% include 'includes/reviews/review-stars.html'%}
+                {% if trip.overall_rating %}
+                    <a id="ReviewLink"
+                        href="{% url 'trip_details' trip.id %}"
+                        hx-get="{% url 'trip_reviews' trip.id %}"
                         hx-trigger="click"
-                        hx-target="#booking-drawer-content">
-                        Available Dates
-                </label>
+                        hx-target="#trip-sub-section"
+                        class="ml-1 mt-1 text-sm text-blue-500">
+                        ({{ review_count }} review{{ review_count|pluralize }})
+                    </a>
+                {% else %}
+                    <span class="badge badge-sm badge-accent badge-outline ml-1">
+                        New
+                    </span>
+                {% endif %}
+            </div>
+            <label for="my-drawer-4"
+                    class="btn btn-secondary glass bg-secondary w-full mt-2"
+                    hx-get="{% url 'booking_drawer' trip.id %}"
+                    hx-trigger="click"
+                    hx-target="#booking-drawer-content">
+                    Available Dates
+            </label>
         </div>
 
         <!-- Sticky Bottom Button -->

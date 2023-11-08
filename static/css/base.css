@@ -2,14 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap');
 
 .min-h-screen-hero {
     min-height: 80vh;
 }
 
 .navbar {
-    min-height: 4.5rem;
+    min-height: 4.4rem;
+}
+
+.main-hero-img {
+  background-image: url('/static/web_elements/hero/bg.webp');
+  background-size: cover;
 }
 
 .top-footer-bg {
@@ -19,8 +23,7 @@
     height: 50vh;
 }
 
-.font-custom {
-    font-family: 'Niconne', cursive;
+.font-shadow {
     text-shadow: 3px 1px 10px #141516b2;
   }
 
@@ -93,7 +96,7 @@ footer {
 }
 
 .main-hero-overlay {
-  background: linear-gradient(to right, #1520369c, transparent);
+  background: linear-gradient(to right, #0000009c, transparent);
 }
 
 
@@ -165,13 +168,13 @@ footer {
 
 .auto-dismiss-toast {
   position: fixed;
-  
+  top:0;
   opacity: 0;
   animation: fadeIn 1.5s forwards;
 }
 
 .auto-dismiss-toast-fade-out {
-  animation: fadeOut 1s ease-out forwards;
+  animation: fadeOut 2s ease-out forwards;
 }
 
 li {
@@ -182,4 +185,13 @@ li {
   word-wrap: break-word;
   overflow-wrap: break-word;
   
+}
+
+.lazyload,
+.lazyloading {
+	opacity: 0;
+}
+.lazyloaded {
+	opacity: 1;
+	transition: opacity 900ms;
 }

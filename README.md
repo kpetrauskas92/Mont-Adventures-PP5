@@ -90,7 +90,7 @@ Mont Adventures aims to provide a seamless experience for adventure travelers in
 
 ### Introduction
 
-Mont Adventures aims to be the go-to platform for mountain climbing enthusiasts. Our focus is not just to provide a booking service but to offer a complete adventure experience. This section outlines the business and marketing strategies designed to make Mont Adventures a leader in specialized adventure travel booking.
+Mont Adventures is a B2C e-commerce platform for mountain hiking and climbing enthusiasts. Beyond providing a booking service, the platform delivers a comprehensive adventure experience. This plan outlines the strategies to establish Mont Adventures as a primary choice in specialized adventure travel booking.
 
 ### Target Market
 
@@ -187,7 +187,9 @@ For the first time, the Fabiosci point system was employed to quantify the compl
 
 **👤Total User Stories:** 17
 
-<span style="color:green; font-weight:bold; font-size:1.2rem;">Phase 3:</span> XXXXXXXXXX
+<span style="color:green; font-weight:bold; font-size:1.2rem;">Phase 3:</span>Project Completion Sprint (Started on October 31, 2023)
+
+**🏆Epic [#8](https://github.com/kpetrauskas92/Mont-Adventures-PP5/milestone/8):** Test Deployment and Project Completion 🚩(29 points)
 
 > Each epic corresponds to a weekly sprint, with tasks broken down into user stories and allocated points based on complexity and effort.
 

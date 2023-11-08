@@ -40,22 +40,23 @@
 						</div>
 
 						<!-- Display Booking Status -->
-						<p class="text-sm flex justify-evenly font-normal mt-2">
+						<p class="text-sm inline-flex items-center justify-evenly font-normal badge py-1 bg-slate-200 w-full mt-2">
 							{% if date.remaining_slots == 0 %}
-								<span class="text-red-400">
+								<span class="text-red-500 font-semibold">
 									Fully Booked!
 								</span>
 							{% else %}
-								<span class="badge badge-sm text-sm font-bold">
+								<span class=" text-sm font-bold">
 									{{ date.booked_slots }}
-								</span>	
-							booked	
-								<span class="badge badge-sm text-sm font-bold">
+								</span>
+								Booked
+								<span class=" text-sm font-bold">
 									{{ date.remaining_slots }}
-								</span> 
-							spots left
+								</span>
+								Slot{{ date.remaining_slots|pluralize }} Left
 							{% endif %}
 						</p>
+
 
 						<!-- Action Buttons -->
 						<div class="flex justify-between">
@@ -64,13 +65,13 @@
 								hx-trigger="click"
 								hx-target="#entire-cart-section"
 								hx-swap="outerHTML"
-								class="btn btn-sm btn-outline mt-2 mr-1 flex-auto {% if date.remaining_slots == 0 %}disabled{% endif %}"
+								class="btn btn-sm mt-2 mr-1 flex-auto {% if date.remaining_slots == 0 %}disabled{% endif %}"
 									{% if date.remaining_slots == 0 %}disabled="disabled"{% endif %}>
 								Add to Cart
 							</a>
 
 							<a href="{% url 'add_to_cart' trip.id date.id %}" 
-								class="btn btn-sm glass bg-secondary hover:bg-accent hover:text-white mt-2 flex-auto {% if date.remaining_slots == 0 %}disabled{% endif %}"
+								class="btn btn-sm glass border-2 bg-secondary hover:bg-accent hover:text-white mt-2 flex-auto {% if date.remaining_slots == 0 %}disabled{% endif %}"
 								{% if date.remaining_slots == 0 %}disabled="disabled"{% endif %}>
 								Book Now
 							</a>

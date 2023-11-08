@@ -1,11 +1,11 @@
 {% load rating_filters %}
 
-<div class="flex justify-center sm:justify-start pl-5 mt-5">
+<div class="flex justify-center pl-5 mt-5">
     {% if user.is_authenticated %}
         <button hx-get="{% url 'trip_review_form' trip.id %}"
                 hx-target="#my_modal_3 .modal-box"
                 onclick="my_modal_3.showModal()"
-                class="btn btn-primary mt-3 text-secondary ">
+                class="btn btn-primary mt-3 text-secondary">
             Leave a Review
         </button>
     {% else %}
@@ -13,7 +13,7 @@
                 hx-swap="innerHTML"
                 hx-target="#my_modal_3 .modal-box"
                 onclick="my_modal_3.showModal()"
-                class="btn btn-ghost btn-wide mt-1 text-primary">
+                class="btn btn-primary mt-3 text-secondary">
             Log in to Add Review
         </button>
     {% endif %}
@@ -81,7 +81,7 @@
         </div>
     </section>
 {% empty %}
-    <p class="text-gray-500 flex justify-center sm:justify-start pl-5 mt-1">No reviews available for this trip.</p>
+    <p class="text-gray-500 flex justify-center pl-5 mt-1">No reviews available for this trip.</p>
 {% endfor %}
 
 <script>
