@@ -3,7 +3,7 @@ from unfold.admin import ModelAdmin
 from unfold.decorators import display
 from unfold.contrib.filters.admin import (RangeNumericFilter,
                                           SingleNumericFilter)
-from .models import Trips, TripImage, AvailableDate, Reviews
+from .models import Trips, AvailableDate, Reviews
 from django import forms
 
 
@@ -22,18 +22,6 @@ class TripsAdmin(ModelAdmin):
     @display(description="Difficulty Level")
     def display_difficulty(self, obj):
         return obj.get_difficulty_display()
-
-
-# For TripImage model
-@admin.register(TripImage)
-class TripImageAdmin(ModelAdmin):
-    """
-    Admin class for the TripImage model. Defines how the TripImage model
-    should be displayed and managed in the Django admin interface.
-    """
-    list_display = ['trips', ]
-    list_filter = ['trips', ]
-    search_fields = ['trips__name', ]
 
 
 class AvailableDateForm(forms.ModelForm):

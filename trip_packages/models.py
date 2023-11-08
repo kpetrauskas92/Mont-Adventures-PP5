@@ -96,19 +96,6 @@ class TripOverview(models.Model):
     important_notes = models.TextField()
 
 
-class TripImage(models.Model):
-    """
-    TripImage model for storing additional images related to a trip.
-
-    - Holds a ForeignKey to the associated Trips model.
-    - Stores additional images in a specified upload directory.
-    """
-    trips = models.ForeignKey(Trips,
-                              related_name='images',
-                              on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='trip_packages/additional_images/')
-
-
 class AvailableDate(models.Model):
     """
     AvailableDate model for storing available dates for a trip.
