@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 from django.contrib import messages
 from django.utils.decorators import method_decorator
+from django.views.decorators.http import require_POST
 from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import UpdateView
 from .forms import UserProfileForm
@@ -24,9 +26,12 @@ def user_profile(request):
     """Display the user's profile."""
     profile = get_object_or_404(UserProfile, user=request.user)
 
+    current_date = timezone.now().date()
     orders = Order.objects.filter(
         user_profile=request.user.userprofile,
-        lineitems__status='active').distinct().order_by('-id')
+        lineitems__status='active',
+        lineitems__available_date__end_date__gte=current_date
+    ).distinct().order_by('-id')
 
     context = {
         'profile': profile,
@@ -36,12 +41,33 @@ def user_profile(request):
 
 
 @login_required
-def user_bookings(request):
-    """Display the user's bookings."""
+def delete_user_profile(request):
+    """Render the deletion confirmation form on GET, delete profile on POST."""
+    if request.method == 'GET':
 
+        return render(request, 'delete-profile.html')
+
+    elif request.method == 'POST':
+        user = request.user
+
+        user.delete()
+
+        logout(request)
+
+        messages.success(request, "Your account has been successfully deleted.")
+
+        return redirect(reverse('home'))
+
+@login_required
+def user_bookings(request):
+    """Display the user's bookings with end date in the future."""
+
+    current_date = timezone.now().date()
     orders = Order.objects.filter(
         user_profile=request.user.userprofile,
-        lineitems__status='active').distinct().order_by('-id')
+        lineitems__status='active',
+        lineitems__available_date__end_date__gte=current_date
+    ).distinct().order_by('-id')
 
     context = {
         'orders': orders

@@ -43,8 +43,8 @@ class CustomSignupForm(SignupForm):
 
     def clean_first_name(self):
         first_name = self.cleaned_data['first_name']
-        if len(first_name) < 3:
-            raise forms.ValidationError("First name must be at least 3 "
+        if len(first_name) < 2:
+            raise forms.ValidationError("First name must be at least 2 "
                                         "characters long.")
 
         if re.search('[^a-zA-Z]', first_name):
@@ -55,8 +55,8 @@ class CustomSignupForm(SignupForm):
 
     def clean_last_name(self):
         last_name = self.cleaned_data['last_name']
-        if len(last_name) < 3:
-            raise forms.ValidationError("Last name must be at least 3 "
+        if len(last_name) < 2:
+            raise forms.ValidationError("Last name must be at least 2 "
                                         "characters long.")
 
         if re.search('[^a-zA-Z]', last_name):

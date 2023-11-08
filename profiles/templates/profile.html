@@ -30,7 +30,6 @@
                     hx-target="#nav-content">
                     Reviews
                 </a>
-                <a class="tab">Settings</a>
             </div>
 
             <!-- Tab Content -->
@@ -122,6 +121,11 @@
                         hx-get="{% url 'account_logout' %}"
                         hx-target="#my_modal_3 .modal-box"
                         onclick="my_modal_3.showModal()">Sign Out
+                </button>
+                <button class="btn btn-outline hover:bg-error mt-2 w-full py-1.5"
+                        hx-get="{% url 'delete_user_profile' %}"
+                        hx-target="#my_modal_3 .modal-box"
+                        onclick="my_modal_3.showModal()">Delete Profile
                 </button>
             </div>
     </div>
