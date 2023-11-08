@@ -1,8 +1,13 @@
 .glide__arrow {
     color:#F0B760;
-    border-color: #333;
+    border-color: #fff;
     background: #333;
-    border-radius: 20%;
-    opacity: 80%;
+    border-radius: 35%;
+    opacity: 95%;
     width: 2.5rem;
+    height:2.5rem;
+}
+
+.glide__arrow:hover {
+    border-color: #F0B760;
 }

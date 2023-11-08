@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var glideInstances = {};
 
   glideInstances['topTrips'] = new Glide('#top-trips-carousel', {
+    type: 'carousel',
     startAt: 0,
     perView: 3,
     breakpoints: {
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
   glideInstances['topTrips'].mount();
 
   glideInstances['country'] = new Glide('#country-carousel', {
+    type: 'carousel',
     startAt: 0,
     perView: 4,
     breakpoints: {

@@ -3,7 +3,7 @@
 <!-- Top Trips Carousel -->
 <div id="top-trips-carousel" class="glide mx-auto max-w-md sm:max-w-5xl" aria-label="Top Trips Carousel">
     <div class="glide__track" data-glide-el="track">
-        <ul class="glide__slides">
+        <ul class="glide__slides lazyload">
             {% for trip in top_trips %}
                 <li class="glide__slide shadow-inner" 
                     aria-label="Top trip: {{ trip.name }}"
@@ -16,7 +16,7 @@
     </div>
 
     <!-- Carousel Navigation Arrows -->
-    <div class="glide__arrows" data-glide-el="controls">
+    <div class="glide__arrows hidden md:block" data-glide-el="controls">
         <button class="glide__arrow glide__arrow--left" data-glide-dir="<" aria-label="Previous slide">&#10094;</button>
         <button class="glide__arrow glide__arrow--right" data-glide-dir=">" aria-label="Next slide">&#10095;</button>
     </div>

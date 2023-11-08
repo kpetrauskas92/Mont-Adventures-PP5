@@ -9,18 +9,20 @@
             {% for country_code, image_url in country_image_map.items %}
 
                 <!-- Each Slide -->
-                <li class="glide__slide relative">
+                <li class="glide__slide relative lazyload">
 
+                    <a href="{% url 'trip_packages' %}?filter=on&location={{ country_code }}">
                     <!-- Gradient Overlay -->
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-40 z-9 rounded-b-2xl"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-90 z-9 rounded-b-2xl"></div>
                     <img src="{% static image_url %}"
                         alt="{{ country_code|country_name }}"
                         class="rounded-2xl shadow-lg w-full"
                     >
+                    </a>
 
                     <!-- Country Info -->
                     <div class="absolute top-5 left-0 w-full text-center font-bold z-10">
-                        <p class="text-white uppercase text-5xl">
+                        <p class="text-white font-shadow uppercase text-5xl">
                             {{ country_code|country_name }}
                         </p>
                     </div>
@@ -28,11 +30,11 @@
                     <!-- Trips Link at the Bottom -->
                     <div class="absolute bottom-5 left-0 w-full text-center">
                         <a href="{% url 'trip_packages' %}?filter=on&location={{ country_code }}"
-                            class="btn glass lg:btn-sm text-white hover:bg-primary"
+                            class="btn glass lg:btn-sm text-white hover:bg-primary border-white"
                             aria-label="View adventures in {{ country_code|country_name }}"
                         >
                             Adventures: 
-                            <span class="text-secondary">
+                            <span class="text-primary badge">
                                 {{ location_count_dict|get_item:country_code|default:"0" }}
                             </span>
                         </a>
@@ -43,7 +45,7 @@
     </div>
 
     <!-- Carousel Navigation Arrows -->
-    <div class="glide__arrows" data-glide-el="controls">
+    <div class="glide__arrows hidden md:block" data-glide-el="controls">
         <button class="glide__arrow glide__arrow--left" data-glide-dir="<" aria-label="Previous Slide">&#10094;</button>
         <button class="glide__arrow glide__arrow--right" data-glide-dir=">" aria-label="Next Slide">&#10095;</button>
     </div>
