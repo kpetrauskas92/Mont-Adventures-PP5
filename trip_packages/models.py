@@ -7,6 +7,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+from django.utils import timezone
+from datetime import timedelta
 
 
 MONTHS = [
@@ -123,6 +125,12 @@ class AvailableDate(models.Model):
     max_group_size = models.IntegerField()
     booked_slots = models.IntegerField(default=0)
     is_available = models.BooleanField(default=True)
+
+    @property
+    def is_currently_available(self):
+        # Check if the current date is more than 3 days before the start date.
+        cutoff_date = self.start_date - timedelta(days=3)
+        return timezone.now().date() < cutoff_date
 
     def remaining_slots(self):
         return self.max_group_size - self.booked_slots
