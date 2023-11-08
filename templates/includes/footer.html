@@ -1,18 +1,18 @@
 {% load static %}
 <div class="top-footer-bg"></div>
-<footer class="footer footer-center p-10 bg-primary text-primary-content">
-    <aside>
+<footer class="footer footer-center px-4 py-2 bg-primary text-primary-content">
+    <aside class="sm:w-[32rem] lg:max-w-lg">
       <img src="{% static 'web_elements/logo/logo-white.webp' %}" alt="Logo" class="h-20 w-auto">
-      <form hx-post="/subscribe_to_newsletter/" hx-target="#response-message" hx-swap="innerHTML transition:true">
+      <form class="w-full" hx-post="/subscribe_to_newsletter/" hx-target="#response-message" hx-swap="innerHTML transition:true">
         <header class="footer-title mt-2">Subscribe for latest offers</header> 
         <fieldset class="form-control">
-            <div class="relative">
-                <input type="text" name="email" placeholder="name@email.com" class="input input-bordered w-full pr-16" required> 
+            <div class="relative px-0">
+                <input type="text" name="email" placeholder="name@email.com" class="input input-bordered text-gray-700 w-full pr-16" required> 
                 <button type="submit" class="btn btn-secondary glass absolute top-0 right-0 rounded-l-none">Subscribe</button>
             </div>
         </fieldset>
     </form>
-    <div id="response-message"></div>
+    <div id="response-message" class="font-semibold"></div>
     </br>
     </aside> 
     <nav>
@@ -25,6 +25,6 @@
     </nav>
     <div>
     <p>Copyright © 2023 - All right reserved</p>
-    <p class="text-xs text-secondary">Note: This website is for demonstration purposes only and is not an actual functioning site. It serves as a showcase for a developer's portfolio.</p>
+    <p class="text-xs text-secondary">Note: This website is for demonstration purposes only and is not an actual functioning site.<br/>It serves as a showcase for a developer's portfolio.</p>
     </div>
 </footer>
