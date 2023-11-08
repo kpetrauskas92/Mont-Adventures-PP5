@@ -199,6 +199,8 @@ For the first time, the Fabiosci point system was employed to quantify the compl
 
 **🏆Epic [#8](https://github.com/kpetrauskas92/Mont-Adventures-PP5/milestone/8):** Test Deployment and Project Completion 🚩(29 points)
 
+**🏆Epic [#9](https://github.com/kpetrauskas92/Mont-Adventures-PP5/milestone/9):** Code Validation, Documentation, and Refinement 🚩(** points)
+
 > Each epic corresponds to a weekly sprint, with tasks broken down into user stories and allocated points based on complexity and effort.
 
 ### Methodologies
@@ -346,7 +348,7 @@ This plane outlines the organization and arrangement of the platform's functiona
   2. Navigate through the carousel of countries and top trips.
   3. Explore trip packages through the 'Trip Packages' page, with the option to filter via the sidebar.
   4. Click to view trip details, including available dates.
-  5. Proceed to checkout as a guest, with auto account creation on successful checkout.
+  5. Proceed to checkout as a guest, with auto creation on successful checkout.
 
 - **Registered Users**:
   1. Sign in through a modal dialog.
@@ -405,15 +407,14 @@ Wireframes for key pages have been designed to visualize the layout and function
 
 </details>
 
-<details><summary><b>Admin CMS</b></summary>
-
-Admin CMS Wireframe
-
-</details>
 
 #### Database Schema
 
-The database is designed around three primary models: `Trips`, `UserProfile`, and `Order`, with auxiliary models like `TripImage`, `AvailableDate`, `FavoriteTrip`, `Reviews`, and `OrderLineItem` supplementing them.
+The database schema was designed using [dbdiagram.io](https://dbdiagram.io), which provided an intuitive interface for creating and visualizing the database structure. This tool facilitated the definition of tables, relationships, and constraints, streamlining the database design process.
+
+![Database Schema](<github_assets/readme_images/diagrams/mont-db.svg>)
+
+The database is designed around three primary models: `Trips`, `UserProfile`, and `Order`, with auxiliary models like `TripOverview`, `AvailableDate`, `FavoriteTrip`, `Reviews`, and `OrderLineItem` supplementing them.
 
 - **Trips**: Holds detailed information about each mountain climbing package, including images, pricing, duration, and more.
   
@@ -486,6 +487,178 @@ These are the underlying principles that guide the UX/UI design of the platform,
 ---
 
 # ⭐Features
+
+### Home Page Features
+
+#### Navigation
+-  Minimalist navbar with dropdown menus for easy navigation
+
+<details><summary><b>Desktop</b></summary>
+
+![navbar](github_assets/readme_images/features/home/navbar.png)
+</details>
+
+<details><summary><b>Mobile</b></summary>
+
+![navbar](github_assets/readme_images/features/home/mobile/m-navbar.png)
+</details>
+
+#### Hero Section
+- Eye-catching fullscreen hero image
+- Different hero images optimized for mobile and desktop
+- Sticky heading with call-to-action button scrolls in view during navigation
+
+<details><summary><b>Desktop</b></summary>
+
+![hero-section](github_assets/readme_images/features/home/hero-section.png)
+</details>
+
+<details><summary><b>Mobile</b></summary>
+
+![mobile-hero-section](github_assets/readme_images/features/home/mobile/m-hero-section.png)
+</details>
+
+#### About Section
+- Provides an overview of the brand and its mission
+- Engaging way to let visitors learn more about the company
+
+<details><summary><b>Desktop</b></summary>
+
+![about-section](github_assets/readme_images/features/home/about-section.png)
+</details>
+
+<details><summary><b>Mobile</b></summary>
+
+![mobile-about-section](github_assets/readme_images/features/home/mobile/m-about-section.png)
+</details>
+
+#### Location Carousel
+- Allows users to browse destinations by number of available trips
+- Clickable cards filter trips by selected location
+
+<details><summary><b>Desktop</b></summary>
+
+![location-carousel](github_assets/readme_images/features/home/location-carousel.png)
+</details>
+
+<details><summary><b>Mobile</b></summary>
+
+![mobile-location-carouse](github_assets/readme_images/features/home/mobile/m-location-carousel.png)
+</details>
+
+#### Top Adventures Carousel
+- Shows top 8 trips favorited by other users
+- Quickly highlight the most popular and recommended trips
+
+<details><summary><b>Desktop</b></summary>
+
+![location-carousel](github_assets/readme_images/features/home/top-adventures-carousel.png)
+</details>
+
+<details><summary><b>Mobile</b></summary>
+
+![mobile-location-carousel](github_assets/readme_images/features/home/mobile/m-top-adventures-carousel.png)
+</details>
+
+#### Footer
+- Integrated Mailchimp newsletter signup section
+- Provides user feedback for completed actions
+- Social icons link to brand profiles and encourage follows
+- Copyright and disclaimer notices for branding and legal needs
+
+<details><summary><b>Desktop</b></summary>
+
+![footer](github_assets/readme_images/features/home/footer.png)
+</details>
+
+<details><summary><b>Mobile</b></summary>
+
+![mobile-footer](github_assets/readme_images/features/home/mobile/m-footer.png)
+</details>
+
+### Explore Page Features
+
+#### Page Banner
+- Engaging banner with headline and descriptive text
+- Sets the context and introduces the explore page
+
+<details><summary><b>Desktop</b></summary>
+
+![page-banner](github_assets/readme_images/features/explore/page-banner.png)
+</details>
+
+<details><summary><b>Mobile</b></summary>
+
+![mobile-page-banner](github_assets/readme_images/features/explore/mobile/m-page-banner.png)
+</details>
+
+#### Explore Page
+- Total number of available trips displayed prominently at the top of trip listings
+- Sidebar on desktop allows filtering trips by categories
+- Filters update trip count and listings in real-time
+- Mobile devices use a hidden drawer toggled by floating filter button
+- Convenient reset button appears when filters are applied
+- Removes all filters and restores full trip listing
+- Logged in users can favorite trips to save to their profile
+- If not logged in, a modal pops up to prompt logging in or signing up
+- Compact, visual cards for each trip with key details and link to full trip page
+
+<details><summary><b>Desktop</b></summary>
+
+![explore-page](github_assets/readme_images/features/explore/explore-page.png)
+</details>
+
+<details><summary><b>Mobile</b></summary>
+
+![mobile-explore-page1](github_assets/readme_images/features/explore/mobile/m-explore-page-1.png)
+![mobile-explore-page2](github_assets/readme_images/features/explore/mobile/m-explore-page-2.png)
+</details>
+
+### Trip Detail Page Features
+
+#### Trip Detail Main Section
+- Main trip image sets the scene
+- Trip name and dynamic trip details showcase each trip
+- Pricing and booking button on right to enable purchases
+- View available dates and booked slots for trip
+- Select dates to add bookings to cart dropdown
+- Option to go directly to cart and checkout
+
+<details><summary><b>Desktop</b></summary>
+
+![trip-main-details-1](github_assets/readme_images/features/explore/trip-main-details-1.png)
+
+![trip-main-details-2](github_assets/readme_images/features/explore/trip-main-details-2.png)
+</details>
+
+<details><summary><b>Mobile</b></summary>
+
+![mobile-trip-main-details-1](github_assets/readme_images/features/explore/mobile/m-trip-main-details-1.png)
+![mobile-trip-main-details-2](github_assets/readme_images/features/explore/mobile/m-trip-main-details-2.png)
+</details>
+
+#### Trip Detail Tabs
+- Overview and more dynamically loaded
+- Collapsible sections allow drilling down on content
+- Displays reviews from other users, including photos
+- Login required to leave a new review
+- Clear CTAs for logged in and out users to leave reviews
+
+<details><summary><b>Desktop</b></summary>
+
+![trip-overview](github_assets/readme_images/features/explore/trip-overview.png)
+
+![trip-reviews](github_assets/readme_images/features/explore/trip-reviews.png)
+</details>
+
+<details><summary><b>Mobile</b></summary>
+
+![mobile-trip-overview](github_assets/readme_images/features/explore/mobile/m-trip-overview.png)
+![mobile-trip-reviews](github_assets/readme_images/features/explore/mobile/m-trip-reviews.png)
+</details>
+
+### Cart and Checkout Features
+
 
 # 🌠Future Enhancements
 
