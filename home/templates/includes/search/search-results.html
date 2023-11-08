@@ -9,9 +9,9 @@
             {% if results %}
 
                 <!-- Display the number of trips found -->
-                <p class="text-center text-primary font-bold mt-4 uppercase glass rounded py-2"
+                <p class="text-center text-white font-bold mt-4 uppercase bg-slate-700 glass rounded py-2"
                     aria-live="polite">
-                    <span class="btn btn-sm btn-circle btn-primary text-secondary cursor-default">
+                    <span class="badge">
                         {{ results|length }}
                     </span> 
                     Trip{% if results|length != 1 %}s{% endif %} found
@@ -19,7 +19,7 @@
 
             <!-- If no results are found -->
             {% else %}
-                <p class="text-center text-primary font-bold mt-4 uppercase glass rounded py-2"
+                <p class="text-center text-white font-bold mt-4 uppercase glass bg-slate-700 rounded py-2"
                     aria-live="polite"
                     >No results found
                 </p>
@@ -27,9 +27,9 @@
 
         <!-- If query length is less than 3 -->
         {% elif query|length < 3 %}
-            <p class="text-center text-primary font-bold mt-4 uppercase glass rounded py-2"
+            <p class="text-center text-white font-bold mt-4 uppercase glass bg-slate-700 rounded py-2"
                 aria-live="polite"
-                >Enter at least 3 characters to search
+                >Enter at least 3 letters to search
             </p>
         {% endif %}
 
@@ -37,8 +37,8 @@
     {% else %}
 
         <!-- Display all trips -->
-        <p class="text-center text-primary font-bold mt-4 uppercase glass rounded py-2">
-            Showing all trips
+        <p class="text-center text-white font-bold mt-4 uppercase glass bg-slate-700 rounded py-2">
+            3 Random trips you might like
         </p>
     {% endif %}
 

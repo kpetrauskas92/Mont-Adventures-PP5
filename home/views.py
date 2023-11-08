@@ -1,6 +1,5 @@
 import os
 import requests
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.db.models import Count
 from django.db.models import Q
@@ -75,15 +74,14 @@ def search_trips(request):
         else:
             results = Trips.objects.none()
     else:
-        # Return all trips if query is empty
-        results = Trips.objects.all()
+        results = Trips.objects.order_by('?')[:3]
 
     populate_trip_attributes(results)
     context = {
         'results': results,
         'query': query
     }
-    return render(request, 'includes/search-results.html', context)
+    return render(request, 'includes/search/search-results.html', context)
 
 
 def subscribe_to_newsletter(request):
@@ -91,7 +89,8 @@ def subscribe_to_newsletter(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         if not email:
-            context = {'alert_class': 'alert-error', 'message': 'Email is required'}
+            context = {'alert_class': 'alert-error',
+                       'message': 'Email is required'}
 
         # Mailchimp API setup
         api_key = os.environ.get('MAILCHIMP_API_KEY')
@@ -113,10 +112,13 @@ def subscribe_to_newsletter(request):
         response = requests.post(url, headers=headers, json=data)
 
         if response.status_code == 200:
-            context = {'alert_class': 'alert-success', 'message': 'Successfully subscribed! Thank you!'}
+            context = {'alert_class': 'alert-success',
+                       'message': 'Successfully subscribed! Thank you!'}
         elif response.status_code == 400 and "already a list member" in response.text:
-            context = {'alert_class': 'alert-warning', 'message': 'This email is already subscribed.'}
+            context = {'alert_class': 'alert-warning',
+                       'message': 'This email is already subscribed.'}
         else:
-            context = {'alert_class': 'alert-error', 'message': 'Failed to subscribe, please try again.'}
+            context = {'alert_class': 'alert-error',
+                       'message': 'Failed to subscribe, please try again.'}
 
     return render(request, 'snippets/response_message.html', context)
