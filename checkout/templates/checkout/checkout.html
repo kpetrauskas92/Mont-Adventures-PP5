@@ -78,14 +78,14 @@
                         <input type="hidden" value="{{ client_secret }}" name="client_secret">
 
                         <!-- Submit Button -->
-                        <button id="submit-button" type="submit" disabled class="btn btn-secondary w-full disabled:bg-gray-400">
+                        <button id="submit-button" type="submit" disabled class="btn btn-secondary w-full disabled:bg-gray-400 disabled:text-primary">
                             <span class="font-bold">
                                 Pay Now €{{ total_price | floatformat:2 }}
                             </span>
                         </button>
                     </fieldset>
+                    <p class="text-white text-xs text-center italic font-normal"><strong>Please Note:</strong> No real payments will be processed.</p>
                 </div>
-
                 <!-- Payment Cards Info -->
                 <img src="{% static 'web_elements/payment-cards.png' %}" alt="Payment Cards" class="mt-4">
             </form>

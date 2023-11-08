@@ -66,15 +66,10 @@
                     <td><strong>Available Date End:</strong></td>
                     <td>{{ lineitem.available_date.end_date|date:"F j, Y" }}</td>
                 </tr>
-                <tr>
-                    <td colspan="2">
-                        <img src="{{ lineitem.trip.trip_image.url }}" alt="{{ lineitem.trip.name }}">
-                    </td>
-                </tr>
                 {% if lineitem.guests > 1 %}
                     <tr>
                         <td><strong>Additional Guests:</strong></td>
-                        <td>{{ lineitem.guests|add:"-1" }}</td>
+                        <td>{{ lineitem.guests }}</td>
                     </tr>
                 {% endif %}
             {% endfor %}
