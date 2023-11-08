@@ -3,17 +3,20 @@
 @tailwind utilities;
 
 
-.min-h-screen-hero {
-    min-height: 80vh;
-}
+/* .min-h-screen-hero {
+    min-height: 100vh;
+} */
 
 .navbar {
-    min-height: 4.4rem;
+    min-height: 4.5rem;
 }
 
-.main-hero-img {
-  background-image: url('/static/web_elements/hero/bg.webp');
-  background-size: cover;
+.hero {
+  background-image: url('/static/web_elements/hero/mobile-hero.webp');
+
+  @media (min-width: 640px) {
+    background-image: url('/static/web_elements/hero/desktop-hero.webp'); 
+  }
 }
 
 .top-footer-bg {
