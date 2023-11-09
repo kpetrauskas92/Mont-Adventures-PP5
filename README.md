@@ -1,16 +1,19 @@
-<div align="center">
-    <img alt="logo" src="github_assets/readme_images/docs-logo.png" width="300px">
-</div>
+# PP5 Project Porfolio
+
+![responsive-mockup](github_assets/readme_images/mockup.png)
 
 <div align="center">
-    
+
+Explore [Mont Adventures](https://montadventures.com/)
+
 ![](https://tokei.rs/b1/github/kpetrauskas92/Mont-Adventures-PP5?category=files)
 ![](https://tokei.rs/b1/github/kpetrauskas92/Mont-Adventures-PP5?category=code)
 ![](https://tokei.rs/b1/github/kpetrauskas92/Mont-Adventures-PP5?category=comments)
-
 </div>
 
+
 # 🏔️Introduction
+<img alt="logo" src="github_assets/readme_images/docs-logo.png" width="300px">
 
 Welcome to Mont Adventures, a comprehensive platform dedicated to making your next mountain-climbing adventure just a few clicks away. Designed specifically for thrill-seekers and outdoor enthusiasts, Mont Adventures combines a user-friendly interface with a robust set of features to create a seamless booking experience.
 
@@ -118,8 +121,16 @@ The primary target market comprises adventure travelers with a focus on mountain
 *Online Marketing*
 
 1. **SEO:** Focused keyword targeting to rank higher on search engines.
-2. **Social Media:** Leverage platforms like Instagram, where visuals can be highly engaging.
+2. **Social Media:** Leverage platforms like Facebook, where visuals can be highly engaging.
 3. **Influencer Partnerships:** Collaborate with adventure vloggers and bloggers to showcase the platform.
+
+<details><summary><b>Facebook Marketing Screenshots</b></summary>
+
+![fb-page](github_assets/readme_images/marketing/fb-page.png)
+![fb-post1](github_assets/readme_images/marketing/fp-post1.png)
+![fb-post2](github_assets/readme_images/marketing/fp-post2.png)
+</details>
+---
 
 *Offline Marketing*
 
@@ -503,6 +514,26 @@ These are the underlying principles that guide the UX/UI design of the platform,
 
 ![Navbar Mobile View](github_assets/readme_images/features/home/mobile/m-navbar.png)
 </details>
+
+- **Search**: 
+    - **Search Drawer**: A unique search drawer that elegantly slides down from the top, presenting a focused search environment.
+    - **Real-Time Search Functionality**: As users type in their query, the search form dynamically updates and displays results in real time, enhancing user engagement.
+    - **Curated Trip Suggestions**: Along with the search results, the feature smartly showcases 3 random trips, offering users inspiration and discovery opportunities.
+    - **Responsive Design**: Optimized for both desktop and mobile views, ensuring a seamless and consistent search experience across all devices.
+
+<details><summary><b>Desktop View</b></summary>
+
+![search-open](github_assets/readme_images/features/home/search-open.png)
+![search-validation1](github_assets/readme_images/features/home/search-validation1.png)
+![search-validation2](github_assets/readme_images/features/home/search-validation2.png)
+![search-results](github_assets/readme_images/features/home/search-results.png)
+</details>
+
+<details><summary><b>Mobile View</b></summary>
+
+![Mobile Search](github_assets/readme_images/features/home/mobile/m-search.png)
+</details>
+
 
 - **Dynamic Dropdown Menus**: Designed to adapt to different user states, the dropdown menus change to meet the specific needs of guests, registered users, or superusers, providing a personalized navigation experience.
 
@@ -894,11 +925,102 @@ Providing users with instant feedback on their actions, these confirmations help
 
 # 🌠Future Enhancements
 
-# 🧮Testing
+# 🧮 Testing
+
+For a comprehensive overview of the application's testing procedures, methodologies, and results, please visit testing documentation:
+
+[View Testing Documentation](github_assets/docs/TESTING.md)
 
 # 🪲Bugs/Issues
 
 # 🤖Technologies Used
+
+This project leverages a variety of technologies, frameworks, and tools, each playing a vital role in its development and functionality.
+
+### Frontend
+- **HTML5**: For structuring the web content.
+- **Tailwind CSS** & **DaisyUI**: Used for styling with a utility-first CSS framework and UI components.
+- **HTMX**: For adding interactive components and AJAX functionalities.
+- **JavaScript Libraries**:
+  - **LazySizes**: Enables lazy loading of images to improve page load times.
+  - **StickyJS**: To make certain elements sticky during page scrolling.
+  - **GlideJS**: For creating responsive and touch-friendly carousels.
+  - **jQuery**: Simplifies DOM manipulation and event handling.
+  - **Lightbox JS**: For presenting images in a full-screen lightbox view.
+
+### Backend
+- **Python**: The core programming language used for backend development, known for its simplicity and power.
+- **Django**: A high-level Python Web framework that enables rapid and clean development, perfect for building robust web applications.
+
+### Database
+- **ElephantSQL**: As the cloud-hosted PostgreSQL database service.
+
+### Storage and Media
+- **AWS S3**: Utilized for secure and scalable storage of static and media files.
+
+### Deployment and Domain Management
+- **Git & GitHub**: For version control and source code repository.
+- **Heroku**: For deploying the web application.
+- **Cloudflare**: Provides domain management along with security and performance optimization.
+
+### Email Service
+- **Spaceship**: For efficient email service setup and management.
+
+### Design and Documentation Tools
+- **Photoshop**: For graphic design and image editing.
+- **Claude**: Assists in generating and refining README and documentation text.
+
+This comprehensive selection of technologies and tools ensures a scalable, efficient, and user-friendly application, focusing on seamless front-end interactivity and robust back-end functionality.
+
+## 🛠 Dependencies
+
+To run this project, you need to install the following dependencies. You can do this by running `pip install -r requirements.txt` in your command line. Ensure you are in the project's root directory where the `requirements.txt` file is located.
+
+```
+asgiref==3.7.2
+boto3==1.28.45
+botocore==1.31.45
+certifi==2023.7.22
+cffi==1.15.1
+charset-normalizer==3.2.0
+crispy-tailwind==0.5.0
+cryptography==41.0.3
+cssselect==1.2.0
+cssutils==2.9.0
+defusedxml==0.7.1
+dj-database-url==0.5.0
+Django==4.1
+django-allauth==0.56.1
+django-countries==7.5.1
+django-crispy-forms==2.0
+django-htmx==1.16.0
+django-storages==1.14
+django-unfold==0.11.0
+gunicorn==21.2.0
+idna==3.4
+importlib-metadata==6.7.0
+jmespath==1.0.1
+lxml==4.9.3
+oauthlib==3.2.2
+packaging==23.1
+Pillow==10.0.1
+psycopg2==2.9.7
+pycparser==2.21
+PyJWT==2.8.0
+python-dateutil==2.8.2
+python-dotenv==1.0.0
+python3-openid==3.2.0
+requests==2.31.0
+requests-oauthlib==1.3.1
+s3transfer==0.6.2
+six==1.16.0
+sqlparse==0.4.4
+stripe==6.6.0
+typing_extensions==4.7.1
+tzdata==2023.3
+urllib3==1.26.16
+zipp==3.17.0
+```
 
 # ⚙️Setup and Deployment
 

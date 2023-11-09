@@ -89,6 +89,32 @@
             <div class="p-2 my-4 bg-secondary glass rounded-lg text-sm text-center">
                 <p><strong>Please note:</strong> Trips cannot be canceled within <strong>30 days</strong> of the start date.</p>
             </div>
+            <div class="text-sm">
+                <p class="text-center">If you would like to save this information</p>
+                {% if not user.is_authenticated %}
+                <div class="flex justify-center">
+                    <!-- Login Button -->
+                    <a href="{% url 'account_login' %}"
+                    class="link text-blue-500"
+                    aria-label="Login Button"
+                    hx-get="{% url 'account_login' %}"
+                    hx-target="#my_modal_3 .modal-box"
+                    onclick="my_modal_3.showModal()"
+                    >Login 
+                    </a>
+                    <p class="mx-2"> or </p>
+                    <!-- Sign Up Button -->
+                    <a href="{% url 'account_signup' %}"
+                    class="link text-blue-500"
+                    aria-label="Sign up Button"
+                    hx-get="{% url 'account_signup' %}"
+                    hx-target="#my_modal_3 .modal-box"
+                    onclick="my_modal_3.showModal()"
+                    >Sign Up
+                    </a>
+                </div>
+                {% endif %}
+            </div>
         </div>
 
         <!-- Subtotal section -->
