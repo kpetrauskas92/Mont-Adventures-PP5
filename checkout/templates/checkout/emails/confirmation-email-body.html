@@ -23,10 +23,6 @@
             padding: 10px;
             border-bottom: 1px solid #eaeaea;
         }
-        img {
-            max-width: 100%;
-            height: auto;
-        }
         .primary-color {
             color: #242424;
         }
@@ -80,10 +76,11 @@
         </table>
 
         {% if not order.user_profile %}
-        <p>
-            Dear Guest,<br>
-            If you wish to view or cancel the trip, please register for an account on our website.
-        </p>
+        <p class="secondary-bg-color">
+            Our records indicate that you do not currently have an account with us.
+             To view or manage your booking, please create an account on our website at
+            <a href="https://{{ current_site.domain }}">{{ current_site.domain }}</a>.
+        </p>        
         {% endif %}
 
         <p>If you have any questions, feel free to contact us at {{ contact_email }}.</p>

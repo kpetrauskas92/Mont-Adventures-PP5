@@ -490,175 +490,407 @@ These are the underlying principles that guide the UX/UI design of the platform,
 
 ### Home Page Features
 
-#### Navigation
--  Minimalist navbar with dropdown menus for easy navigation
+#### 🧭 Navigation
 
-<details><summary><b>Desktop</b></summary>
+- **Minimalist Navbar**: The design of the navbar epitomizes minimalist elegance, offering easy navigation while maintaining a clean, uncluttered aesthetic. This approach ensures users can find what they need without being overwhelmed by options.
 
-![navbar](github_assets/readme_images/features/home/navbar.png)
+<details><summary><b>Desktop View</b></summary>
+
+![Navbar Desktop View](github_assets/readme_images/features/home/navbar.png)
 </details>
 
-<details><summary><b>Mobile</b></summary>
+<details><summary><b>Mobile View</b></summary>
 
-![navbar](github_assets/readme_images/features/home/mobile/m-navbar.png)
+![Navbar Mobile View](github_assets/readme_images/features/home/mobile/m-navbar.png)
 </details>
 
-#### Hero Section
-- Eye-catching fullscreen hero image
-- Different hero images optimized for mobile and desktop
-- Sticky heading with call-to-action button scrolls in view during navigation
+- **Dynamic Dropdown Menus**: Designed to adapt to different user states, the dropdown menus change to meet the specific needs of guests, registered users, or superusers, providing a personalized navigation experience.
 
-<details><summary><b>Desktop</b></summary>
+<details><summary><b>Nav Dropdowns</b></summary>
 
-![hero-section](github_assets/readme_images/features/home/hero-section.png)
+![Empty Dropdown Cart](github_assets/readme_images/features/home/empty-dropdown-cart.png)
+
+*Empty Dropdown Cart*: This view is presented when the cart is empty, guiding users to start their shopping journey.
+
+![Dropdown Cart](github_assets/readme_images/features/home/dropdown-cart.png)
+
+*Dropdown Cart with Items*: Users can quickly review selected items in the cart dropdown without leaving the current page.
+
+![User Auth - Guest](github_assets/readme_images/features/home/user-auth.png)
+
+*User Auth for Guests*: Offers options to log in or register, facilitating a seamless transition for guests to become registered users.
+
+![User Auth - User](github_assets/readme_images/features/home/user-auth-user.png)
+
+*User Auth for Registered Users*: Provides a personalized experience with options tailored to the user profile of logged-in individuals.
+
+![User Auth - Superuser](github_assets/readme_images/features/home/user-auth-superuser.png)
+
+*User Auth for Superusers*: Grants access to additional functionalities, reflecting the elevated privileges of superusers in the navigation menu.
+
 </details>
 
-<details><summary><b>Mobile</b></summary>
 
-![mobile-hero-section](github_assets/readme_images/features/home/mobile/m-hero-section.png)
+
+#### 🌟 Hero Section
+
+- **Captivating Fullscreen Image**: The hero section features a striking fullscreen image that immediately grabs the visitor's attention. This visual centerpiece is designed to make a strong first impression and engage users from the moment they arrive on the page.
+
+<details><summary><b>Desktop View</b></summary>
+
+![Hero Section Desktop View](github_assets/readme_images/features/home/hero-section.png)
 </details>
 
-#### About Section
-- Provides an overview of the brand and its mission
-- Engaging way to let visitors learn more about the company
+- **Responsive Design for Different Devices**: Acknowledging the diversity of devices used to access the site, the hero image is optimized separately for desktop and mobile. This ensures that the image looks great and loads quickly on any screen size, providing an optimal user experience.
 
-<details><summary><b>Desktop</b></summary>
+<details><summary><b>Mobile View</b></summary>
 
-![about-section](github_assets/readme_images/features/home/about-section.png)
+![Hero Section Mobile View](github_assets/readme_images/features/home/mobile/m-hero-section.png)
 </details>
 
-<details><summary><b>Mobile</b></summary>
+- **Sticky Heading with Call-to-Action**: As users scroll, a sticky heading with a compelling call-to-action (CTA) button remains in view. This design choice keeps the key message and action prompt accessible, encouraging user engagement and conversion throughout their navigation of the site.
 
-![mobile-about-section](github_assets/readme_images/features/home/mobile/m-about-section.png)
+
+#### 📘 About Section
+
+- **Brand Overview and Mission**: The About Section serves as a gateway for visitors to delve into the essence of the brand. It thoughtfully presents an overview of the brand's values and mission, offering insight into what drives the company and its commitment to customers.
+
+<details><summary><b>Desktop View</b></summary>
+
+![About Section Desktop View](github_assets/readme_images/features/home/about-section.png)
 </details>
 
-#### Location Carousel
-- Allows users to browse destinations by number of available trips
-- Clickable cards filter trips by selected location
+- **Engagement and Connection**: Crafted to engage, this section not only informs but also connects with visitors. It's an opportunity to narrate the brand's story in a way that resonates with the audience, encouraging a deeper understanding and a stronger emotional connection with the brand.
 
-<details><summary><b>Desktop</b></summary>
+<details><summary><b>Mobile View</b></summary>
 
-![location-carousel](github_assets/readme_images/features/home/location-carousel.png)
+![About Section Mobile View](github_assets/readme_images/features/home/mobile/m-about-section.png)
 </details>
 
-<details><summary><b>Mobile</b></summary>
+- **Responsive and Interactive Design**: Keeping with the theme of accessibility, the About Section is designed to be fully responsive. Whether accessed via desktop or mobile, the section maintains its aesthetic appeal and readability, ensuring a consistent user experience across all devices.
 
-![mobile-location-carouse](github_assets/readme_images/features/home/mobile/m-location-carousel.png)
+
+#### 🌍 Location Carousel
+
+- **Browse by Destinations**: The Location Carousel allows users to explore various travel destinations based on the number of available trips. This feature provides a quick and intuitive way for users to identify destinations of interest.
+
+<details><summary><b>Desktop View</b></summary>
+
+![Location Carousel Desktop View](github_assets/readme_images/features/home/location-carousel.png)
 </details>
 
-#### Top Adventures Carousel
-- Shows top 8 trips favorited by other users
-- Quickly highlight the most popular and recommended trips
+- **Interactive Trip Filtering**: Each card in the carousel is clickable and acts as a filter. By selecting a location, users can easily filter the trips available in that specific area, making the trip selection process straightforward and user-friendly.
 
-<details><summary><b>Desktop</b></summary>
+<details><summary><b>Mobile View</b></summary>
 
-![location-carousel](github_assets/readme_images/features/home/top-adventures-carousel.png)
+![Location Carousel Mobile View](github_assets/readme_images/features/home/mobile/m-location-carousel.png)
 </details>
 
-<details><summary><b>Mobile</b></summary>
+#### 🌟 Top Adventures Carousel
 
-![mobile-location-carousel](github_assets/readme_images/features/home/mobile/m-top-adventures-carousel.png)
+- **Showcase of Popular Trips**: The Top Adventures Carousel highlights the top 8 trips that have been favorited by other users. This feature is designed to quickly draw attention to the most popular and highly recommended trips, aiding users in their decision-making.
+
+<details><summary><b>Desktop View</b></summary>
+
+![Top Adventures Carousel Desktop View](github_assets/readme_images/features/home/top-adventures-carousel.png)
 </details>
 
-#### Footer
-- Integrated Mailchimp newsletter signup section
-- Provides user feedback for completed actions
-- Social icons link to brand profiles and encourage follows
-- Copyright and disclaimer notices for branding and legal needs
+- **Engagement and Discovery**: The carousel format not only saves space but also encourages user engagement and discovery. Users can easily browse through the top picks and find inspiration for their next adventure.
 
-<details><summary><b>Desktop</b></summary>
+<details><summary><b>Mobile View</b></summary>
 
-![footer](github_assets/readme_images/features/home/footer.png)
+![Top Adventures Carousel Mobile View](github_assets/readme_images/features/home/mobile/m-top-adventures-carousel.png)
 </details>
 
-<details><summary><b>Mobile</b></summary>
 
-![mobile-footer](github_assets/readme_images/features/home/mobile/m-footer.png)
+#### 📬 Footer
+
+- **Stay Connected with Newsletters**: The footer integrates a Mailchimp newsletter signup section, making it easy for visitors to stay informed about the latest news and offers. This feature enhances user engagement by keeping them connected with the brand.
+
+<details><summary><b>Desktop View</b></summary>
+
+![Footer Desktop View](github_assets/readme_images/features/home/footer.png)
 </details>
+
+- **User Feedback for Interactions**: To improve the user experience, the footer provides immediate feedback for actions like newsletter signups, ensuring users are informed of successful or pending actions.
+
+<details><summary><b>Mobile View</b></summary>
+
+![Footer Mobile View](github_assets/readme_images/features/home/mobile/m-footer.png)
+</details>
+
+- **Social Media Integration**: Social media icons are prominently featured, linking to the brand's profiles. This encourages visitors to follow and engage with the brand across different platforms, extending the user-brand interaction beyond the website.
+
+- **Legal and Branding Compliance**: The footer also includes necessary copyright and disclaimer notices, fulfilling legal requirements and strengthening brand identity. This aspect is crucial for both branding and compliance with legal standards.
+
+The footer design not only caters to functional needs but also plays a vital role in enhancing user interaction and legal compliance.
+
 
 ### Explore Page Features
 
-#### Page Banner
-- Engaging banner with headline and descriptive text
-- Sets the context and introduces the explore page
+#### 🔍 Page Banner
+- **Engaging Introduction**: The banner at the top of the Explore Page sets the stage with a captivating headline and descriptive text. It effectively introduces users to the exploration theme and guides their experience.
 
-<details><summary><b>Desktop</b></summary>
+<details><summary><b>Desktop View</b></summary>
 
-![page-banner](github_assets/readme_images/features/explore/page-banner.png)
+![Page Banner Desktop](github_assets/readme_images/features/explore/page-banner.png)
 </details>
 
-<details><summary><b>Mobile</b></summary>
+<details><summary><b>Mobile View</b></summary>
 
-![mobile-page-banner](github_assets/readme_images/features/explore/mobile/m-page-banner.png)
+![Page Banner Mobile](github_assets/readme_images/features/explore/mobile/m-page-banner.png)
 </details>
 
-#### Explore Page
-- Total number of available trips displayed prominently at the top of trip listings
-- Sidebar on desktop allows filtering trips by categories
-- Filters update trip count and listings in real-time
-- Mobile devices use a hidden drawer toggled by floating filter button
-- Convenient reset button appears when filters are applied
-- Removes all filters and restores full trip listing
-- Logged in users can favorite trips to save to their profile
-- If not logged in, a modal pops up to prompt logging in or signing up
-- Compact, visual cards for each trip with key details and link to full trip page
+#### 🗺️ Explore Page Functionality
+- **Trip Count Display**: At the top of the trip listings, users can see the total number of available trips, providing immediate insight into the range of options.
 
-<details><summary><b>Desktop</b></summary>
+- **Desktop Trip Filtering**: A sidebar allows desktop users to filter trips by various categories. This feature enhances navigation and allows for a customized browsing experience.
 
-![explore-page](github_assets/readme_images/features/explore/explore-page.png)
+- **Real-time Listing Updates**: Applying filters updates the trip count and listings dynamically, offering an interactive and responsive user experience.
+
+<details><summary><b>Desktop View</b></summary>
+
+![Explore Page Desktop](github_assets/readme_images/features/explore/explore-page.png)
 </details>
 
-<details><summary><b>Mobile</b></summary>
+- **Mobile Filtering**: For mobile users, a hidden drawer for filtering is accessible via a floating button, ensuring a clean, uncluttered interface while retaining full functionality.
 
-![mobile-explore-page1](github_assets/readme_images/features/explore/mobile/m-explore-page-1.png)
-![mobile-explore-page2](github_assets/readme_images/features/explore/mobile/m-explore-page-2.png)
+- **Filter Reset Button**: A convenient reset button appears when filters are applied, allowing users to easily remove all filters and restore the full trip listing.
+
+<details><summary><b>Mobile View</b></summary>
+
+![Explore Page Mobile 1](github_assets/readme_images/features/explore/mobile/m-explore-page-1.png)
+![Explore Page Mobile 2](github_assets/readme_images/features/explore/mobile/m-explore-page-2.png)
 </details>
+
+- **User Interaction with Trips**: Logged-in users can favorite trips to save them to their profile for later access. If not logged in, a modal prompts users to either log in or sign up, seamlessly integrating user interaction with the platform.
+
+- **Visual Trip Cards**: Each trip is presented in a compact, visually appealing card, displaying key details and a link to the full trip page. This layout makes it easy for users to browse and select trips of interest.
+
+The Explore Page is designed to provide an engaging, user-friendly experience, adapting its features and interface to suit both desktop and mobile users.
+
 
 ### Trip Detail Page Features
 
-#### Trip Detail Main Section
-- Main trip image sets the scene
-- Trip name and dynamic trip details showcase each trip
-- Pricing and booking button on right to enable purchases
-- View available dates and booked slots for trip
-- Select dates to add bookings to cart dropdown
-- Option to go directly to cart and checkout
+#### 📷 Trip Detail Main Section
+- **Captivating Imagery**: The main trip image immediately sets the scene, drawing users into the unique experience each trip offers.
+- **Dynamic Trip Details**: The trip name and details dynamically showcase each trip, providing visitors with a comprehensive understanding of what to expect.
+- **Pricing and Booking**: An easily accessible area for pricing and a booking button on the right side enables quick purchase decisions.
+- **Date Selection and Booking**: Users can view available dates, booked slots, and select dates directly, streamlining the booking process.
+- **Direct Cart Access**: There's an option for users to go directly to their cart and proceed to checkout, enhancing the e-commerce functionality.
 
-<details><summary><b>Desktop</b></summary>
+<details><summary><b>Desktop View</b></summary>
 
-![trip-main-details-1](github_assets/readme_images/features/explore/trip-main-details-1.png)
-
-![trip-main-details-2](github_assets/readme_images/features/explore/trip-main-details-2.png)
+![Trip Main Details Desktop 1](github_assets/readme_images/features/explore/trip-main-details-1.png)
+![Trip Main Details Desktop 2](github_assets/readme_images/features/explore/trip-main-details-2.png)
 </details>
 
-<details><summary><b>Mobile</b></summary>
+<details><summary><b>Mobile View</b></summary>
 
-![mobile-trip-main-details-1](github_assets/readme_images/features/explore/mobile/m-trip-main-details-1.png)
-![mobile-trip-main-details-2](github_assets/readme_images/features/explore/mobile/m-trip-main-details-2.png)
+![Trip Main Details Mobile 1](github_assets/readme_images/features/explore/mobile/m-trip-main-details-1.png)
+![Trip Main Details Mobile 2](github_assets/readme_images/features/explore/mobile/m-trip-main-details-2.png)
 </details>
 
-#### Trip Detail Tabs
-- Overview and more dynamically loaded
-- Collapsible sections allow drilling down on content
-- Displays reviews from other users, including photos
-- Login required to leave a new review
-- Clear CTAs for logged in and out users to leave reviews
+#### 📑 Trip Detail Tabs
+- **Engaging Content Sections**: The trip detail page features tabs for an overview and more, which are dynamically loaded with rich content.
+- **Collapsible Sections**: Users can drill down into specific content using collapsible sections, making it easy to navigate large amounts of information.
+- **User Reviews with Photos**: Displays reviews from other travelers, including their photos, which adds credibility and social proof.
+- **Review Interaction**: Users are required to log in to leave a new review, encouraging engagement and maintaining quality interactions.
+- **CTAs for Reviews**: Clear calls to action are provided for both logged-in and logged-out users, guiding them to leave reviews and interact with the community.
 
-<details><summary><b>Desktop</b></summary>
+<details><summary><b>Desktop View</b></summary>
 
-![trip-overview](github_assets/readme_images/features/explore/trip-overview.png)
-
-![trip-reviews](github_assets/readme_images/features/explore/trip-reviews.png)
+![Trip Overview Desktop](github_assets/readme_images/features/explore/trip-overview.png)
+![Trip Reviews Desktop](github_assets/readme_images/features/explore/trip-reviews.png)
 </details>
 
-<details><summary><b>Mobile</b></summary>
+<details><summary><b>Mobile View</b></summary>
 
-![mobile-trip-overview](github_assets/readme_images/features/explore/mobile/m-trip-overview.png)
-![mobile-trip-reviews](github_assets/readme_images/features/explore/mobile/m-trip-reviews.png)
+![Trip Overview Mobile](github_assets/readme_images/features/explore/mobile/m-trip-overview.png)
+![Trip Reviews Mobile](github_assets/readme_images/features/explore/mobile/m-trip-reviews.png)
 </details>
 
 ### Cart and Checkout Features
 
+#### 🖼️ Page Banner
+- **Contextual Banner**: A visually appealing banner tops the Cart page, enhancing the user's visual experience and providing contextual information.
+
+<details><summary><b>Desktop View</b></summary>
+
+![Cart Page Banner](github_assets/readme_images/features/cart_checkout/cart-banner.png)
+</details>
+
+<details><summary><b>Mobile View</b></summary>
+
+![Mobile Cart Page Banner](github_assets/readme_images/features/cart_checkout/mobile/m-cart-banner.png)
+</details>
+
+#### 🛍️ Cart Section
+- **Detailed Cart Overview**: Displays all trips added to the cart with selected dates, offering a clear summary of chosen experiences.
+- **Easy Trip Management**: Options to remove trips from the cart, allowing for effortless modification of selections.
+- **Guest Adjustment Feature**: Users can add or remove guests for each trip, with a dynamic total price that updates in real time.
+
+<details><summary><b>Desktop View</b></summary>
+
+![Cart Section Desktop](github_assets/readme_images/features/cart_checkout/cart-section.png)
+</details>
+
+<details><summary><b>Mobile View</b></summary>
+
+![Cart Section Mobile](github_assets/readme_images/features/cart_checkout/mobile/m-cart-section.png)
+</details>
+
+#### 💳 Checkout Modal
+- **Streamlined Checkout Process**: A user-friendly checkout modal simplifies the transaction process.
+- **Validation for Completion**: The checkout button activates only when all necessary fields are filled, ensuring accurate user input.
+- **Real-time Input Verification**: Immediate feedback on user input enhances efficiency and helps guide users towards successful form completion.
+
+<details><summary><b>Desktop View</b></summary>
+
+![Checkout Modal Desktop](github_assets/readme_images/features/cart_checkout/checkout-modal.png)
+</details>
+
+<details><summary><b>Mobile View</b></summary>
+
+![Checkout Modal Mobile](github_assets/readme_images/features/cart_checkout/mobile/m-checkout-modal.png)
+</details>
+
+#### ✅ Checkout Success
+- **Confirmation of Success**: A distinct message signals the successful processing of payment, instilling confidence in users.
+- **Order Details**: Displays a unique order number for reference and assurance.
+- **Email Notification Confirmation**: Informs users that transaction details have been sent to their email, ensuring effective communication post-purchase.
+- **Design Focus**: The Checkout Success page is designed for clarity and reassurance, providing a satisfying conclusion to the user's shopping experience.
+
+<details><summary><b>Desktop View</b></summary>
+
+![Checkout Success Desktop](github_assets/readme_images/features/cart_checkout/checkout-success.png)
+</details>
+
+<details><summary><b>Mobile View</b></summary>
+
+![Checkout Success Mobile](github_assets/readme_images/features/cart_checkout/mobile/m-checkout-success.png)
+</details>
+
+### User Profiles
+
+#### 🛠 Profile Management
+- **Access and Control**: Users can access their profile page to view and manage personal information and activities.
+- **Comprehensive Overview**: View bookings, favorite trips, and posted reviews, facilitating easy travel plan and preference management.
+- **Edit Personal Information**: Option to update personal details like name, contact information for a current profile.
+- **Personalization**: Users can upload a profile picture, adding a personal touch to their accounts.
+- **Account Management**: Features to sign out or delete the profile offer full control over account usage.
+
+<details><summary><b>Desktop</b></summary>
+
+![New User Profile](github_assets/readme_images/features/profiles/user-profile-new.png)
+![Updated User Profile](github_assets/readme_images/features/profiles/user-profile-updated.png)
+![Favorite Trips](github_assets/readme_images/features/profiles/user-profile-favorite-trips.png)
+![User Reviews](github_assets/readme_images/features/profiles/user-profile-reviews.png)
+</details>
+
+<details><summary><b>Mobile</b></summary>
+
+![Mobile User Profile](github_assets/readme_images/features/profiles/mobile/m-user-profile.png)
+![Mobile User Favorites](github_assets/readme_images/features/profiles/mobile/m-user-favorites.png)
+![Mobile User Reviews](github_assets/readme_images/features/profiles/mobile/m-user-reviews.png)
+</details>
+
+### Other Features
+
+#### 🪟 Modals
+Interactive dialog boxes that enhance user engagement and streamline the user experience. They are designed to grab the user's attention for specific actions, providing a focused environment without leaving the current page.
+
+<details><summary><b>Login & Sign Up</b></summary>
+
+- **Login Modal**: Streamlines the login process with a clear, user-friendly interface.
+- **Sign Up Modal**: Encourages new users to join with an easy-to-use registration form.
+
+![Login Modal](github_assets/readme_images/features/other_features/modals/login-modal.png)
+![Sign Up Modal](github_assets/readme_images/features/other_features/modals/signup-modal.png)
+</details>
+
+<details><summary><b>Password Reset</b></summary>
+
+- **Password Reset Modal**: Offers users a straightforward method to recover their accounts securely.
+
+![Password Reset Modal](github_assets/readme_images/features/other_features/modals/pass-reset-modal.png)
+</details>
+
+<details><summary><b>Add/Edit Review</b></summary>
+
+- **Add Review Modal**: Allows users to share their experiences easily.
+- **Edit Review Modal**: Provides a seamless way to update their thoughts and feedback.
+
+![Add Review Modal](github_assets/readme_images/features/other_features/modals/add-review-modal.png)
+![Edit Review Modal](github_assets/readme_images/features/other_features/modals/edit-review-modal.png)
+</details>
+
+<details><summary><b>Edit Profile</b></summary>
+
+- **Edit Profile Modal**: Facilitates users in keeping their personal information up-to-date with a few simple clicks.
+
+![Edit Profile Modal](github_assets/readme_images/features/other_features/modals/edit-profile-modal.png)
+</details>
+
+#### ✅ Form Validations
+Ensuring data integrity and enhancing user experience through real-time feedback, our form validations guide users in providing correct and required information.
+
+<details><summary><b>Login & Sign Up</b></summary>
+
+- **Login Validation**: Checks user credentials for accuracy and security.
+- **Sign Up Validation**: Ensures all necessary information is provided correctly during registration.
+
+![Login Validation](github_assets/readme_images/features/other_features/form_validations/login-validation1.png)
+![More Login Validation](github_assets/readme_images/features/other_features/form_validations/login-validation2.png)
+![Sign Up Validation](github_assets/readme_images/features/other_features/form_validations/signup-validation.png)
+</details>
+
+<details><summary><b>Review & Profile Edit</b></summary>
+
+- **Review Validation**: Assists users in providing meaningful feedback.
+- **Edit Profile Validation**: Confirms the accuracy of updated personal information.
+
+![Review Validation](github_assets/readme_images/features/other_features/form_validations/review-validation.png)
+![Edit Profile Validation](github_assets/readme_images/features/other_features/form_validations/edit-profile-validation.png)
+</details>
+
+<details><summary><b>Checkout</b></summary>
+
+- **Checkout Validation**: Ensures all transaction details are filled out correctly, enhancing the reliability of the checkout process.
+
+![Checkout Validation 1](github_assets/readme_images/features/other_features/form_validations/checkout-validation1.png)
+![Checkout Validation 2](github_assets/readme_images/features/other_features/form_validations/checkout-validation2.png)
+![Checkout Validation 3](github_assets/readme_images/features/other_features/form_validations/checkout-validation3.png)
+</details>
+
+#### 🔔 Confirmations
+Providing users with instant feedback on their actions, these confirmations help in enhancing user confidence and clarity in using the platform.
+
+<details><summary><b>User Actions</b></summary>
+
+- **Various User Action Confirmations**: From verifying emails to changing passwords, each action taken by the user is acknowledged with a clear message, ensuring users are always informed about the status of their interactions.
+
+![Verify Email](github_assets/readme_images/features/other_features/actions/verify-email.png)
+![Confirm Email](github_assets/readme_images/features/other_features/actions/confirm-email.png)
+![Password Reset Success](github_assets/readme_images/features/other_features/actions/pass-reset-success.png)
+![Change Password Success](github_assets/readme_images/features/other_features/actions/change-pass-success.png)
+![Login Success](github_assets/readme_images/features/other_features/actions/login-success.png)
+![Sign Out](github_assets/readme_images/features/other_features/actions/sign-out.png)
+![Delete Profile](github_assets/readme_images/features/other_features/actions/delete-profile.png)
+![Cancel Trip](github_assets/readme_images/features/other_features/actions/cancel-trip.png)
+![Delete Review](github_assets/readme_images/features/other_features/actions/delete-review.png)
+![Profile Update](github_assets/readme_images/features/other_features/actions/profile-update.png)
+![Review Submit](github_assets/readme_images/features/other_features/actions/review-submit.png)
+
+</details>
+
+#### Order Confirmation Email
+
+![Line brake](github_assets/readme_images/color-line-break.png)
+
+[⬆️Back to top](<#📜table-of-contents>)
+
+---
 
 # 🌠Future Enhancements
 
