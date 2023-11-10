@@ -5,7 +5,7 @@
 {% block content %}
 
 <!-- Trip Card -->
-<article class="border rounded-xl">
+<div class="border rounded-xl">
 
     <!-- Trip Link and Image -->
     <a href="{% url 'trip_details' trip.id %}"
@@ -70,6 +70,6 @@
             </strong> /pp.
         </span>
     </div>
-</article>
+</div>
 
 {% endblock  %}

@@ -2,50 +2,52 @@
 
 {% if user.is_authenticated %}
     {% if user.is_superuser %}
+    <li>
+            <!-- Admin Panel if the user is a superuser -->
+        <a href="{% url 'admin:index' %}"
+            class="btn btn-ghost"
+            aria-label="Admin Panel Button"
+            >Admin Panel
+        </a>
+        {% endif %}
 
-        <!-- Admin Panel if the user is a superuser -->
-    <a href="{% url 'admin:index' %}"
-        class="btn btn-ghost"
-        aria-label="Admin Panel Button"
-        >Admin Panel
-    </a>
-    {% endif %}
+        <!-- Profile Button -->
+        <a href="{% url 'profile' %}"
+            class="btn btn-ghost"
+            aria-label="Profile Button"
+            >Profile
+        </a>
 
-    <!-- Profile Button -->
-    <a href="{% url 'profile' %}"
-        class="btn btn-ghost"
-        aria-label="Profile Button"
-        >Profile
-    </a>
+        <!-- Logout Button -->
+        <a href="{% url 'account_logout' %}"
+            class="btn btn-ghost"
+            aria-label="Logout Button"
+            hx-get="{% url 'account_logout' %}"
+            hx-target="#my_modal_3 .modal-box"
+            onclick="my_modal_3.showModal()"
+            >Logout
+        </a>
+    </li>
+    {% else %}
+    <li>
+        <!-- Login Button -->
+        <a href="{% url 'account_login' %}"
+            class="btn btn-ghost"
+            aria-label="Login Button"
+            hx-get="{% url 'account_login' %}"
+            hx-target="#my_modal_3 .modal-box"
+            onclick="my_modal_3.showModal()"
+            >Login 
+        </a>
 
-    <!-- Logout Button -->
-    <a href="{% url 'account_logout' %}"
-        class="btn btn-ghost"
-        aria-label="Logout Button"
-        hx-get="{% url 'account_logout' %}"
-        hx-target="#my_modal_3 .modal-box"
-        onclick="my_modal_3.showModal()"
-        >Logout
-    </a>
-{% else %}
-
-    <!-- Login Button -->
-    <a href="{% url 'account_login' %}"
-        class="btn btn-ghost"
-        aria-label="Login Button"
-        hx-get="{% url 'account_login' %}"
-        hx-target="#my_modal_3 .modal-box"
-        onclick="my_modal_3.showModal()"
-        >Login 
-    </a>
-
-    <!-- Sign Up Button -->
-    <a href="{% url 'account_signup' %}"
-        class="btn btn-ghost"
-        aria-label="Sign up Button"
-        hx-get="{% url 'account_signup' %}"
-        hx-target="#my_modal_3 .modal-box"
-        onclick="my_modal_3.showModal()"
-        >Sign Up
-    </a>
+        <!-- Sign Up Button -->
+        <a href="{% url 'account_signup' %}"
+            class="btn btn-ghost"
+            aria-label="Sign up Button"
+            hx-get="{% url 'account_signup' %}"
+            hx-target="#my_modal_3 .modal-box"
+            onclick="my_modal_3.showModal()"
+            >Sign Up
+        </a>
+    </li>
 {% endif %}

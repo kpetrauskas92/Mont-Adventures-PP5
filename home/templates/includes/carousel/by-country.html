@@ -3,7 +3,7 @@
 {% load countries %}
 
 <!-- Country Carousel -->
-<div id="country-carousel" class="glide mx-auto max-w-md sm:max-w-5xl" aria-label="Country Carousel">
+<div id="country-carousel" class="glide mx-auto max-w-md sm:max-w-5xl">
     <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
             {% for country_code, image_url in country_image_map.items %}
@@ -30,9 +30,7 @@
                     <!-- Trips Link at the Bottom -->
                     <div class="absolute bottom-5 left-0 w-full text-center">
                         <a href="{% url 'trip_packages' %}?filter=on&location={{ country_code }}"
-                            class="btn glass lg:btn-sm text-white hover:bg-primary border-white"
-                            aria-label="View adventures in {{ country_code|country_name }}"
-                        >
+                            class="btn glass lg:btn-sm text-white hover:bg-primary border-white">
                             Adventures: 
                             <span class="text-primary badge">
                                 {{ location_count_dict|get_item:country_code|default:"0" }}
