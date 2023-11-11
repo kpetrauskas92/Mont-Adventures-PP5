@@ -39,7 +39,7 @@
         </div>
 
             <!-- Profile avatar, personal details -->
-            <div class="glass bg-slate-100 h-full rounded-lg border p-6 shadow-md md:mt-0 md:w-1/3">
+            <div class="glass bg-slate-100 h-full rounded-lg p-6 md:mt-0 md:w-1/3">
                     <div class="avatar flex justify-center">
                         <div class="w-32 rounded-full ring ring-warning ring-offset-base-100 ring-offset-2">
 
@@ -64,9 +64,9 @@
                     <!-- Show information if available -->
                     {% if profile.country and profile.city and profile.phone_number and profile.emergency_contact_name and profile.emergency_contact_phone %}
                     <div class="join join-vertical w-full mt-4">
-                        <div class="collapse collapse-arrow rounded-lg border border-base-300 items-center">
-                            <input type="checkbox">
-                            <div class="min-h-0 collapse-title text-sm uppercase text-center">
+                        <div class="collapse collapse-arrow border-none border border-base-300 items-center">
+                            <input type="checkbox" class="border-none" arialabel="Personal Information">
+                            <div class="min-h-0 collapse-title text-sm capitalize badge text-center">
                                 Personal Information:
                             </div>
                             <div class="collapse-content"> 
@@ -106,23 +106,26 @@
                         <!-- Update Profile Message -->
                         <div class="alert bg-gray-950 glass text-white mt-5">
                             <svg xmlns="http://www.w3.org/2000/svg" stroke="orange" class="shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                            <span class="text-sm">Please update your profile!</span>
+                            <span class="text-sm">
+                                Please update your profile!
+                            </span>
                         </div>
                     {% endif %}
 
                 <!-- Edit Profile and Sign Out Buttons -->
-                <button class="btn btn-outline text-primary hover:bg-accent mt-2 w-full py-1.5"
+                <button class="btn bg-white hover:bg-accent hover:text-white glass mt-2 w-full py-1.5"
                         hx-get="{% url 'edit-profile' %}"
                         hx-target="#my_modal_3 .modal-box"
                         hx-select="#editProfileForm"
                         onclick="my_modal_3.showModal()">Edit Profile
                 </button>
-                <button class="btn btn-outline hover:bg-error mt-2 w-full py-1.5"
+                <button class="btn bg-white hover:bg-secondary hover:text-primary glass mt-2 w-full py-1.5"
                         hx-get="{% url 'account_logout' %}"
                         hx-target="#my_modal_3 .modal-box"
                         onclick="my_modal_3.showModal()">Sign Out
                 </button>
-                <button class="btn btn-outline hover:bg-error mt-2 w-full py-1.5"
+                <div class="divider"></div>
+                <button class="btn bg-white hover:bg-error hover:text-white glass mt-2 w-full py-1.5"
                         hx-get="{% url 'delete_user_profile' %}"
                         hx-target="#my_modal_3 .modal-box"
                         onclick="my_modal_3.showModal()">Delete Profile

@@ -31,7 +31,7 @@
         <div class="rounded-lg md:w-2/3">
             {% for item in cart %}
             <div class="mb-4 rounded-lg bg-white shadow-xl flex flex-col justify-between">
-                <h2 class=" text-white py-1 font-bold px-10 text-center bg-gray-700 glass rounded-t-lg">
+                <h2 class=" text-white font-shadow py-1 font-bold px-10 text-center bg-gray-700 rounded-t-lg">
                     {{ item.trip_name }}
                 </h2>
                 <!-- Cart Item details -->
@@ -40,7 +40,7 @@
                         <a href="{% url 'trip_details' pk=item.trip_id %}">
                         <img src="{{ item.trip_image }}"
                             alt="{{ item.trip_name }}"
-                            class="object-cover rounded-lg">
+                            class="object-cover rounded-lg shadow-lg">
                             
                         </a>
                         <!-- Remove item button -->
@@ -89,8 +89,8 @@
                 <p><strong>Please note:</strong> Trips cannot be canceled within <strong>30 days</strong> of the start date.</p>
             </div>
             <div class="text-sm">
-                <p class="text-center">If you would like to save this information</p>
                 {% if not user.is_authenticated %}
+                <p class="text-center">If you would like to save this information</p>
                 <div class="flex justify-center">
                     <!-- Login Button -->
                     <a href="{% url 'account_login' %}"
@@ -118,7 +118,7 @@
 
         <!-- Subtotal section -->
             <div class="mt-3  h-full rounded-lg text-white bg-gray-900 p-6 shadow-lg md:mt-0 md:w-[38%]">
-                    <h2 class="text-center font-bold text-2xl uppercase">
+                    <h2 class="text-center font-bold text-2xl uppercase font-shadow">
                         Order Summary
                     </h2>
                 <hr class="my-4">

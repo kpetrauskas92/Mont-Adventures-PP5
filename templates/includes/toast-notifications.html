@@ -1,5 +1,5 @@
 {% for message in messages %}
-    <div id="toast-{{ message.level_tag }}" class="auto-dismiss-toast mt-1 flex items-center z-[100] w-full max-w-xs p-4 mb-4 text-gray-950 text-center bg-secondary glass border rounded-lg shadow-5xl absolute left-1/2 transform -translate-x-1/2" role="alert">
+    <div id="toast-{{ message.level_tag }}" class="auto-dismiss-toast mt-1 flex items-center z-[9999] w-full max-w-xs p-4 mb-4 text-gray-950 text-center bg-secondary glass border rounded-lg shadow-5xl absolute left-1/2 transform -translate-x-1/2" role="alert">
         
         <!-- Icon based on message type -->
         {% if message.level_tag == 'success' %}

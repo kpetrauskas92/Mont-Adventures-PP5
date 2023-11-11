@@ -11,23 +11,29 @@
         <!-- Loop through each order -->
         {% for order in orders %}
             <div class="order-item">
-                <div class="rounded-t-lg text-white glass bg-gray-700 p-2 shadow-md flex flex-col sm:flex-row justify-between relative">
-                    <p class="font-semibold">Order Number: 
-                        <span class="badge rounded-lg text-gray-700">
+                <div class="flex justify-between rounded-t-lg text-white font-shadow bg-gray-700 p-2 shadow-md relative">
+                    <div class="sm:inline-flex">
+                        <p class="font-semibold mr-2">
+                            Order Number:
+                        </p>
+                        <p class="text-secondary">
                             {{ order.order_number }}
-                        </span>
-                    </p>
-                    <p class="font-semibold">Total: 
-                        <span class="badge rounded-lg text-gray-700">€
+                        </p>
+                    </div>
+                    <div class="sm:inline-flex">
+                        <p class="font-semibold ml-2 mr-2">
+                            Total:
+                        </p>
+                        <p class="text-secondary">
                             {{ order.grand_total }}
-                        </span>
-                    </p>
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Loop through each line item in the order -->
                 {% for lineitem in order.lineitems.all %}
                     {% if lineitem.status == 'active' %}
-                        <div class="flex justify-between">
+                        <div class="flex justify-between py-2">
                             <h1 class="font-semibold text-sm mb-1 pl-2">
                                 <span class="text-xl rounded-lg justify-start font-bold w-full uppercase">
                                     {{ lineitem.trip.name }}

@@ -27,8 +27,9 @@
 }
 
 .font-shadow {
-    text-shadow: 3px 1px 10px #141516b2;
+    text-shadow: 3px 2px 2px #141516d5;
   }
+
 
 .filter-icon {
     filter: invert(100%);
@@ -49,7 +50,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 50%;
+    height: 70%;
     background: linear-gradient(to bottom, transparent, #111827);
     z-index: 1;
 }
@@ -177,7 +178,7 @@ footer {
 }
 
 .auto-dismiss-toast-fade-out {
-  animation: fadeOut 2s ease-out forwards;
+  animation: fadeOut 1.5s ease-out forwards;
 }
 
 li {
@@ -197,4 +198,13 @@ li {
 .lazyloaded {
 	opacity: 1;
 	transition: opacity 900ms;
+}
+
+.footer-title {
+  text-align: center;
+  width: 100%;
+}
+
+.tab {
+  --tab-color: #111827;
 }

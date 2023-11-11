@@ -4,32 +4,20 @@
 
 {% block content %}
 
-<!-- Main Image Section -->
-<div class="w-full relative" style="height: 55vh;">
 
-    <!-- Trip Name for Desktop View -->
-    <div class="w-full relative gradient-container" style="height: 55vh;">
-        <img class="absolute w-full h-full object-cover"
-            src="{{ trip.get_image_url }}"
-            alt="{{ trip.name }}">
-        <div class=" md:w-[70%] absolute bottom-0 left-0 right-0 hidden sm:block text-container">
-            
-            <!-- Breadcrumbs WIP -->
-            <div class=" text-white breadcrumbs pb-0 pl-5">
-                <ul>
-                    <li><a>Home</a></li> 
-                    <li><a>Explore</a></li>
-                    <li>France</li>
-                </ul>
-            </div>
-            <h1 class="text-white uppercase text-6xl font-bold pb-4 pl-4 max-w-11/12">
-                {{ trip.name }}
-            </h1>
-        </div>
+
+<!-- Trip Name for Desktop View -->
+<div class="w-full relative gradient-container h-[55vh]">
+    <img class="absolute w-full h-full object-cover"
+        src="{{ trip.get_image_url }}"
+        alt="{{ trip.name }}">
+    <div class=" md:w-[70%] absolute bottom-0 left-0 right-0 hidden sm:block text-container">
+        <h1 class="text-white font-shadow uppercase text-6xl font-bold pb-4 pl-4 max-w-11/12">
+            {{ trip.name }}
+        </h1>
+    </div>
         <div class="absolute bottom-0 left-0 right-0 hidden sm:block gradient-bg"></div>
     </div>
-</div>
-
 <!-- Main Content Container -->
 <div  class="bg-gray-900" data-sticky-container>
 
@@ -41,15 +29,6 @@
 
         <!-- Trip Details Section -->
         <div class="px-4 flex-col sm:flex-row pt-4 md:col-span-1">
-
-            <!-- Breadcrumbs WIP -->
-            <div class="text-sm text-white breadcrumbs sm:hidden">
-                <ul>
-                    <li><a>Home</a></li> 
-                    <li><a>Explore</a></li>
-                    <li>France</li>
-                </ul>
-            </div>
 
             <!-- Trip Name -->
             <h1 class="text-white uppercase text-4xl font-bold mb-5 sm:hidden"
@@ -63,7 +42,7 @@
 
         <!-- Trip Price Section -->
         <div class="hidden md:grid lg:block bg-white p-4 md:pb-0 md:col-span-1 sticky-selector">
-            <p class="text-xl text-gray-500 text-center">
+            <p class=" text-gray-500 text-center badge badge-lg w-full">
                 Reserve Your Spot Today!
             </p>
             <p class="flex justify-center items-center text-4xl font-bold text-primary my-2">
@@ -74,7 +53,7 @@
             </p>
             <div class="rating flex justify-center items-center w-full">
 
-            <!-- Reviews WIP -->
+            <!-- Reviews -->
             {% include 'includes/reviews/review-stars.html'%}
                 {% if trip.overall_rating %}
                     <a id="ReviewLink"
@@ -118,7 +97,7 @@
         </div>
     </div>
 
-    <!-- Trip Sub Details WIP -->
+    <!-- Trip Sub Details -->
     <div class="bg-white md:grid md:grid-cols-[2fr,1fr]">
         <div class="border rounded-b-xl">
             <div class="tabs tabs-boxed shadow-md flex justify-center bg-slate-100 font-bold">
@@ -140,7 +119,7 @@
                     Reviews
                 </a>
             </div>
-            <div id="trip-sub-section" class="pb-6 w-full">
+            <div id="trip-sub-section" class="w-full">
                 {% include 'includes/overview/trip-overview.html' %}
             </div>
         </div>    

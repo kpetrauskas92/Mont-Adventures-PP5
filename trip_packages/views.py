@@ -445,7 +445,7 @@ class BookingDrawer(View):
 
         # Fetch all future available dates for the trip.
         future_dates = AvailableDate.objects.filter(
-            trips=trip, 
+            trips=trip,
             start_date__gte=timezone.now().date()
         ).order_by('start_date')
 

@@ -2,17 +2,18 @@
 <div class="top-footer-bg"></div>
 <footer class="footer footer-center px-4 py-2 bg-primary text-primary-content">
     <aside class="sm:w-[32rem] lg:max-w-lg">
-      <img src="{% static 'web_elements/logo/logo-white.webp' %}" alt="Logo" class="h-20 w-auto">
+      <img src="{% static 'web_elements/logo/logo-white.webp' %}" alt="Mont Adventures Footer Logo" class="h-20 w-auto">
       <form class="w-full" hx-post="/subscribe_to_newsletter/" hx-target="#response-message" hx-swap="innerHTML transition:true">
-        <h4 class="footer-title mt-2">Subscribe for latest offers</h4> 
         <fieldset class="form-control">
+          <legend class="footer-title mt-2">Subscribe for latest offers</legend>
             <div class="relative px-0">
+                <label for="email" class="sr-only">Email address</label>
                 <input type="text" name="email" placeholder="name@email.com" class="input input-bordered text-gray-700 w-full pr-16" required> 
                 <button type="submit" class="btn btn-secondary glass absolute top-0 right-0 rounded-l-none">Subscribe</button>
             </div>
         </fieldset>
-    </form>
-    <div id="response-message" class="font-semibold"></div>
+      </form>
+      <div id="response-message" class="font-semibold"></div>
     </aside> 
     <nav>
       <div class="grid grid-flow-col gap-4">
@@ -24,6 +25,6 @@
     </nav>
     <div>
     <p>Copyright © 2023 - All right reserved</p>
-    <p class="text-xs text-secondary px-2">This website is for demonstration purposes only and is not an actual functioning site.<br>It serves as a showcase for a developer's portfolio.</p>
+    <p class="text-xs text-secondary px-1">This website is for demonstration purposes only and is not an actual functioning site.<br>It serves as a showcase for a developer's portfolio.</p>
     </div>
 </footer>

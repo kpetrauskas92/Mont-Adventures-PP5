@@ -13,7 +13,8 @@
 	>
 	<input type="checkbox" {% if trip.id in user_favorites %}checked{% endif %}
 			data-trip-id="{{ trip.id }}"    
-			class="favorite-checkbox">
+			class="favorite-checkbox"
+			aria-label="Add to favorites">
 
 	<!-- Empty Heart Icon -->
 	<svg class="swap-off fill-none w-8 h-8"

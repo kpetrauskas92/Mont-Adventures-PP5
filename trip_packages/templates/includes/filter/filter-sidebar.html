@@ -7,15 +7,15 @@
 <form hx-get="{% url 'trip_packages' %}"
     hx-target="#trip-package-list"
     id="filterForm-{{ unique_identifier }}"
-    hx-trigger="change"
-    >
+    hx-trigger="change">
     <div class="join join-vertical w-full bg-white">
 
         <!-- Price Slider Container -->
         <div class="collapse collapse-arrow join-item border border-base-300">
 
             <!-- Collapse Title -->
-            <input type="radio" name="filter" class="collapse-trigger">
+            <input type="radio" name="filter">
+            
             <div class="collapse-title text-xl font-medium flex items-center">
                 <img src="{% static 'web_elements/svg_icons/trip_icons/price_icon.svg' %}" 
                     alt="Price Icon"
@@ -25,7 +25,7 @@
 
                 <!-- Price Labels and Range Input -->
                 <div class="flex justify-between">
-                    <label class="btn btn-sm">
+                    <label for="price-range-slider" class="btn btn-sm">
                         Up to:
                     </label>
                     <p class="max-price-label btn btn-sm">€
@@ -38,7 +38,7 @@
                         min="{{ price_range.min_price }}" 
                         max="{{ price_range.max_price }}"
                         value="{{ price_range.max_price }}"
-                >
+                        aria-labelledby="price-range-label">
                 <p class="text-center text-xs font-semibold capitalize">
                     Slide to adjust
                 </p>
@@ -51,7 +51,7 @@
 
         <!-- Generic Filter Section -->
         <div class="collapse collapse-arrow join-item border border-base-300">
-            <input type="radio" name="filter"> 
+            <input type="radio" name="filter" aria-label="{{ filter_name|capfirst }} Filter"> 
             <div class="collapse-title text-xl font-medium flex items-center">
 
                 <!-- Dynamic Filter Icon -->
@@ -68,7 +68,7 @@
                     {% if filter_name == "season" %}
                         {% for season, months in filter_items.items %}
                             <div class="collapse collapse-arrow join-item border border-base-300 mt-2">
-                                <input type="radio" name="season-filter">
+                                <input type="radio" name="season-filter" aria-label="{{ month.display }}">
                                 <div class="collapse-title font-medium">
                                     {{ season }}
                                 </div>
@@ -96,7 +96,8 @@
                                 <input type="checkbox" 
                                         class="filter-checkbox checkbox mr-2" 
                                         name="{{ filter_name }}" 
-                                        value="{{ item.value }}">
+                                        value="{{ item.value }}"
+                                        aria-label="{{ item.display }}">
                                 {{ item.display }}
                             </li>
                         </ul>
