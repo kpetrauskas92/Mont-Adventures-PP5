@@ -101,10 +101,8 @@ class StripeWH_Handler:
         profile = None
         if username != 'AnonymousUser':
             profile = get_object_or_404(UserProfile, user__username=username)
-            if billing_details:
-                profile.default_country = billing_details.get(
-                    'address', {}).get('country', None)
-                profile.save()
+
+            profile.save()
 
         # Check if the order already exists
         order_exists = False
