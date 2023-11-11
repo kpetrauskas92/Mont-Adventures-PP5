@@ -8,20 +8,33 @@ from trip_packages.trip_utils import display_funcs
 
 
 def error_404(request, exception):
+    """
+    Custom handler for 404 errors (Page Not Found).
+    """
     return render(request, 'includes/error_handlers/404.html', {}, status=404)
 
 
 def error_500(request):
+    """
+    Custom handler for 500 errors (Internal Server Error).
+    """
     return render(request, 'includes/error_handlers/500.html', {}, status=500)
 
 
 def index(request):
+    """
+    View function for the homepage.
+    Displays top trips and trip locations with counts.
+    """
+
+    # Retrieve top 8 trips based on the number of favorites
     top_trips = Trips.objects.annotate(
         num_favorites=Count('favorited_by')
     ).order_by('-num_favorites')[:8]
 
     populate_trip_attributes(top_trips)
 
+    # Count trips per location
     locations_with_count = Trips.objects.values('location').annotate(
         num_trips=Count('id')
     )
@@ -38,6 +51,7 @@ def index(request):
 
 
 COUNTRY_IMAGE_MAP = {
+    # Mapping of country codes to image paths
     'FR': 'web_elements/carousel/france.webp',
     'IT': 'web_elements/carousel/italy.webp',
     'ES': 'web_elements/carousel/spain.webp',
@@ -50,6 +64,7 @@ COUNTRY_IMAGE_MAP = {
 
 
 def populate_trip_attributes(trip_list):
+    # Setting string representations and icons for trip attributes
     for trip in trip_list:
         trip.duration_str = display_funcs['duration'](trip.duration)
         trip.duration_icon = (
@@ -65,15 +80,20 @@ def populate_trip_attributes(trip_list):
 
 
 def search_trips(request):
+    """
+    Search function for trips based on user query.
+    """
     query = request.GET.get('q', '')
     if query:
         if len(query) >= 3:
+            # Search is conducted if the query length is at least 3 characters
             results = Trips.objects.filter(
                 Q(name__icontains=query) | Q(location__icontains=query)
             )
         else:
             results = Trips.objects.none()
     else:
+        # Randomly select 3 trips if no query is provided
         results = Trips.objects.order_by('?')[:3]
 
     populate_trip_attributes(results)
@@ -85,19 +105,24 @@ def search_trips(request):
 
 
 def subscribe_to_newsletter(request):
+    """
+    Handles newsletter subscription requests.
+    """
     context = {}
     if request.method == 'POST':
         email = request.POST.get('email')
         if not email:
+            # Handling the case where email is not provided
             context = {'alert_class': 'alert-error',
                        'message': 'Email is required'}
 
-        # Mailchimp API setup
+        # Mailchimp API integration for newsletter subscription
         api_key = os.environ.get('MAILCHIMP_API_KEY')
         region = os.environ.get('MAILCHIMP_REGION')
         list_id = os.environ.get('MAILCHIMP_AUDIENCE_ID')
 
-        url = f"https://{region}.api.mailchimp.com/3.0/lists/{list_id}/members/"
+        url = (f"https://{region}.api.mailchimp.com/3.0/lists/"
+               f"{list_id}/members/")
 
         headers = {
             'Authorization': f'apikey {api_key}',
@@ -111,10 +136,12 @@ def subscribe_to_newsletter(request):
 
         response = requests.post(url, headers=headers, json=data)
 
+        # Handling different response scenarios
         if response.status_code == 200:
             context = {'alert_class': 'alert-success',
                        'message': 'Successfully subscribed! Thank you!'}
-        elif response.status_code == 400 and "already a list member" in response.text:
+        elif (response.status_code == 400 and 
+              "already a list member" in response.text):
             context = {'alert_class': 'alert-warning',
                        'message': 'This email is already subscribed.'}
         else:

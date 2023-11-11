@@ -4,6 +4,9 @@ from trip_packages.models import Trips
 
 
 class HomeSitemap(Sitemap):
+    """
+    Sitemap for the home page.
+    """
     priority = 1.0
     changefreq = "daily"
 
@@ -15,6 +18,9 @@ class HomeSitemap(Sitemap):
 
 
 class MainTripPackagesSitemap(Sitemap):
+    """
+    Sitemap for the main trip packages page.
+    """
     priority = 1.0
     changefreq = "daily"
 
@@ -26,6 +32,9 @@ class MainTripPackagesSitemap(Sitemap):
 
 
 class IndividualTripSitemap(Sitemap):
+    """
+    Sitemap for individual trip detail pages.
+    """
     changefreq = "weekly"
     priority = 0.8
 
@@ -37,6 +46,9 @@ class IndividualTripSitemap(Sitemap):
 
 
 class FilteredByCountrySitemap(Sitemap):
+    """
+    Sitemap for pages displaying trips filtered by country.
+    """
     changefreq = "weekly"
     priority = 0.7
 
