@@ -15,6 +15,8 @@
     </div>
 </div>
 
+{% include 'includes/filter/mobile-sidebar.html' %}
+
 <section class="container mx-auto pt-16 px-2 max-w-5xl">
 
     <!-- Total Trip Packages -->
@@ -27,7 +29,7 @@
         <!-- Sidebar -->
         <div id="desktop-sidebar" class="w-1/4 pr-4 hidden lg:block">
             <div class="sticky-selector">
-            {% include 'includes/filter/filter-sidebar.html' %}
+                {% include 'includes/filter/filter-sidebar.html' with unique_identifier='desktop' %}
             </div>
         </div>
         
@@ -40,6 +42,20 @@
 </section>
 
 
-{% include 'includes/filter/mobile-sidebar.html' %}
+
+
+<script>
+	document.addEventListener('DOMContentLoaded', (event) => {
+		window.handleUnauthenticatedUser = function(event) {
+			// Prevent the default checkbox behavior
+			event.preventDefault();
+
+			var modal = document.getElementById('my_modal_3');
+			if (modal) {
+				modal.showModal();
+			}
+		}
+	});
+</script>
 
 {% endblock %}

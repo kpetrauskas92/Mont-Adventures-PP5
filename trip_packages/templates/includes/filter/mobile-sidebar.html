@@ -1,4 +1,3 @@
-
 <!-- Mobile Sidebar Drawer Container -->
 <div class="drawer lg:hidden">
 
@@ -30,10 +29,10 @@
 	<div class="drawer-side z-10 mt">
 		<label for="my-drawer" class="drawer-overlay">
 		</label>
-		<ul class=" pt-10 p-4 w-80 min-h-full bg-base-100 text-base-content">
+		<div id="mobile-sidebar" class=" pt-10 p-4 w-80 min-h-full bg-base-100 text-base-content">
 
 			<!-- Include the Sidebar Filters -->
-			{% include 'includes/filter/filter-sidebar.html' %}
-		</ul>
+			{% include 'includes/filter/filter-sidebar.html' with unique_identifier='mobile' %}
+		</div>
 	</div>
 </div>

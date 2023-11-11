@@ -5,32 +5,31 @@
 {% block content %}
 
 {% for trip in trips %}
-
-<div class="trip-item w-full sm:w-1/2 md:w-1/2 px-4 pb-4 ">
+<div class="trip-item w-full sm:w-1/2 md:w-1/2 px-4 pb-4">
     <div class="border rounded-lg shadow-xl">
-        <a href="{% url 'trip_details' trip.id %}">
-            <div class="relative">
-
+        <div class="relative block">
+            <!-- Link to Trip Details -->
+            <a href="{% url 'trip_details' trip.id %}">
                 <!-- Trip Image -->
                 <img class="w-full min-h-[260px] object-cover mb-4 border rounded-t-lg lazyload"
                     src="{{ trip.get_image_url }}"
                     alt="{{ trip.name }}">
-
-                <!-- Favorite Button -->
-                    <div class="absolute top-2 right-2">
-                        {% include 'includes/favorite/favorite-btn.html' %}
-                    </div>
+            </a>
+            <!-- Favorite Button -->
+            <div class="absolute top-2 right-2">
+                {% include 'includes/favorite/favorite-btn.html' %}
             </div>
-        </a>
+        </div>
         <div class="mb-2">
             <h2 class="font-semibold sm:text-sm md:text-base text-gray-900 pl-5">
                 {{ trip.name }}
             </h2>
 
             <!-- Star Ratings -->
-            {% include 'includes/reviews/star-rating.html'%}
+            {% include 'includes/reviews/star-rating.html' %}
 
             <hr class="mx-5">
+            <!-- Trip Attributes -->
             <div class="flex justify-evenly mt-3 opacity-70 py-1">
                 <div class="text-center text-sm w-1/4">
                     <img src="{% static trip.location_icon %}"
@@ -39,42 +38,44 @@
                         <p>
                             {{ trip.location_str }}
                         </p>
-                        </div>
-                        <div class="text-center text-sm w-1/4">
-                            <img src="{% static trip.duration_icon %}"
-                                alt="Duration icon"
-                                class="w-7 h-7 mx-auto invert">
-                            <p>{{ trip.duration_str }}</p>
-                        </div>
-                        <div class="text-center text-sm w-1/4">
-                            <img src="{% static trip.difficulty_icon %}"
-                                alt="Difficulty icon"
-                                class="w-7 h-7 mx-auto invert">
-                            <p>
-                                {{ trip.difficulty_str }}
-                            </p>
-                        </div>
-                    </div>
                 </div>
-                <!-- Booking and Price -->
-                <div class="py-2 px-4 flex justify-between bg-gray-100 rounded-b-lg">
-                    <a href="{% url 'trip_details' trip.id %}"
-                        class="btn glass bg-secondary btn-sm text-primary"
-                        aria-label="Book this trip now">
-                        Book Now
-                    </a>
-                    <span class="inline-flex items-center text-primary">
-                        <strong class="text-primary">
-                            €{{ trip.price }}
-                        </strong> /pp.
-                    </span>
+                <div class="text-center text-sm w-1/4">
+                    <img src="{% static trip.duration_icon %}"
+                        alt="Duration icon"
+                        class="w-7 h-7 mx-auto invert">
+                        <p>
+                            {{ trip.duration_str }}
+                        </p>
+                </div>
+                <div class="text-center text-sm w-1/4">
+                    <img src="{% static trip.difficulty_icon %}"
+                        alt="Difficulty icon"
+                        class="w-7 h-7 mx-auto invert">
+                        <p>
+                            {{ trip.difficulty_str }}
+                        </p>
                 </div>
             </div>
         </div>
-    {% empty %}
-        <div class="mx-auto px-4">
-            <h2 class="text-gray-500 py-2">"Oops! No expeditions match your current filters. Try adjusting your search criteria."</h2>
+        <!-- Booking and Price -->
+        <div class="py-2 px-4 flex justify-between bg-gray-100 rounded-b-lg">
+            <a href="{% url 'trip_details' trip.id %}"
+                class="btn glass bg-secondary btn-sm text-primary"
+                aria-label="Book this trip now">
+                Book Now
+            </a>
+            <span class="inline-flex items-center text-primary">
+                <strong class="text-primary">
+                    €{{ trip.price }}
+                </strong> /pp.
+            </span>
         </div>
-{% endfor %}  
+    </div>
+</div>
+{% empty %}
+<div class="mx-auto px-4">
+    <h2 class="text-gray-500 py-2">"Oops! No expeditions match your current filters. Try adjusting your search criteria."</h2>
+</div>
+{% endfor %}
 
 {% endblock  %}

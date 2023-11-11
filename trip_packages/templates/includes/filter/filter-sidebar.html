@@ -6,9 +6,8 @@
 <!-- Main Form for Filters -->
 <form hx-get="{% url 'trip_packages' %}"
     hx-target="#trip-package-list"
-    id="filterForm"
-    hx-trigger="change"
-    >
+    id="filterForm-{{ unique_identifier }}"
+    hx-trigger="change">
     <div class="join join-vertical w-full bg-white">
 
         <!-- Price Slider Container -->
@@ -28,19 +27,20 @@
                     <label class="btn btn-sm">
                         Up to:
                     </label>
-                    <p id="max-price-label" class="btn btn-sm">€
+                    <p class="max-price-label btn btn-sm">€
                         {{ price_range.max_price }}
                     </p>
                 </div>
 
                 <!-- Price Range Slider -->
-                <input type="range" id="max-price" name="price"
+                <input type="range" class="range range-xs range-secondary max-price mt-2" name="price"
                         min="{{ price_range.min_price }}" 
                         max="{{ price_range.max_price }}"
                         value="{{ price_range.max_price }}"
-                        class="range range-sm range-secondary glass mt-2"
                 >
-                <p class="text-center text-xs font-semibold capitalize">Slide to adjust</p>
+                <p class="text-center text-xs font-semibold capitalize">
+                    Slide to adjust
+                </p>
             </div>
         </div>
 
@@ -61,14 +61,13 @@
                 <!-- Filter Name -->
                 {{ filter_name|capfirst }}
             </div>
-            <div class="collapse-content">
-                <ul class="flex-col">
+            <div class="collapse-content flex-col">
 
                     <!-- Special case for 'season' filter -->
                     {% if filter_name == "season" %}
                         {% for season, months in filter_items.items %}
                             <div class="collapse collapse-arrow join-item border border-base-300 mt-2">
-                                <input type="radio" name="season-filter" />
+                                <input type="radio" name="season-filter">
                                 <div class="collapse-title font-medium">
                                     {{ season }}
                                 </div>
@@ -91,6 +90,7 @@
 
                         <!-- Generic filter items -->
                         {% for item in filter_items %}
+                        <ul>
                             <li class="flex mt-2">
                                 <input type="checkbox" 
                                         class="checkbox mr-2" 
@@ -98,9 +98,9 @@
                                         value="{{ item.value }}">
                                 {{ item.display }}
                             </li>
+                        </ul>
                         {% endfor %}
                     {% endif %}
-                </ul>
             </div>
         </div>
         {% endif %}
@@ -108,7 +108,7 @@
     </div>
 
     <!-- Reset Filters Button (initially hidden) -->
-    <button id="resetButton" class="btn bg-neutral text-primary glass hover:bg-secondary w-full mt-2 hidden"
+    <button class="resetButton btn bg-neutral text-primary glass hover:bg-secondary w-full mt-2 hidden"
             type="button"
             onclick="resetFilters()">
         Reset Filters
