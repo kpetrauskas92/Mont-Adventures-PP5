@@ -41,7 +41,6 @@
     <script src="{% static 'js/lazysizes.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/sticky.min.js' %}"></script>
-    <script src="{% static 'js/htmx.min.js' %}"></script>
     <script
 			src="https://code.jquery.com/jquery-3.7.1.min.js"
 			integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
@@ -71,7 +70,8 @@
       <!-- Lightbox JS -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@latest/dist/glide.min.js"></script>
-    {% endblock %}
+      <script src="{% static 'js/htmx.min.js' %}"></script>
+      {% endblock %}
     {% include 'includes/footer.html' %}
   </body>
 </html>

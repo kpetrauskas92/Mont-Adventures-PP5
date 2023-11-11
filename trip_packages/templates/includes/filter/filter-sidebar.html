@@ -7,14 +7,15 @@
 <form hx-get="{% url 'trip_packages' %}"
     hx-target="#trip-package-list"
     id="filterForm-{{ unique_identifier }}"
-    hx-trigger="change">
+    hx-trigger="change"
+    >
     <div class="join join-vertical w-full bg-white">
 
         <!-- Price Slider Container -->
         <div class="collapse collapse-arrow join-item border border-base-300">
 
             <!-- Collapse Title -->
-            <input type="checkbox" name="filter" class="collapse-trigger">
+            <input type="radio" name="filter" class="collapse-trigger">
             <div class="collapse-title text-xl font-medium flex items-center">
                 <img src="{% static 'web_elements/svg_icons/trip_icons/price_icon.svg' %}" 
                     alt="Price Icon"
@@ -33,7 +34,7 @@
                 </div>
 
                 <!-- Price Range Slider -->
-                <input type="range" class="range range-xs range-secondary max-price mt-2" name="price"
+                <input type="range" class="filter-checkbox range range-xs range-secondary max-price mt-2" name="price"
                         min="{{ price_range.min_price }}" 
                         max="{{ price_range.max_price }}"
                         value="{{ price_range.max_price }}"
@@ -76,7 +77,7 @@
                                         {% for month in months %}
                                             <li class="flex mt-2">
                                                 <input type="checkbox" 
-                                                        class="checkbox mr-2" 
+                                                        class="filter-checkbox checkbox mr-2" 
                                                         name="{{ filter_name }}" 
                                                         value="{{ month.value }}">
                                                 {{ month.display }}
@@ -93,7 +94,7 @@
                         <ul>
                             <li class="flex mt-2">
                                 <input type="checkbox" 
-                                        class="checkbox mr-2" 
+                                        class="filter-checkbox checkbox mr-2" 
                                         name="{{ filter_name }}" 
                                         value="{{ item.value }}">
                                 {{ item.display }}

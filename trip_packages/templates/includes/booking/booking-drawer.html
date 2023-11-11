@@ -1,6 +1,6 @@
 
 <!-- Drawer Container -->
-<div class="drawer drawer-end z-10">
+<div class="drawer drawer-end z-[100]">
 
 	<!-- Drawer Toggle Checkbox -->
 	<input id="my-drawer-4" type="checkbox" class="drawer-toggle">
@@ -16,12 +16,10 @@
 			</label>
 
 			<!-- Menu Items Inside Drawer -->
-			<ul class="menu px-2 p-4 min-h-full bg-base-100 text-base-content">
-				<div id="booking-drawer-content">
+			<div id="booking-drawer-content" class="menu px-2 p-4 min-h-full bg-base-100 text-base-content">
 
-					<!-- Include Available Dates -->
-					{% include 'includes/booking/available-dates.html' %}
-				</div>
-			</ul>
+			<!-- Include Available Dates -->
+				{% include 'includes/booking/available-dates.html' %}
+			</div>
 		</div>
 </div>
