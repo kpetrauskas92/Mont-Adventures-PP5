@@ -9,7 +9,6 @@ from .cart_utils import (
     remove_from_cart,
     update_cart_item,
     get_cart,
-    clear_cart
 )
 
 
@@ -143,15 +142,4 @@ def remove_from_cart_view(request, trip_id, available_date_id):
         })
         return HttpResponse(cart_html)
 
-    return redirect('cart')
-
-
-def clear_cart_view(request):
-    """
-    Clears all items from the cart.
-
-    - Clears the cart using `clear_cart()` utility function.
-    - Redirects to the cart page.
-    """
-    clear_cart(request)
     return redirect('cart')

@@ -91,13 +91,6 @@ def update_cart_item(request, trip_id, available_date_id, guests):
     request.session['cart'] = cart
 
 
-def clear_cart(request):
-    """
-    Clear all items from the cart.
-    """
-    request.session['cart'] = []
-
-
 def stripe_metadata(cart):
     """
     Prepare cart data for Stripe metadata by including only necessary fields.
