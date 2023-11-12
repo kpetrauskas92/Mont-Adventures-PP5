@@ -1,24 +1,29 @@
+/* Tailwind CSS Base Imports */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Global Styles */
+/* --------------------- */
 
-/* .min-h-screen-hero {
-    min-height: 100vh;
-} */
-
+/* Navbar */
 .navbar {
     min-height: 4.5rem;
 }
 
+/* Hero Section */
 .hero {
   background-image: url('/static/web_elements/hero/mobile-hero.webp');
+  background-position: top center;
+}
 
-  @media (min-width: 640px) {
-    background-image: url('/static/web_elements/hero/desktop-hero.webp'); 
+@media (min-width: 640px) {
+  .hero {
+      background-image: url('/static/web_elements/hero/desktop-hero.webp'); 
   }
 }
 
+/* Top Footer Background */
 .top-footer-bg {
     background-image: url('/static/web_elements/top-footer-bg.webp');
     background-size: cover;
@@ -26,15 +31,20 @@
     height: 50vh;
 }
 
+/* Typography and Font Styles */
 .font-shadow {
     text-shadow: 3px 2px 2px #141516d5;
-  }
+}
 
+/* Utility and Component Styles */
+/* ----------------------------- */
 
+/* Filter Icon */
 .filter-icon {
     filter: invert(100%);
 }
 
+/* Fixed Button */
 .fixed-button {
     position: fixed;
     bottom: 20px;
@@ -42,9 +52,9 @@
     transform: translateX(-50%);
     z-index: 1;
     transition: bottom 0.9s ease;
-  }
+}
 
-
+/* Gradient Backgrounds */
 .gradient-container .gradient-bg {
     content: "";
     bottom: 0;
@@ -58,153 +68,154 @@
 .gradient-container .text-container {
     z-index: 2;
 }
-  
+
+/* Footer */
 footer {
-  z-index: 2;
-  position: relative;
+    z-index: 2;
+    position: relative;
 }
 
+/* Search Drawer */
 .search-drawer .drawer-side {
-  position: fixed;
-  top: 70px;
-  left: 0;
-  height: calc(100vh - 70px);
+    position: fixed;
+    top: 70px;
+    left: 0;
+    height: calc(100vh - 70px);
 }
 
 .search-drawer .drawer-toggle:checked ~ .drawer-side {
-  transform: translateY(0);
+    transform: translateY(0);
 }
 
 .search-drawer .drawer-side > *:not(.drawer-overlay) {
-  transform: translateY(-100%);
+    transform: translateY(-100%);
 }
 
 .search-drawer .drawer-toggle:checked ~ .drawer-side > *:not(.drawer-overlay) {
-  transform: translateY(0);
+    transform: translateY(0);
 }
 
 .search-drawer .drawer-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
-.hero {
-  background-position: top center;
-}
-
+/* Hero Overlay */
 .hero-overlay {
-  background-color: #11182793;
+    background-color: #11182793;
 }
 
+/* Main Hero Overlay */
 .main-hero-overlay {
-  background: linear-gradient(to right, #0000009c, transparent);
+    background: linear-gradient(to right, #0000009c, transparent);
 }
 
-
+/* Toast Messages */
 #toast-messages {
-  display: none;
+    display: none;
 }
 
+/* Badge */
 .badge {
-  border-radius: 0.5rem;
+    border-radius: 0.5rem;
 }
 
+/* Loading Indicator */
 .htmx-request #loadingIndicator {
-  display: inline-block !important;
+    display: inline-block !important;
 }
 
+/* File Input */
 .file-input {
-  display: none;
+    display: none;
 }
 
 .file-label {
-  padding: 10px;
-  background-color: #f4f4f4;
-  border: 1px solid #d4d4d4;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border: 1px solid #d4d4d4;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .file-label:hover {
-  background-color: #e4e4e4;
+    background-color: #e4e4e4;
 }
 
 .file-name {
-  flex-grow: 1;
-  margin-right: 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 1rem;
+    flex-grow: 1;
+    margin-right: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1rem;
 }
 
 .file-action {
-  margin-right: 10px;
-  font-weight: bold;
+    margin-right: 10px;
+    font-weight: bold;
 }
 
+/* Button Outline */
 .btn-outline {
-  border-color: #bdbdbd;
+    border-color: #bdbdbd;
 }
+
+/* Animation Keyframes */
+/* ------------------- */
 
 @keyframes fadeIn {
-  from {
-      opacity: 0;
-  }
-  to {
-      opacity: 1;
-  }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes fadeOut {
-  from {
-      opacity: 1;
-  }
-  to {
-      opacity: 0;
-  }
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
 
+/* Auto-dismiss Toast */
 .auto-dismiss-toast {
-  position: fixed;
-  top:0;
-  opacity: 0;
-  animation: fadeIn 1.5s forwards;
+    position: fixed;
+    top:0;
+    opacity: 0;
+    animation: fadeIn 1.5s forwards;
 }
 
 .auto-dismiss-toast-fade-out {
-  animation: fadeOut 1.5s ease-out forwards;
+    animation: fadeOut 1.5s ease-out forwards;
 }
 
+/* Miscellaneous Styles */
+/* --------------------- */
+
 li {
-  list-style: none !important;
+    list-style: none !important;
 }
 
 .comment-text {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
-.lazyload,
-.lazyloading {
-	opacity: 0;
+.lazyload, .lazyloading {
+    opacity: 0;
 }
 .lazyloaded {
-	opacity: 1;
-	transition: opacity 900ms;
+    opacity: 1;
+    transition: opacity 900ms;
 }
 
 .footer-title {
-  text-align: center;
-  width: 100%;
+    text-align: center;
+    width: 100%;
 }
 
 .tab {
-  --tab-color: #111827;
+    --tab-color: #111827;
 }
