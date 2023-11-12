@@ -4,8 +4,6 @@
 
 {% block content %}
 
-
-
 <!-- Trip Name for Desktop View -->
 <div class="w-full relative gradient-container h-[55vh]">
     <img class="absolute w-full h-full object-cover"
@@ -56,7 +54,7 @@
             <!-- Reviews -->
             {% include 'includes/reviews/review-stars.html'%}
                 {% if trip.overall_rating %}
-                    <a id="ReviewLink"
+                    <a id="reviewLink"
                         href="{% url 'trip_details' trip.id %}"
                         hx-get="{% url 'trip_reviews' trip.id %}"
                         hx-trigger="click"
