@@ -21,7 +21,7 @@ document.body.addEventListener('input', function(event) {
 
 //  Function for trip count
 document.addEventListener('DOMContentLoaded', function() {
-    document.body.addEventListener('htmx:afterOnLoad', function(event) {
+    document.body.addEventListener('htmx:afterOnLoad', function() {
         var tripCountElement = document.getElementById('trip-count');
         var tripItems = document.querySelectorAll('#trip-package-list .trip-item').length;
         var expeditionText = tripItems === 1 ? ' Expedition' : ' Expeditions';
@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 // Reset all filters
+// eslint-disable-next-line no-unused-vars
 function resetFilters() {
     // Main filter form and mobile drawer form
     const filterForms = document.querySelectorAll("[id^='filterForm-']");

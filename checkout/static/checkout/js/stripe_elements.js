@@ -1,6 +1,10 @@
+/* eslint-disable no-undef */
 // Initialize Stripe variables and elements
+// eslint-disable-next-line no-undef
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
+// eslint-disable-next-line no-unused-vars, no-undef
 var clientSecret = $('#id_client_secret').text().slice(1, -1);
+// eslint-disable-next-line no-undef
 var stripe = Stripe(stripePublicKey);
 var elements = stripe.elements();
 
@@ -89,7 +93,6 @@ function validateForm() {
     var firstNameErrorDiv = document.getElementById('first-name-error');
     var lastNameErrorDiv = document.getElementById('last-name-error');
     var emailErrorDiv = document.getElementById('email-error');
-    var errorDiv = document.getElementById('form-errors');
 
     var firstName = form.first_name.value.trim();
     var lastName = form.last_name.value.trim();
@@ -163,6 +166,7 @@ card.addEventListener('change', function (event) {
             </span>
             <span>${event.error.message}</span>
         `;
+        // eslint-disable-next-line no-undef
         $(errorDiv).html(html);
     } else {
         cardErrors = '';
@@ -175,7 +179,6 @@ var isPaymentSuccessful = false;
 /**
  * Handle form submission and perform payment using Stripe.
  */
-var form = document.getElementById('payment-form');
 
 form.addEventListener('submit', async function(ev) {
     ev.preventDefault();
@@ -184,22 +187,20 @@ form.addEventListener('submit', async function(ev) {
     document.getElementById('loading-overlay').style.display = 'flex';
 
     var formValid = validateForm();
-    
-    var errorDiv = document.getElementById('form-errors');
+    var errorDiv = document.getElementById('form-errors'); // Declare once at the top of the function
     var errors = [];
 
     if (!isCardComplete) {
-		if (!cardErrors) {
-			errors.push("Card information is incomplete.");
-		}
-	}
-	
-	if (cardErrors) {
-		errors.push(cardErrors);
-	}
+        if (!cardErrors) {
+            errors.push("Card information is incomplete.");
+        }
+    }
+    
+    if (cardErrors) {
+        errors.push(cardErrors);
+    }
 
     if (!formValid || errors.length > 0) {
-        var existingErrors = $(errorDiv).html();
         var newErrors = errors.map(error => `
             <span role="alert">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -221,6 +222,8 @@ form.addEventListener('submit', async function(ev) {
     };
 
     try {
+        var html; // Declare once at the top of the try block
+    
         const response = await fetch('/checkout/create_payment_intent/', {
             method: 'POST',
             headers: {
@@ -237,7 +240,7 @@ form.addEventListener('submit', async function(ev) {
         const data = await response.json();
         var newClientSecret = data.client_secret;
         document.getElementsByName('client_secret')[0].value = newClientSecret;
-
+    
         const result = await stripe.confirmCardPayment(newClientSecret, {
             payment_method: {
                 card: card,
@@ -247,16 +250,11 @@ form.addEventListener('submit', async function(ev) {
                 }
             },
         });
-
+    
         if (result.error) {
             document.getElementById('my_modal_3').show();
-            var errorDiv = document.getElementById('card-errors');
-            var html = `
-                <span class="icon" role="alert">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-				</svg>
-                </span>
+            html = `
+                <span class="icon" role="alert">...</span>
                 <span>${result.error.message}</span>`;
             $(errorDiv).html(html);
         } else {
@@ -268,13 +266,8 @@ form.addEventListener('submit', async function(ev) {
     } catch (error) {
         document.getElementById('my_modal_3').show();
         console.log("Error in creating payment intent: ", error);
-        var errorDiv = document.getElementById('card-errors');
-        var html = `
-            <span class="icon" role="alert">
-				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-				</svg>
-            </span>
+        html = `
+            <span class="icon" role="alert">...</span>
             <span>Unable to process the payment. Please try again.</span>`;
         $(errorDiv).html(html);
     } finally {
