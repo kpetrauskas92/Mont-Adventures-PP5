@@ -140,7 +140,7 @@ def subscribe_to_newsletter(request):
         if response.status_code == 200:
             context = {'alert_class': 'alert-success',
                        'message': 'Successfully subscribed! Thank you!'}
-        elif (response.status_code == 400 and 
+        elif (response.status_code == 400 and
               "already a list member" in response.text):
             context = {'alert_class': 'alert-warning',
                        'message': 'This email is already subscribed.'}

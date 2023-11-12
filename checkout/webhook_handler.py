@@ -75,10 +75,10 @@ class StripeWH_Handler:
             try:
                 cart_data = json.loads(cart_str)
             except json.JSONDecodeError:
-                return HttpResponse(
-                    content=f'Webhook received: {event["type"]} | ERROR: JSON decoding error',
-                    status=HTTPStatus.INTERNAL_SERVER_ERROR
-                )
+                content = (f'Webhook received: {event["type"]} | '
+                           'ERROR: JSON decoding error')
+                return HttpResponse(content=content,
+                                    status=HTTPStatus.INTERNAL_SERVER_ERROR)
 
             cart_info = cart_data
 
@@ -117,7 +117,8 @@ class StripeWH_Handler:
             try:
                 first_name = name_split[0] if len(name_split) > 0 else ''
                 last_name = name_split[1] if len(name_split) > 1 else ''
-                email = billing_details.get('email', '') if billing_details else ''
+                email = (billing_details.get('email', '')
+                         if billing_details else '')
                 order = Order.objects.get(
                     first_name__iexact=first_name,
                     last_name__iexact=last_name,
@@ -149,7 +150,8 @@ class StripeWH_Handler:
 
                 for item in cart_info:
                     trip = Trips.objects.get(id=item['trip_id'])
-                    available_date = AvailableDate.objects.get(id=item['available_date_id'])
+                    available_date = AvailableDate.objects.get(
+                        id=item['available_date_id'])
                     if available_date.remaining_slots() >= item['guests']:
                         OrderLineItem.objects.create(
                             order=order,

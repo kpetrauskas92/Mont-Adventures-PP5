@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.utils.decorators import method_decorator
-from django.views.decorators.http import require_POST
 from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import UpdateView
 from .forms import UserProfileForm
@@ -42,7 +41,9 @@ def user_profile(request):
 
 @login_required
 def delete_user_profile(request):
-    """Render the deletion confirmation form on GET, delete profile on POST."""
+    """
+    Render the deletion confirmation form on GET, delete profile on POST.
+    """
     if request.method == 'GET':
 
         return render(request, 'delete-profile.html')
@@ -54,9 +55,11 @@ def delete_user_profile(request):
 
         logout(request)
 
-        messages.success(request, "Your account has been successfully deleted.")
+        messages.success(
+            request, "Your account has been successfully deleted.")
 
         return redirect(reverse('home'))
+
 
 @login_required
 def user_bookings(request):

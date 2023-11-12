@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from django_countries.fields import Country
 from checkout.models import Order, OrderLineItem
 from profiles.models import UserProfile
 from trip_packages.models import Trips, AvailableDate
@@ -42,7 +41,6 @@ class CheckoutModelTests(TestCase):
             first_name='John',
             last_name='Doe',
             email='john@example.com',
-            country='US',
             stripe_pid='test_stripe_pid'
         )
 
@@ -69,7 +67,6 @@ class CheckoutModelTests(TestCase):
         self.assertEqual(self.order.first_name, 'John')
         self.assertEqual(self.order.last_name, 'Doe')
         self.assertEqual(self.order.email, 'john@example.com')
-        self.assertEqual(self.order.country, Country('US'))
         self.assertEqual(self.order.stripe_pid, 'test_stripe_pid')
 
     def test_unique_order_number(self):
@@ -81,7 +78,6 @@ class CheckoutModelTests(TestCase):
             first_name='Jane',
             last_name='Doe',
             email='jane@example.com',
-            country='US',
             stripe_pid='another_test_stripe_pid'
         )
         self.assertNotEqual(

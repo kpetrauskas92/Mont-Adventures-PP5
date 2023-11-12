@@ -38,7 +38,8 @@ def cache_checkout_data(request):
         # Prepare the cart for Stripe metadata
         metadata_cart = stripe_metadata(full_cart)
 
-        username = request.user.username if request.user.is_authenticated else 'Anonymous'
+        username = (request.user.username if request.user.is_authenticated
+                    else 'Anonymous')
         stripe.PaymentIntent.modify(pid, metadata={
             'cart': json.dumps(metadata_cart),
             'username': username,
