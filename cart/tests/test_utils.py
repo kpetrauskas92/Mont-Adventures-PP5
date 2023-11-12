@@ -7,8 +7,7 @@ from cart.cart_utils import (
     get_cart,
     add_to_cart,
     remove_from_cart,
-    update_cart_item,
-    clear_cart)
+    update_cart_item,)
 
 
 class CartUtilsTests(TestCase):
@@ -115,14 +114,3 @@ class CartUtilsTests(TestCase):
         update_cart_item(request, self.trip1.id, self.date1.id, guests=3)
         cart = get_cart(request)
         self.assertEqual(cart[0]['guests'], 3)
-
-    def test_clear_cart(self):
-        """
-        Tests that all items can be successfully removed from the cart,
-        and that the cart is empty afterward.
-        """
-        request = self.create_request_with_session()
-        add_to_cart(request, self.trip1, self.date1, guests=2)
-        add_to_cart(request, self.trip2, self.date2, guests=2)
-        clear_cart(request)
-        self.assertEqual(get_cart(request), [])

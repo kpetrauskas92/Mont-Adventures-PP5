@@ -18,10 +18,10 @@
 
     <!-- Display overall rating or 'New' label -->
     {% if trip.overall_rating %}
-        <a href="{% url 'trip_details' trip.id %}?tab=reviews" class="ml-1 text-sm text-blue-500">
+        <a href="{% url 'trip_details' trip.id %}?tab=reviews" class="ml-1 text-sm text-blue-500 contrast-75">
             ({{ trip.review_count }} review{{ trip.review_count|pluralize }})
         </a>
     {% else %}
-        <span class="badge badge-sm badge-accent items-center badge-outline ml-1">New</span>
+        <span class="badge badge-accent text-white contrast-100 items-center font-bold ml-1">New</span>
     {% endif %}
 </div>

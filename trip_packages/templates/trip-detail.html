@@ -10,7 +10,7 @@
         src="{{ trip.get_image_url }}"
         alt="{{ trip.name }}">
     <div class=" md:w-[70%] absolute bottom-0 left-0 right-0 hidden sm:block text-container">
-        <h1 class="text-white font-shadow uppercase text-6xl font-bold pb-4 pl-4 max-w-11/12">
+        <h1 class="text-white contrast-100 font-shadow uppercase text-6xl font-bold pb-4 pl-4 max-w-11/12">
             {{ trip.name }}
         </h1>
     </div>
@@ -59,7 +59,7 @@
                         hx-get="{% url 'trip_reviews' trip.id %}"
                         hx-trigger="click"
                         hx-target="#trip-sub-section"
-                        class="ml-1 mt-1 text-sm text-blue-500">
+                        class="ml-1 mt-1 text-sm text-blue-500 contrast-100">
                         ({{ review_count }} review{{ review_count|pluralize }})
                     </a>
                 {% else %}
@@ -68,24 +68,24 @@
                     </span>
                 {% endif %}
             </div>
-            <label for="my-drawer-4"
+            <button onclick="toggleDrawer()"
                     class="btn btn-secondary glass bg-secondary w-full mt-2"
                     hx-get="{% url 'booking_drawer' trip.id %}"
                     hx-trigger="click"
                     hx-target="#booking-drawer-content">
                     Available Dates
-            </label>
+        </button>
         </div>
 
         <!-- Sticky Bottom Button -->
         <div class="md:hidden shadow-inner fixed inset-x-0 bottom-0 z-50 bg-white p-2 flex items-center justify-between">
-            <label for="my-drawer-4"
+            <button onclick="toggleDrawer()"
                     class="btn btn-secondary "
                     hx-get="{% url 'booking_drawer' trip.id %}"
                     hx-trigger="click"
                     hx-target="#booking-drawer-content">
                     Available Dates
-            </label>
+            </button>
             <p class="inline-flex items-center text-2xl text-center shad font-bold text-black ml-auto">
                 €{{ trip.price }}
                 <span class="text-sm font-normal">
@@ -125,6 +125,12 @@
     </div>
 </div>
 
+<script>
+	function toggleDrawer() {
+		var drawerCheckbox = document.getElementById('my-drawer-4');
+		drawerCheckbox.checked = !drawerCheckbox.checked;
+	}
+</script>
 <!-- Booking Drawer Include -->
 {% include 'includes/booking/booking-drawer.html' %}
 

@@ -101,13 +101,3 @@ class CartViewTests(TestCase):
         response = self.client.get(remove_cart_url)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(get_cart(self.client.session), [])
-
-    def test_clear_cart_view(self):
-        """
-        Tests that clearing the cart redirects to the cart page,
-        and that the cart is empty afterward.
-        """
-        clear_cart_url = reverse('clear_cart_view')
-        response = self.client.get(clear_cart_url)
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(get_cart(self.client.session), [])

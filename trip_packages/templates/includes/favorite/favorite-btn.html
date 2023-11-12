@@ -9,8 +9,9 @@
 		hx-target="#my_modal_3 .modal-box"
 		onclick="handleUnauthenticatedUser(event)"
 	{% endif %}
-		hx-swap="none"
-	>
+		hx-swap="none">
+
+		<span class="sr-only">Add trip to favorites</span>
 	<input type="checkbox" {% if trip.id in user_favorites %}checked{% endif %}
 			data-trip-id="{{ trip.id }}"    
 			class="favorite-checkbox"

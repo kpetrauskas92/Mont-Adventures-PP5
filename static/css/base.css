@@ -23,6 +23,16 @@
   }
 }
 
+.trip-packages-banner {
+    background-image: url('/static/web_elements/banners/trip-packages-banner.webp');
+    background-color: #111827;
+}
+
+.cart-banner {
+    background-image: url('/static/web_elements/banners/cart-banner.webp');
+    background-color: #111827;
+}
+
 /* Top Footer Background */
 .top-footer-bg {
     background-image: url('/static/web_elements/top-footer-bg.webp');
@@ -110,7 +120,7 @@ footer {
 
 /* Main Hero Overlay */
 .main-hero-overlay {
-    background: linear-gradient(to right, #0000009c, transparent);
+    background: linear-gradient(to right, #00000077, transparent);
 }
 
 /* Toast Messages */

@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 import stripe
 import dj_database_url
-from .unfold_settings import UNFOLD # noqa
+from .unfold_settings import UNFOLD  # noqa
 
 load_dotenv()
 

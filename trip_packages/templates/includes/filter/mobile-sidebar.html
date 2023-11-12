@@ -2,12 +2,12 @@
 <div class="drawer lg:hidden">
 
 	<!-- Drawer Toggle Checkbox -->
-	<input id="my-drawer" type="checkbox" class="drawer-toggle">
+	<input id="my-drawer" type="checkbox" class="drawer-toggle" aria-labelledby="open-drawer-label">
 		<div class="drawer-content">
 
 			<!-- Floating Button -->
 			<div id="floating-button" class="fixed-button">
-				<label for="my-drawer" class="btn glass bg-primary text-white hover:text-primary drawer-button lg:hidden">
+				<label id="open-drawer-label" for="my-drawer" class="btn glass bg-primary text-white hover:text-primary drawer-button">
 					<svg xmlns="http://www.w3.org/2000/svg"
 						fill="none"
 						viewBox="0 0 24 24"
@@ -20,15 +20,16 @@
 					</svg>
 
 					<!-- Label Text -->
-					<span class="text-secondary">filter</span>              
-				</label>
+					<span class="text-secondary">filter</span> 
+
 			</div>            
 		</div> 
 
 	<!-- Drawer Sidebar Section -->
 	<div class="drawer-side z-10 mt">
-		<label for="my-drawer" class="drawer-overlay">
-		</label>
+		<button onclick="toggleDrawer()" class="drawer-overlay">
+            <span class="sr-only">Close Drawer</span>
+        </button>
 		<div id="mobile-sidebar" class=" pt-10 p-4 w-80 min-h-full bg-base-100 text-base-content">
 
 			<!-- Include the Sidebar Filters -->
@@ -36,3 +37,10 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	function toggleDrawer() {
+		var drawerCheckbox = document.getElementById('my-drawer');
+		drawerCheckbox.checked = !drawerCheckbox.checked;
+	}
+</script>

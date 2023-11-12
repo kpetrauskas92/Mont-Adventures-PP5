@@ -14,10 +14,11 @@
 	<div class="collapse collapse-arrow join-item border border-base-300 rounded">
 
 		<!-- Date Group Title -->
-		<input type="radio" name="my-accordion-4"> 
-			<div class="collapse-title text-xl font-medium">
+		<input type="radio" id="date-group-{{ forloop.counter }}" name="my-accordion-4">
+			
+			<label for="date-group-{{ forloop.counter }}" class="collapse-title text-xl font-medium">
 				{{ date_group.grouper }}
-			</div>
+			</label>
 
 			<!-- Collapsible Content Section -->
 			<div class="collapse-content px-1">
@@ -74,6 +75,7 @@
 								class="btn btn-sm glass border-2 bg-secondary hover:bg-accent hover:text-white mt-2 flex-auto {% if date.remaining_slots == 0 %}disabled{% endif %}"
 								{% if date.remaining_slots == 0 %}disabled="disabled"{% endif %}>
 								Book Now
+								<div class="sr-only">Book Now</div>
 							</a>
 						</div>
 					</div>

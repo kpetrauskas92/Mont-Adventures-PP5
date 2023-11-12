@@ -13,30 +13,31 @@
 
                     <a href="{% url 'trip_packages' %}?filter=on&location={{ country_code }}">
                     <!-- Gradient Overlay -->
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-90 z-9 rounded-b-2xl"></div>
+                    <div class="absolute  z-9 rounded-b-2xl"></div>
                     <img src="{% static image_url %}"
                         alt="{{ country_code|country_name }}"
                         class="rounded-2xl shadow-lg w-full"
                     >
-                    </a>
+                    
 
                     <!-- Country Info -->
-                    <div class="absolute top-5 left-0 w-full text-center font-bold z-10">
-                        <p class="text-white font-shadow uppercase text-5xl">
+                    <div class="absolute top-5 left-0 w-full text-center font-bold contrast-75">
+                        <p class="text-secondary font-shadow uppercase text-5xl">
                             {{ country_code|country_name }}
                         </p>
                     </div>
 
                     <!-- Trips Link at the Bottom -->
-                    <div class="absolute bottom-5 left-0 w-full text-center">
-                        <a href="{% url 'trip_packages' %}?filter=on&location={{ country_code }}"
-                            class="btn glass lg:btn-sm text-white hover:bg-primary border-white">
+                    <div class="absolute bottom-5 left-0 w-full rounded-none text-center btn glass lg:btn-sm text-white hover:bg-primary border-white">
+
+                            
                             Adventures: 
                             <span class="text-primary badge">
                                 {{ location_count_dict|get_item:country_code|default:"0" }}
                             </span>
-                        </a>
+                        
                     </div>
+                    </a>
                 </li>
             {% endfor %}
         </ul>

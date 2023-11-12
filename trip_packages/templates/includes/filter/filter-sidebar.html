@@ -12,20 +12,21 @@
 
         <!-- Price Slider Container -->
         <div class="collapse collapse-arrow join-item border border-base-300">
-
-            <!-- Collapse Title -->
-            <input type="radio" name="filter">
-            
+            <input type="radio" id="filter-radio-{{ unique_identifier }}" name="filter">
+            <!-- Collapse Title with Radio Input -->
             <div class="collapse-title text-xl font-medium flex items-center">
-                <img src="{% static 'web_elements/svg_icons/trip_icons/price_icon.svg' %}" 
-                    alt="Price Icon"
-                    class="w-6 h-6 mr-2 filter-icon">Price
+                
+                <label for="filter-radio-{{ unique_identifier }}" class="inline-flex items-center">
+                    <img src="{% static 'web_elements/svg_icons/trip_icons/price_icon.svg' %}" 
+                        alt="Price Icon"
+                        class="w-6 h-6 mr-2 filter-icon">Price
+                </label>
             </div>
             <div class="collapse-content">
 
                 <!-- Price Labels and Range Input -->
                 <div class="flex justify-between">
-                    <label for="price-range-slider" class="btn btn-sm">
+                    <label for="price-range-input-{{ unique_identifier }}" class="btn btn-sm">
                         Up to:
                     </label>
                     <p class="max-price-label btn btn-sm">€
@@ -34,12 +35,12 @@
                 </div>
 
                 <!-- Price Range Slider -->
-                <input type="range" class="filter-checkbox range range-xs range-secondary max-price mt-2" name="price"
+                <input type="range" id="price-range-input-{{ unique_identifier }}" class="filter-checkbox range range-xs range-secondary max-price mt-2" name="price"
                         min="{{ price_range.min_price }}" 
                         max="{{ price_range.max_price }}"
                         value="{{ price_range.max_price }}"
-                        aria-labelledby="price-range-label">
-                <p class="text-center text-xs font-semibold capitalize">
+                        aria-labelledby="price-range-input-{{ unique_identifier }}">
+                <p id="price-range-label-{{ unique_identifier }}" class="text-center text-xs font-semibold capitalize">
                     Slide to adjust
                 </p>
             </div>
@@ -68,19 +69,25 @@
                     {% if filter_name == "season" %}
                         {% for season, months in filter_items.items %}
                             <div class="collapse collapse-arrow join-item border border-base-300 mt-2">
-                                <input type="radio" name="season-filter" aria-label="{{ month.display }}">
-                                <div class="collapse-title font-medium">
+                                <input type="radio" id="season-filter-{{ season }}-{{ unique_identifier }}" name="season-filter" aria-label="{{ season }}">
+                                <!-- Label for the Radio Input -->
+                                <label for="season-filter-{{ season }}-{{ unique_identifier }}" class="collapse-title font-medium">
                                     {{ season }}
-                                </div>
+                                </label>
+
                                 <div class="collapse-content">
                                     <ul>
                                         {% for month in months %}
                                             <li class="flex mt-2">
                                                 <input type="checkbox" 
+                                                        id="month-filter-{{ season }}-{{ month.value }}-{{ unique_identifier }}" 
                                                         class="filter-checkbox checkbox mr-2" 
                                                         name="{{ filter_name }}" 
                                                         value="{{ month.value }}">
-                                                {{ month.display }}
+                                                <!-- Label for the Checkbox -->
+                                                <label for="month-filter-{{ season }}-{{ month.value }}-{{ unique_identifier }}">
+                                                    {{ month.display }}
+                                                </label>
                                             </li>
                                         {% endfor %}
                                     </ul>
