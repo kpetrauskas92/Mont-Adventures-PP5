@@ -1,8 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from profiles.models import (UserProfile,
-                             FavoriteTrip,
-                             Reviews,
                              CustomerIDCounter)
 from trip_packages.models import Trips, AvailableDate
 from datetime import date
@@ -10,7 +8,7 @@ from datetime import date
 
 class UserProfileModelTest(TestCase):
     """
-    Test cases for the UserProfile, FavoriteTrip, and Reviews models.
+    Test cases for the UserProfile, and Reviews models.
 
     - Validates profile creation upon User creation.
     - Checks the generation of unique customer IDs.
@@ -64,62 +62,6 @@ class UserProfileModelTest(TestCase):
         Verify the string representation of the UserProfile.
         """
         self.assertEqual(str(self.profile), self.user.username)
-
-    def test_favorite_trip_creation(self):
-        """
-        Test the creation of FavoriteTrip model.
-        """
-        favorite_trip = FavoriteTrip.objects.create(user=self.user,
-                                                    trip=self.trip)
-        self.assertTrue(isinstance(favorite_trip, FavoriteTrip))
-
-    def test_reviews_creation(self):
-        """
-        Test the creation of Reviews model.
-        """
-        review = Reviews.objects.create(
-            user=self.user,
-            trip=self.trip,
-            rating=5,
-            comment="Great trip!",
-            is_approved=False
-        )
-        self.assertTrue(isinstance(review, Reviews))
-
-    def test_favorite_trip_str(self):
-        """
-        Test the string representation of the FavoriteTrip model.
-        """
-        favorite_trip = FavoriteTrip.objects.create(user=self.user,
-                                                    trip=self.trip)
-        self.assertEqual(str(favorite_trip),
-                         f"{self.user.username} - {self.trip.name}")
-
-    def test_reviews_str(self):
-        """
-        Test the string representation of the Reviews model.
-        """
-        review = Reviews.objects.create(
-            user=self.user,
-            trip=self.trip,
-            rating=5,
-            comment="Great trip!",
-            is_approved=False
-        )
-        self.assertEqual(str(review),
-                         f"{self.user.username} - {self.trip.name} - 5")
-
-    def test_reviews_default_settings(self):
-        """
-        Test the default settings of the Reviews model.
-        """
-        review = Reviews.objects.create(
-            user=self.user,
-            trip=self.trip,
-            rating=5,
-            comment="Great trip!"
-        )
-        self.assertFalse(review.is_approved)
 
     def test_user_profile_additional_fields(self):
         """

@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django_countries.fields import Country
 from trip_packages.models import Trips, AvailableDate
 from profiles.models import UserProfile, User
 from checkout.models import Order, OrderLineItem
@@ -43,7 +42,6 @@ class CheckoutSignalsTest(TestCase):
             first_name='John',
             last_name='Doe',
             email='john@example.com',
-            country=Country('US'),
             stripe_pid='test_stripe_pid'
         )
 

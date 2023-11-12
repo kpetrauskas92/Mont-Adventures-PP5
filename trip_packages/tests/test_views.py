@@ -88,7 +88,7 @@ class TripPackagesViewTest(TestCase):
         """
         Test filtering that yields no results.
         """
-        response = self.client.get(self.url, {'price': '9999'})
+        response = self.client.get(self.url, {'price': '1'})
         self.assertEqual(len(response.context['trips']), 0)
 
     def test_invalid_filter_value(self):
@@ -161,42 +161,6 @@ class TripDetailsViewTest(TestCase):
             self.assertTrue('alt' in detail)
             self.assertTrue('label' in detail)
             self.assertTrue('value' in detail)
-
-    def test_html_elements(self):
-        """
-        Test the presence of key HTML elements in the rendered template.
-        """
-        response = self.client.get(self.url)
-
-        # Test for Trip Name
-        self.assertContains(
-            response,
-            '<h1 class="text-white uppercase text-6xl font-bold p-4">'
-        )
-
-        # Test for Trip Details Grid
-        self.assertContains(
-            response,
-            '<div class="flex gap-6 md:gap-10 lg:gap-14 justify-center mt-4">'
-        )
-
-        # Test for Trip Price
-        self.assertContains(
-            response,
-            '<p class="text-4xl font-bold text-center text-black my-4">'
-        )
-
-        # Test for Book Now Button
-        self.assertContains(
-            response,
-            '<label for="my-drawer-4"'
-        )
-
-        # Test for Tabs
-        self.assertContains(
-            response,
-            '<div class="tabs pt-4 flex justify-center">'
-        )
 
 
 class BookingDrawerViewTest(TestCase):

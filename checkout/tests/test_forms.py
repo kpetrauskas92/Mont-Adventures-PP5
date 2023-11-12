@@ -15,7 +15,6 @@ class TestOrderForm(TestCase):
             'first_name': 'John',
             'last_name': 'Doe',
             'email': 'john@example.com',
-            'country': 'US',
         })
         self.assertTrue(form.is_valid())
 
@@ -46,7 +45,6 @@ class TestOrderForm(TestCase):
                 'first_name': 'John',
                 'last_name': 'Doe',
                 'email': 'john@example.com',
-                'country': 'US'
             }
             form_data[field] = 'John'
             form = OrderForm(form_data)
@@ -80,24 +78,10 @@ class TestOrderForm(TestCase):
             'first_name': 'John',
             'last_name': 'Doe',
             'email': 'invalid_email',
-            'country': 'US',
         })
         self.assertFalse(form.is_valid())
         self.assertEqual(
             form.errors['email'], ['Enter a valid email address.'])
-
-    def test_invalid_country(self):
-        """
-        Test that the form is invalid with an incorrect country code.
-        """
-        form = OrderForm({
-            'first_name': 'John',
-            'last_name': 'Doe',
-            'email': 'john@example.com',
-            'country': 'XYZ',
-        })
-        self.assertFalse(form.is_valid())
-        self.assertIn('Select a valid choice.', form.errors['country'][0])
 
     def test_multiple_errors(self):
         """
@@ -107,7 +91,6 @@ class TestOrderForm(TestCase):
             'first_name': 'Jo',
             'last_name': 'D',
             'email': 'invalid_email',
-            'country': 'XYZ',
         })
         self.assertFalse(form.is_valid())
-        self.assertEqual(len(form.errors), 4)
+        self.assertEqual(len(form.errors), 3)

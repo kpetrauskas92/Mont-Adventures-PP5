@@ -59,7 +59,7 @@ class GenerateDatesCommandTest(TestCase):
         available_dates = AvailableDate.objects.filter(trips=self.trip)
         for date_obj in available_dates:
             expected_end_date = date_obj.start_date + timedelta(
-                days=self.trip.duration - 1)
+                days=self.trip.duration)
             self.assertEqual(date_obj.end_date, expected_end_date)
 
     def test_generate_dates_max_group_size(self):

@@ -44,7 +44,7 @@ class TripsModelTest(TestCase):
         """
         Test if the difficulty_value property returns the correct value.
         """
-        self.assertEqual(self.trip.difficulty_value, 2)
+        self.assertEqual(self.trip.difficulty_str(), 'Moderate')
 
 
 class AvailableDateModelTest(TestCase):

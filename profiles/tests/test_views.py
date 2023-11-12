@@ -5,7 +5,7 @@ from profiles.models import UserProfile
 from checkout.models import Order, OrderLineItem
 from trip_packages.models import Trips, AvailableDate
 from unittest.mock import patch
-from datetime import date
+from datetime import datetime, timedelta
 
 
 class TestViews(TestCase):
@@ -38,10 +38,11 @@ class TestViews(TestCase):
             overall_rating="4.5",
             difficulty=1
         )
+        future_date = datetime.now().date() + timedelta(days=31)
         self.available_date = AvailableDate.objects.create(
             trips=self.trip,
-            start_date=date(2023, 12, 1),
-            end_date=date(2023, 12, 10),
+            start_date=future_date,
+            end_date=future_date + timedelta(days=self.trip.duration),
             max_group_size=5,
             booked_slots=0,
             is_available=True
