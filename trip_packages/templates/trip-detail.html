@@ -40,7 +40,7 @@
 
         <!-- Trip Price Section -->
         <div class="hidden md:grid lg:block bg-white p-4 md:pb-0 md:col-span-1 sticky-selector">
-            <p class=" text-gray-500 text-center badge badge-lg w-full">
+            <p class=" text-gray-500 text-center ">
                 Reserve Your Spot Today!
             </p>
             <p class="flex justify-center items-center text-4xl font-bold text-primary my-2">
@@ -98,7 +98,7 @@
     <!-- Trip Sub Details -->
     <div class="bg-white md:grid md:grid-cols-[2fr,1fr]">
         <div class="border rounded-b-xl">
-            <div class="tabs tabs-boxed shadow-md flex justify-center bg-slate-100 font-bold">
+            <div class="tabs tabs-boxed shadow-md flex justify-center bg-slate-100 font-bold pt-2">
                 <a id="overviewTab"
                     class="tab tab-active uppercase"
                     aria-label="Trip Details"
@@ -117,6 +117,7 @@
                     Reviews
                 </a>
             </div>
+            <div class="divider my-0 bg-slate-100"></div>
             <div id="trip-sub-section" class="w-full">
                 {% include 'includes/overview/trip-overview.html' %}
             </div>

@@ -42,7 +42,7 @@
             {% for item in cart %}
 
             <li class="flex justify-between items-center mb-2 relative text-center border rounded-lg">
-                <span class="">
+                <span>
                     <!-- Link to trip details page -->
                     <a href="{% url 'trip_details' item.trip_id %}">
                         <!-- Display trip image -->
@@ -51,7 +51,7 @@
                         <span class="font-bold">
                             {{ item.trip_name }}
                         </span>    
-                        <span class="text-sm lowercase badge badge-lg bg-secondary w-full border-none mt-1">
+                        <span class="text-xs sm:text-sm lowercase border-none badge badge-lg bg-secondary w-full mt-1">
                             {{ item.start_date }} <strong class="mx-2">to</strong> {{ item.end_date }}
                         </span>
                     </a>

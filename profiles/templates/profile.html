@@ -64,12 +64,12 @@
                     <!-- Show information if available -->
                     {% if profile.country and profile.city and profile.phone_number and profile.emergency_contact_name and profile.emergency_contact_phone %}
                     <div class="join join-vertical w-full mt-4">
-                        <div class="collapse collapse-arrow border-none border border-base-300 items-center">
+                        <div class="collapse collapse-arrow border-none grid-flow-col border-base-300 items-center">
                             <input type="checkbox" class="border-none" arialabel="Personal Information">
-                            <div class="min-h-0 collapse-title text-sm capitalize badge text-center">
+                            <div class="min-h-0 collapse-title text-sm capitalize badge  badge-lg text-center">
                                 Personal Information:
                             </div>
-                            <div class="collapse-content"> 
+                            <div class="collapse-content border"> 
                                 <hr class="mb-4">
                                 <p class="badge w-full justify-start"><strong class="mr-2">Name:</strong> 
                                     {{ profile.user.first_name }}

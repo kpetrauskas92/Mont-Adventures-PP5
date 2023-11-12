@@ -5,7 +5,7 @@
         <button hx-get="{% url 'trip_review_form' trip.id %}"
                 hx-target="#my_modal_3 .modal-box"
                 onclick="my_modal_3.showModal()"
-                class="btn btn-primary mt-3 text-secondary">
+                class="btn mt-2 btn-outline bg-white text-primary">
             Leave a Review
         </button>
     {% else %}
@@ -13,7 +13,7 @@
                 hx-swap="innerHTML"
                 hx-target="#my_modal_3 .modal-box"
                 onclick="my_modal_3.showModal()"
-                class="btn btn-primary mt-3 text-secondary">
+                class="btn btn-outline mt-2 bg-white text-primary">
             Log in to Add Review
         </button>
     {% endif %}
