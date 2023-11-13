@@ -83,5 +83,5 @@ function resetFilters() {
     });
 
     // Trigger a change event to refresh the filter results
-    filterForms[0].dispatchEvent(new Event('change', { bubbles: true }));
+    filterForms[0].dispatchEvent(new Event('submit', { bubbles: true }));
 }

@@ -9,7 +9,7 @@
     "tailwindcss": "^3.3.3"
   },
   "scripts": {
-    "heroku-postbuild": "tailwindcss build -i ./static/css/base.css -o ./static/css/output.css",
+    "heroku-postbuild": "npx tailwindcss -i ./static/css/base.css -o ./static/css/output.css --minify",
     "test": "jest"
   },
   "jest": {

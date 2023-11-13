@@ -7,7 +7,7 @@
 <form hx-get="{% url 'trip_packages' %}"
     hx-target="#trip-package-list"
     id="filterForm-{{ unique_identifier }}"
-    hx-trigger="change">
+    hx-trigger="submit">
     <div class="join join-vertical w-full bg-white">
 
         <!-- Price Slider Container -->
@@ -113,12 +113,12 @@
             </div>
         </div>
         {% endif %}
-        {% endfor %}
+        {% endfor %}    
     </div>
-
+    <button type="submit" class="btn bg-neutral text-primary glass hover:bg-accent w-full mt-2">Apply Filters</button>
     <!-- Reset Filters Button (initially hidden) -->
     <button class="resetButton btn bg-neutral text-primary glass hover:bg-secondary w-full mt-2 hidden"
-            type="button"
+            type="submit"
             onclick="resetFilters()">
         Reset Filters
     </button>
