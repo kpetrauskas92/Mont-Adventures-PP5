@@ -3,7 +3,7 @@ from unfold.admin import ModelAdmin
 from unfold.decorators import display
 from unfold.contrib.filters.admin import (RangeNumericFilter,
                                           SingleNumericFilter)
-from .models import Trips, AvailableDate, Reviews
+from .models import Trips, TripOverview, AvailableDate, Reviews
 from django import forms
 
 
@@ -22,6 +22,32 @@ class TripsAdmin(ModelAdmin):
     @display(description="Difficulty Level")
     def display_difficulty(self, obj):
         return obj.get_difficulty_display()
+
+
+@admin.register(TripOverview)
+class TripOverviewAdmin(ModelAdmin):
+    list_display = ['trip', 'skill_level', 'weather_conditions']
+    list_filter = ['skill_level', 'weather_conditions']
+    search_fields = ['trip__name', 'skill_level', 'weather_conditions']
+    ordering = ['trip']
+    fieldsets = (
+        (None, {
+            'fields': ('trip',)
+        }),
+        ('Overview Details', {
+            'fields': ('trip_overview', 'included',
+                       'not_included', 'equipment_list')
+        }),
+        ('Additional Information', {
+            'fields': ('skill_level', 'weather_conditions',
+                       'cancellation_policy', 'important_notes')
+        }),
+    )
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:  # Editing an existing object
+            return ['trip']  # 'trip' field is read-only when editing
+        return []  # No fields are read-only when creating a new object
 
 
 class AvailableDateForm(forms.ModelForm):

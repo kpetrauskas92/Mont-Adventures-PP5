@@ -5,7 +5,7 @@
     <li>
         <!-- Admin Panel if the user is a superuser -->
         <a href="{% url 'admin:index' %}"
-            class="btn pt-3 hover:bg-primary hover:text-white justify-between"
+            class="btn mb-2 pt-3 hover:bg-primary hover:text-white justify-between"
             aria-label="Admin Panel Button"
             >Management
             <span>
@@ -19,7 +19,7 @@
 
         <!-- Profile Button -->
         <a href="{% url 'profile' %}"
-            class="btn mt-2 pt-3 hover:bg-primary hover:text-white justify-between"
+            class="btn hover:bg-primary hover:text-white justify-between"
             aria-label="Profile Button"
             >Profile
             <span>
@@ -31,7 +31,7 @@
 
         <!-- Logout Button -->
         <a href="{% url 'account_logout' %}"
-            class="btn mt-2 pt-3 hover:bg-secondary justify-between"
+            class="btn mt-2 hover:bg-secondary justify-between"
             aria-label="Logout Button"
             hx-get="{% url 'account_logout' %}"
             hx-target="#my_modal_3 .modal-box"

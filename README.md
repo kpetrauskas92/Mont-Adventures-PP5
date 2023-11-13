@@ -84,8 +84,6 @@ Mont Adventures aims to provide a seamless experience for adventure travelers in
     - [Point System and Estimation](#point-system-and-estimation)
     - [Timeline and Milestones](#timeline-and-milestones)
     - [Methodologies](#methodologies)
-    - [Tech Stack](#tech-stack)
-    - [Testing Strategy](#testing-strategy)
 4. [🖌️UX/UI Design Plan](#🖌️uxui-design-plan)
     - [The Strategy Plane](#the-strategy-plane)
     - [The Scope Plane](#the-scope-plane)
@@ -93,7 +91,7 @@ Mont Adventures aims to provide a seamless experience for adventure travelers in
     - [The Skeleton Plane](#the-skeleton-plane)
     - [The Surface Plane](#the-surface-plane)
 5. [⭐Features](#⭐features)
-6. [Future Enhancements](#future-enhancements)
+6. [🌠Future Enhancements](#🌠future-enhancements)
 7. [🧮Testing](#🧮testing)
 8. [🤖Technologies Used](#🤖technologies-used)
 9. [⚙️Setup and Installation (GitHub and Heroku)](#⚙️setup-and-installation-github-and-heroku)
@@ -214,7 +212,9 @@ For the first time, the Fabiosci point system was employed to quantify the compl
 
 **🏆Epic [#8](https://github.com/kpetrauskas92/Mont-Adventures-PP5/milestone/8):** Test Deployment and Project Completion 🚩(29 points)
 
-**🏆Epic [#9](https://github.com/kpetrauskas92/Mont-Adventures-PP5/milestone/9):** Code Validation, Documentation, and Refinement 🚩(** points)
+**🏆Epic [#9](https://github.com/kpetrauskas92/Mont-Adventures-PP5/milestone/9):** Code Validation, Documentation, and Refinement 🚩(27 points)
+
+TOTAL PROJECT POINTS: 266🏆
 
 > Each epic corresponds to a weekly sprint, with tasks broken down into user stories and allocated points based on complexity and effort.
 
@@ -223,11 +223,9 @@ For the first time, the Fabiosci point system was employed to quantify the compl
 - Agile Development: Utilized for its emphasis on iterative development and cross-functional collaboration.
 - GitHub Kanban: Employed for efficient task management, facilitating the breakdown of milestones into epics and user stories.
 
-### Tech Stack
+For the full kanban board please visit GitHub Projects for Overall Development Overview and User Stories.
 
-
-
-### Testing Strategy
+[Complete Kanban Overview](https://github.com/users/kpetrauskas92/projects/6/views/12)
 
 ![Line brake](github_assets/readme_images/color-line-break.png)
 
@@ -476,11 +474,53 @@ These models interact to provide a cohesive and functional backend for Mont Adve
 
 #### Design
 
-> The design philosophy of Mont Adventures revolves around ease of use, with a visually appealing interface that invites users to explore and book mountain climbing adventures. 
+> The design philosophy of Mont Adventures revolves around ease of use, with a visually appealing interface that invites users to explore and book mountain climbing adventures.
+
+The color scheme of Mont Adventures has been carefully selected to create a visually appealing and user-friendly interface. Here's a breakdown of the main colors used and their roles in the design:
+
+- **Primary Color - "#242424"**: 
+  - This deep, almost black shade serves as the primary color. It's used predominantly in text and key interface elements, offering a strong contrast against lighter backgrounds. This color ensures readability and a sense of sophistication.
+
+- **Secondary Color - "#f0b760"**: 
+  - A warm, golden hue that adds a vibrant, welcoming touch to the platform. It's used for highlighting important elements like buttons and links. This color brings a sense of warmth and energy, capturing the adventurous spirit of the platform.
+
+- **Accent Color - "#379673"**: 
+  - A rich, deep green that complements the primary and secondary colors. It's utilized for accents and interactive elements, adding a refreshing and natural feel to the design. This color is reminiscent of nature and adventure, aligning well with the travel theme.
+
+- **Neutral Color - "#e6e8ea"**: 
+  - A light, airy gray that provides a neutral backdrop for content. It's used in backgrounds and for secondary elements, helping primary content to stand out without overwhelming the senses. This color ensures a clean and uncluttered look.
+
+- **Base-100 Color - "#ffffff"**: 
+  - Pure white, used as the base color for backgrounds, creating a clean and minimalist canvas. It enhances the visibility of other colors and content, contributing to a modern and crisp design.
+
+The combination of these colors creates a balanced and harmonious palette, reflecting the adventurous yet accessible nature of Mont Adventures. The careful selection of these colors enhances user engagement, ensures readability, and contributes to the overall aesthetic appeal of the platform.
+
+![color-pallete](github_assets/readme_images/color-pallete.png)
 
 #### Typography
 
-> The typography is carefully chosen to be readable and visually pleasing, making use of modern sans-serif fonts for readability and a touch of serif for accents.
+For Mont Adventures, the font choice plays a pivotal role in defining the platform's character and enhancing user readability. The chosen font is Rubik, a sans-serif typeface known for its modernity and readability.
+
+[Rubik Font](https://fonts.google.com/specimen/Rubik?preview.text=MONT%20ADVENTURES)
+
+![font](github_assets/readme_images/font.png)
+
+### Features of Rubik
+
+- **Design**: Rubik is characterized by its slightly rounded corners, which give it a soft, approachable look. This feature makes it an ideal choice for a platform that aims to be friendly and inviting.
+- **Versatility**: The font offers a good balance between being expressive and functional, making it versatile for various applications, from headlines to body text.
+- **Readability**: With its clear letterforms and ample spacing, Rubik enhances readability, which is crucial for ensuring a comfortable user experience, especially in digital interfaces.
+- **Modern Aesthetic**: The contemporary feel of Rubik aligns perfectly with the modern and innovative nature of Mont Adventures, reinforcing the platform's commitment to providing a fresh and engaging user experience.
+
+### Usage in Mont Adventures
+
+In Mont Adventures, Rubik is used across various elements - from navigation menus and headers to content body and call-to-action buttons. Its consistent application throughout the platform provides a cohesive visual experience, supporting the overall branding and design ethos.
+
+The choice of Rubik not only compliments the visual design but also contributes significantly to the platform's functionality and accessibility. It embodies the spirit of Mont Adventures - modern, user-friendly, and approachable.
+
+---
+
+The selection of Rubik as the primary font underscores Mont Adventures' dedication to a user-centric design approach, ensuring that every aspect of the user interface contributes to an enjoyable and seamless experience.
 
 #### Imagery
 
@@ -934,9 +974,86 @@ Providing users with instant feedback on their actions, these confirmations help
 
 </details>
 
-#### Order Confirmation Email
+#### 📩 Order Confirmation Email
 
-#### Custom Error Handler (404,500)
+- **Guest Checkout Notification**: Guests receive an additional message in their order confirmation email, prompting them to register for an account. This feature is designed to integrate guests more deeply into the Mont Adventures platform.
+
+- **Custom Email Design**: The email design is tailored for a better user experience, aligning with the website's aesthetic and providing a coherent brand experience.
+
+<details><summary><b>Custom Confirmation Email</b></summary>
+
+![order-email](github_assets/readme_images/features/cart_checkout/checkout-email.png)
+</details>
+
+#### 🛑 Custom Error Handler (404)
+
+- **Styled Design**: The 404 error page is designed to fit the overall website's theme, making it less disruptive for users who land on it.
+
+- **User Guidance**: Offers options to return to the homepage or navigate to other sections of the site.
+
+<details><summary><b>Custom 404 Handler</b></summary>
+
+![Alt text](github_assets/readme_images/features/other_features/404error.png)
+</details>
+
+#### 👤 Admin Panel CMS
+
+The Admin Panel in Mont Adventures is a robust and intuitive interface designed for superusers to efficiently manage various aspects of the platform. Leveraging the capabilities of the Unfold Django extension, it provides a powerful tool for comprehensive site management.
+
+- **Dashboard Access**: 
+  - *Description*: The centralized dashboard offers a bird's-eye view of the platform's operations. Superusers can access real-time data and analytics, making informed decisions and adjustments as needed.
+  - *Utility*: Essential for maintaining an overview of site activity and performance metrics.
+
+- **Trip Management**: 
+  - *Description*: This feature allows for the seamless addition of new trips, updating of trip details, and management of available dates. It ensures that the travel offerings are current, diverse, and appealing to users.
+  - *Utility*: Key for keeping the travel catalog fresh and engaging, driving user interest and bookings.
+
+- **Review Management**: 
+  - *Description*: Superusers can moderate customer reviews, ensuring that the feedback displayed is relevant and appropriate. This section facilitates the maintenance of high-quality content and trustworthy user reviews.
+  - *Utility*: Crucial for maintaining the integrity and reliability of customer feedback on the site.
+
+- **Order Management**: 
+  - *Description*: Comprehensive oversight of customer orders is provided, including functionalities like order confirmation, modification, and cancellation.
+  - *Utility*: Vital for ensuring smooth transactional processes and high customer satisfaction.
+
+- **User Management**: 
+  - *Description*: This section deals with customer data and profiles management. It enables superusers to oversee user accounts, ensuring data accuracy and security.
+  - *Utility*: Important for managing user information, enhancing data security, and improving user experience.
+
+<details><summary><b>Dashboard</b></summary>
+
+![dashboard](github_assets/readme_images/features/admin/admin-dashboard.png)
+</details>
+
+<details><summary><b>Customers</b></summary>
+
+![customers](github_assets/readme_images/features/admin/admin-customers.jpg)
+</details>
+
+<details><summary><b>Reviews</b></summary>
+
+![reviews](github_assets/readme_images/features/admin/admin-reviews.jpg)
+</details>
+
+<details><summary><b>Orders</b></summary>
+
+![orders](github_assets/readme_images/features/admin/admin-orders.jpg)
+</details>
+
+<details><summary><b>Trip Packages</b></summary>
+
+![trip-packages](github_assets/readme_images/features/admin/admin-trip-packages.png)
+</details>
+
+<details><summary><b>Trip Overview</b></summary>
+
+![trip-overview](github_assets/readme_images/features/admin/admin-trip-overview.png)
+</details>
+
+<details><summary><b>Available Dates</b></summary>
+
+![available-dates](github_assets/readme_images/features/admin/admin-available-dates.png)
+</details>
 
 ![Line brake](github_assets/readme_images/color-line-break.png)
 
@@ -946,7 +1063,16 @@ Providing users with instant feedback on their actions, these confirmations help
 
 # 🌠Future Enhancements
 
-# 🧮 Testing
+As Mont Adventures continues to evolve, a series of feature enhancements are set to redefine the user experience and elevate the platform's offerings. These enhancements are not just incremental improvements; they represent a strategic pivot towards a more personalized, flexible, and engaging travel platform.
+
+From **Booking Private Trips** tailored to individual tastes to the **Book by Deposit** option that makes adventure more accessible, each feature is being refined to add depth and value to the user journey. The introduction of **Gift Cards** and **Promo Codes** will add layers of personalization and incentive, while **Social Sign Up and Sign In** will streamline the user experience, making the platform more accessible globally.
+
+The **Vendor Access and Trip Submission** portal will transform Mont Adventures into a vibrant marketplace of diverse travel experiences, directly connecting trip providers with adventurers. Simultaneously, the integration of **Live Profile Notifications** and an advanced **Chat Bot and Ticket System** will ensure that users are always engaged and supported.
+
+These future enhancements are not just about improving functionality; they represent a shift towards creating a more connected, intuitive, and user-centric travel ecosystem. Mont Adventures is poised to become more than a travel booking platform - it's evolving into a comprehensive travel partner that understands and adapts to its users' needs, setting a new standard in the online travel experience.
+
+
+# 🧮Testing
 
 For a comprehensive overview of the application's testing procedures, methodologies, and results, please visit testing documentation:
 
@@ -1002,6 +1128,7 @@ botocore==1.31.45
 certifi==2023.7.22
 cffi==1.15.1
 charset-normalizer==3.2.0
+coverage==7.3.2
 crispy-tailwind==0.5.0
 cryptography==41.0.3
 cssselect==1.2.0
@@ -1041,7 +1168,7 @@ urllib3==1.26.16
 zipp==3.17.0
 ```
 
-# ⚙️Setup and Deployment
+# ⚙️Setup and Installation (GitHub and Heroku)
 
 > The site was deployed via Heroku, and the live link can be found here - [Mont Adventures](https://mont-adventures-pp5-23ff8a97d0dd.herokuapp.com/)
 
@@ -1066,6 +1193,21 @@ zipp==3.17.0
 * Create a `.env` file at the root of your Django project.
   * Add `DATABASE_URL=<your_database_url_from_heroku>`
   * Add `SECRET_KEY=<your_secret_key>`
+  * Add `USE_AWS=<True>`
+  * Add `AWS_ACCESS_KEY_ID=<your_key_id>`
+  * Add `AWS_BUCKET_NAME=<your_bucket_name>`
+  * Add `AWS_REGION_NAME=<your_region_name>`
+  * Add `AWS_SECRET_ACCESS_KEY=<your_secret_access_key_id>`
+  * Add `DEFAULT_FROM_EMAIL=<your_default_from_email_name>`
+  * Add `EMAIL_HOST_PASS=<your_email_host_pass>`
+  * Add `EMAIL_HOST_USER=<your_email_host_user>`
+  * Add `MAILCHIMP_API_KEY=<your_mailchimp_api_key>`
+  * Add `MAILCHIMP_AUDIENCE_ID=<your_mailchimp_audience_id>`
+  * Add `MAILCHIMP_REGION=<your_mailchimp_region>`
+  * Add `STRIPE_PUBLIC_KEY=<your_stripe_public_key>`
+  * Add `STRIPE_SECRET_KEY=<your_stripe_secret_key>`
+  * Add `STRIPE_WH_SECRET=<your_stripe_wh_secret>`
+
 
 * Add these variables to the Heroku 'Config Vars'.
 * Modify `settings.py` in your Django app:
@@ -1131,3 +1273,68 @@ To clone the repository:
 ---
 
 # 🎓Credits & Acknowledgements
+
+The development and success of Mont Adventures have been influenced and supported by various resources and individuals. Here, I extend my gratitude and acknowledge their contributions:
+
+## Photos
+- **Shutterstock**: The visually captivating photos throughout the site were sourced from Shutterstock. These images have played a crucial role in enhancing the aesthetic appeal and user experience of Mont Adventures.
+
+## Learning Resources
+- **Bugbytes on YouTube**: Special thanks to [Bugbytes](https://www.youtube.com/@bugbytes3923) for their excellent tutorials on HTMX. Their content was instrumental in helping me understand and effectively implement HTMX in the project.
+- **General Online Resources**:
+  - **Stack Overflow**: For being an invaluable resource in troubleshooting and solving numerous coding challenges.
+  - **Google**: For serving as the gateway to a wealth of information, tips, and solutions that were essential throughout the development process.
+
+## Acknowledgements
+
+A heartfelt thank you to the individuals who have provided guidance, support, and inspiration throughout the development of Mont Adventures:
+
+- **Daisy Mc Girr**: A special thanks to my mentor [Daisy Mc Girr](https://www.linkedin.com/in/daisy-mcgirr-4a3671173/) for her flexibility, invaluable guidance, and engaging discussions. Your support has been a cornerstone of this journey.
+
+- **Laura Mayock**: Gratitude to [Laura Mayock](https://www.linkedin.com/in/laura-mayock/), for her meaningful conversations and excellent facilitation within our cohort. Your insights and support have been greatly appreciated.
+
+- **Fellow Developers**: A special shoutout to awesome fellow developers [Carl Murray](https://www.linkedin.com/in/carljmurray/) and [Szilvia Csernus](https://www.linkedin.com/in/szilvia-csernus/). Your camaraderie and shared wisdom have been a source of motivation and learning.
+
+- **My Family**: Immense thanks to my family, who endured my constant screen time over the last three months. Your patience and support have meant the world to me.
+
+- **Code Institute Slack Community**: To the vibrant and humorous Slack community at the Code Institute, thank you for the great laughs and the sense of belonging.
+
+- **Future Assessor**: And to the assessor reviewing this portfolio, I sincerely hope you enjoy exploring it as much as I enjoyed developing it.
+
+
+## Developer Note: My Journey with Mont Adventures
+
+As I pen down my reflections on the development of Mont Adventures, I want to share my journey, the challenges I faced, and the lessons learned along the way.
+
+### From Concept to Completion
+
+**Immediate Transition**: Right after completing PP4, I dived into mock sketching and ideation for PP5. August was a month of exploration, experimenting with potential features and gauging their feasibility.
+
+**Pre-Development Phase**: Before officially starting, I pre-developed up to the checkout app. This initial phase was crucial as it allowed me to play around with ideas and set a solid foundation for the project.
+
+**Starting from Scratch**: With some boilerplate code from my exploratory phase, I began the project afresh. This approach accelerated early development, but the real challenge awaited at the checkout stage, where my mock project had ended.
+
+### Overcoming Challenges
+
+**Checkout Complexities**: The checkout app posed significant challenges, particularly integrating custom features and models. Despite some moments where I felt I lacked common sense in my approach, I persevered, finding solutions and pushing through.
+
+**Code Refinement**: In hindsight, I see opportunities where the code could have been cleaner, more refactored, and DRY principles more consistently applied. As the deadline approached, my focus shifted towards ensuring everything worked seamlessly rather than refining the code further.
+
+### Embracing Customization
+
+**Unique Identity**: My goal was to create a custom website, not just a replica of existing templates. This desire for uniqueness drove me to experiment and try new things, even though it meant facing more complexities.
+
+**Retrospection**: If I were to start over, I might reconsider some of these ambitious choices. Yet, it's these very challenges that made the project exciting and a tremendous learning experience.
+
+### Gratitude and Reflection
+
+**Fun and Learning**: This project has been an incredible journey of fun, frustration, learning, and growth. I'm immensely grateful to the Code Institute for their excellent course material, which laid the groundwork for everything I achieved in this project.
+
+**Closing Thoughts**: As I look back, I realize how far I've come. Mont Adventures is not just a project; it's a testament to my dedication, creativity, and the journey of a developer constantly striving to learn and improve.
+
+---
+
+Karolis Petrauskas, 2023
+![Line brake](github_assets/readme_images/color-line-break.png)
+
+[⬆️Back to top](<#📜table-of-contents>)

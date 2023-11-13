@@ -50,6 +50,9 @@ class Trips(models.Model):
     difficulty = models.IntegerField(db_index=True,
                                      choices=DifficultyLevel.choices)
 
+    class Meta:
+        verbose_name_plural = "Trips"
+
     def get_image_url(self):
         if self.main_image:
             return self.main_image.url
@@ -144,7 +147,6 @@ class FavoriteTrip(models.Model):
 
     @classmethod
     def add_favorite(cls, user, trip):
-        # REVIEW
         obj, created = cls.objects.get_or_create(user=user, trip=trip)
 
     @classmethod
@@ -183,6 +185,9 @@ class Reviews(models.Model):
     image = models.ImageField(upload_to=review_image_path,
                               null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Reviews"
 
     def __str__(self):
         return f"{self.user.first_name} - {self.trip.name} - {self.rating}"

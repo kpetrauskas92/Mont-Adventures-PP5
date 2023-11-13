@@ -10,6 +10,8 @@ class OrderLineItemAdminInline(admin.TabularInline):
     """
     model = OrderLineItem
     readonly_fields = ('lineitem_total',)
+    fields = (('trip', 'available_date'),
+              'guests', ('status'))
     extra = 0
 
 

@@ -30,6 +30,12 @@ UNFOLD = {
                         "title": _("Customers"),
                         "icon": "people",
                         "link": reverse_lazy(
+                            "admin:trip_packages_reviews_changelist"),
+                    },
+                    {
+                        "title": _("Reviews"),
+                        "icon": "reviews",
+                        "link": reverse_lazy(
                             "admin:profiles_userprofile_changelist"),
                     },
                     {
@@ -43,6 +49,12 @@ UNFOLD = {
                         "icon": "hiking",
                         "link": reverse_lazy(
                             "admin:trip_packages_trips_changelist"),
+                    },
+                    {
+                        "title": _("Trip Overview"),
+                        "icon": "summarize",
+                        "link": reverse_lazy(
+                            "admin:trip_packages_tripoverview_changelist"),
                     },
                     {
                         "title": _("Available Dates"),
