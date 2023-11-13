@@ -12,7 +12,8 @@
         aria-label="View details for {{ trip.name }}">
         <img class="h-80 sm:h-[240px] w-full object-cover mb-4 border rounded-t-lg lazyload"
             src="{{ trip.get_image_url }}"
-            alt="{{ trip.name }}">
+            alt="{{ trip.name }}"
+            loading="lazy">
     </a>
 
     <!-- Trip Details -->
