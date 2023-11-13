@@ -6,9 +6,14 @@
 
 Explore [Mont Adventures](https://montadventures.com/)
 
+</div>
+
+<div align="center">
+
 ![](https://tokei.rs/b1/github/kpetrauskas92/Mont-Adventures-PP5?category=files)
 ![](https://tokei.rs/b1/github/kpetrauskas92/Mont-Adventures-PP5?category=code)
 ![](https://tokei.rs/b1/github/kpetrauskas92/Mont-Adventures-PP5?category=comments)
+
 </div>
 
 
@@ -66,14 +71,14 @@ Mont Adventures aims to provide a seamless experience for adventure travelers in
     - [Target Audience](#target-audience)
     - [Problem Being Solved](#problem-being-solved)
     - [Scope](#scope)
-2. [Business and Marketing Plan](#business-and-marketing-plan)
+2. [📈Business and Marketing Plan](#📈business-and-marketing-plan)
     - [Introduction](#introduction-1)
     - [Target Market](#target-market)
     - [Revenue Model](#revenue-model)
     - [Marketing Strategies](#marketing-strategies)
     - [Key Performance Indicators (KPIs)](#key-performance-indicators-kpis)
     - [Risks and Mitigation Strategies](#risks-and-mitigation-strategies)
-3. [Development Plan](#🧑‍💻development-plan)
+3. [🧑‍💻Development Plan](#🧑‍💻development-plan)
     - [Introduction](#introduction-1)
     - [Research and Initial Decisions](#research-and-initial-decisions)
     - [Point System and Estimation](#point-system-and-estimation)
@@ -81,19 +86,18 @@ Mont Adventures aims to provide a seamless experience for adventure travelers in
     - [Methodologies](#methodologies)
     - [Tech Stack](#tech-stack)
     - [Testing Strategy](#testing-strategy)
-4. [UX/UI Design Plan](#uxui-design-plan)
+4. [🖌️UX/UI Design Plan](#🖌️uxui-design-plan)
     - [The Strategy Plane](#the-strategy-plane)
     - [The Scope Plane](#the-scope-plane)
     - [The Structure Plane](#the-structure-plane)
     - [The Skeleton Plane](#the-skeleton-plane)
     - [The Surface Plane](#the-surface-plane)
-5. [Features](#features)
+5. [⭐Features](#⭐features)
 6. [Future Enhancements](#future-enhancements)
-7. [Testing](#testing)
-8. [Bugs](#bugs)
-9. [Technologies Used](#technologies-used)
-10. [Setup and Installation (GitHub and Heroku)](#setup-and-installation-github-and-heroku)
-11. [Credits & Acknowledgements](#credits--acknowledgements)
+7. [🧮Testing](#🧮testing)
+8. [🤖Technologies Used](#🤖technologies-used)
+9. [⚙️Setup and Installation (GitHub and Heroku)](#⚙️setup-and-installation-github-and-heroku)
+10. [🎓Credits & Acknowledgements](#🎓credits--acknowledgements)
 
 ![Line brake](github_assets/readme_images/color-line-break.png)
 
@@ -221,6 +225,8 @@ For the first time, the Fabiosci point system was employed to quantify the compl
 
 ### Tech Stack
 
+
+
 ### Testing Strategy
 
 ![Line brake](github_assets/readme_images/color-line-break.png)
@@ -316,8 +322,6 @@ This plane outlines the organization and arrangement of the platform's functiona
 #### Data Structures
 
 - **Trips**: Captures comprehensive details about each travel package, including visuals, pricing, duration, location, and seasonal availability. It also includes variables like maximum group size and overall trip ratings to offer a complete picture to potential customers.
-
-- **TripImage**: Stores additional images for each trip, enhancing the visual presentation and helping users get a fuller understanding of what to expect.
 
 - **AvailableDate**: Manages the scheduling aspect of each trip. It keeps track of the range of dates the trip is available, how many slots are booked, and whether or not more bookings can be made.
 
@@ -432,6 +436,21 @@ The database is designed around three primary models: `Trips`, `UserProfile`, an
 - **UserProfile**: Stores user-specific data such as favorite trips and reviews, linked to Django's built-in User model.
   
 - **Order**: Manages the checkout process, containing all the information related to a user's order.
+
+- **TripOverview**:
+Provides a summarized overview of each trip, offering a quick snapshot of key details to complement the `Trips` model.
+
+- **AvailableDate**:
+Manages available dates for each trip, ensuring that customers can view and book trips based on their scheduled availability.
+
+- **FavoriteTrip**:
+Allows users to mark certain trips as favorites, enabling a personalized experience by highlighting trips they are most interested in.
+
+- **Reviews**:
+Captures user feedback on trips, including ratings and comments, which is crucial for community-driven insights and quality assurance.
+
+- **OrderLineItem**:
+Represents individual items within an order, detailing the specific trips and quantities a user is purchasing in a single transaction.
 
 These models interact to provide a cohesive and functional backend for Mont Adventures.
 
@@ -917,6 +936,8 @@ Providing users with instant feedback on their actions, these confirmations help
 
 #### Order Confirmation Email
 
+#### Custom Error Handler (404,500)
+
 ![Line brake](github_assets/readme_images/color-line-break.png)
 
 [⬆️Back to top](<#📜table-of-contents>)
@@ -930,8 +951,6 @@ Providing users with instant feedback on their actions, these confirmations help
 For a comprehensive overview of the application's testing procedures, methodologies, and results, please visit testing documentation:
 
 [View Testing Documentation](github_assets/docs/TESTING.md)
-
-# 🪲Bugs/Issues
 
 # 🤖Technologies Used
 
