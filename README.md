@@ -4,7 +4,7 @@
 
 <div align="center">
 
-Explore [Mont Adventures](https://montadventures.com/)
+Explore [Mont Adventures](https://mont-adventures-pp5-23ff8a97d0dd.herokuapp.com/)
 
 </div>
 
