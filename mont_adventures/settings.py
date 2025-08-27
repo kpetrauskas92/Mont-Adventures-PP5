@@ -19,12 +19,13 @@ DEBUG = 'DEVELOPMENT' in os.environ
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
-    "mont-adventures-pp5-23ff8a97d0dd.herokuapp.com",
-    "montadventures.com",
-    "www.montadventures.com",
-    "192.168.0.102",
+    "localhost",
+    ".herokuapp.com",
+    ".montadventures.com",
+    ".railway.app",
     "web-production-154d6.up.railway.app",
 ]
+
 
 
 
@@ -258,4 +259,5 @@ if 'USE_AWS' in os.environ:
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
