@@ -32,7 +32,8 @@ ALLOWED_HOSTS = [
 CSRF_TRUSTED_ORIGINS = [
     'https://mont-adventures-pp5-23ff8a97d0dd.herokuapp.com',
     'https://montadventures.com',
-    'https://www.montadventures.com'
+    'https://www.montadventures.com',
+    'web-production-154d6.up.railway.app',
 ]
 
 CSRF_COOKIE_SECURE = True
@@ -57,7 +58,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'home',
+    'home.apps.HomeConfig',
     'profiles.apps.ProfilesConfig',
     'trip_packages',
     'cart',
