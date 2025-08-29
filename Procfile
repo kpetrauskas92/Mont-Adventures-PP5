@@ -1,1 +1,1 @@
-web: gunicorn mont_adventures.wsgi
+web: python manage.py migrate --noinput && gunicorn mont_adventures.wsgi
