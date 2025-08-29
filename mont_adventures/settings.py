@@ -27,13 +27,12 @@ ALLOWED_HOSTS = [
 ]
 
 
-
-
 CSRF_TRUSTED_ORIGINS = [
-    'https://mont-adventures-pp5-23ff8a97d0dd.herokuapp.com',
-    'https://montadventures.com',
-    'https://www.montadventures.com',
-    'web-production-154d6.up.railway.app',
+    "https://mont-adventures-pp5-23ff8a97d0dd.herokuapp.com",
+    "https://montadventures.com",
+    "https://www.montadventures.com",
+    "https://web-production-154d6.up.railway.app",
+    "https://*.railway.app",
 ]
 
 CSRF_COOKIE_SECURE = True
