@@ -20,19 +20,11 @@ DEBUG = 'DEVELOPMENT' in os.environ
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    ".herokuapp.com",
-    ".montadventures.com",
-    ".railway.app",
-    "web-production-154d6.up.railway.app",
+    "mont-adventures-pp5.onrender.com",
 ]
 
-
 CSRF_TRUSTED_ORIGINS = [
-    "https://mont-adventures-pp5-23ff8a97d0dd.herokuapp.com",
-    "https://montadventures.com",
-    "https://www.montadventures.com",
-    "https://web-production-154d6.up.railway.app",
-    "https://*.railway.app",
+    "https://mont-adventures-pp5.onrender.com",
 ]
 
 CSRF_COOKIE_SECURE = True
@@ -162,12 +154,13 @@ stripe.api_key = STRIPE_SECRET_KEY
 
 # Database
 
-if 'DATABASE_URL' in os.environ:
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ['DATABASE_URL'])
-    }
-else:
-    raise Exception("DATABASE_URL not found. Postgres must be configured.")
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True
+    )
+}
 
 
 AUTHENTICATION_BACKENDS = [
